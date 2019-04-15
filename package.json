@@ -1,0 +1,27 @@
+{
+  "name": "vue-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=development",
+    "dev": "webpack-dev-server --inline --hot --mode=development"
+  },
+  "author": "mingzi.yuan",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.30.0"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.0",
+    "vue-router": "^3.0.5",
+    "vuex": "^3.1.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
