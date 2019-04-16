@@ -1,11 +1,19 @@
 
 {
     "result": "success",
-    "data": {
-      "userSn": "3785521",
-      "username": "范小饭",
-      "age": 18,
-      "imgUrl": "https://avatar.csdn.net/8/5/D/3_bocongbo.jpg"
-    },
+    "data": [
+      {
+          "name":"divimg",
+          "advanceValues":{
+             "src":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+          }
+      },
+      {
+        "name":"divimg",
+          "advanceValues":{
+             "src":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner2.jpg" 
+          }
+    }        
+    ],
     "msg": ""
 }

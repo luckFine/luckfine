@@ -1,9 +1,9 @@
 <style scoped>
-img{width: 100%;height: 100%;display: block;margin-top: 10px;}
+img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
     <div>
-        <img :src="src" alt="">
+        <img v-if="advanceValues" :src="advanceValues.src" alt="">
     </div>
 </template>
 <script>
@@ -12,12 +12,12 @@ import {
 } from 'vuex'
 
     export default {
-        props:['src'],
+        props:['advanceValues'],
         data () {
             // text: 'demo'
         },
         mounted () {
-            console.log('0000')
+            // console.log('0000')
         }
     }
 </script>

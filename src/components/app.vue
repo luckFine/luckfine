@@ -1,30 +1,44 @@
 <style scoped>
-ul>li{width: 33.3%;float: left}
+ul>li{width: 33.3%;float: left;height: 500px;}
 </style>
 <template>
     <div>
-
-        <draggable v-model="colors" @update="datadragEnd" :options = "{animation:500}">
-                <transition-group>
-                    <div v-for="element in colors" :key="element.text" class = "drag-item">
-                        {{element.text}}
-                    </div>
-                </transition-group>
-        </draggable>
-
-        <!-- <ul>
+        <ul>
             <li>
-                <components-list></components-list>                   
+                <draggable v-model="listData"  
+                    @update="datadragEnd" 
+                    :options = "{animation:500}" 
+                    @change="log"
+                    :clone="cloneDog"
+                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    >
+                    <div v-for="item in listData"  class = "drag-item">
+                        <component  v-bind:is="item.name" :advanceValues='item.advanceValues'></component>
+                    </div>        
+                </draggable>                
+            </li>
+            <li>
+                <draggable 
+                    v-model="pageList"  
+                    @update="datadragEnd" 
+                    :options = "{animation:500}" 
+                    group="people"
+                    @change="log"
+                    >
+                    <div v-for="item in pageList"  class = "">
+                        <component  v-bind:is="item.name" :advanceValues='item.advanceValues'></component>
+                    </div>        
+                </draggable>    
             </li>
             <li></li>
-            <li></li>
-        </ul> -->
+        </ul>
     </div>
 </template>
 <script>
 import $ from 'jquery'
 import draggable from 'vuedraggable'
 import api from './../mock/componentsList'
+import divimg from './base/divimg'
 import componentsList from './components-list'
 import {
     mapState
@@ -34,49 +48,31 @@ import {
         data(){
             return{
                 msg:"这是测试组件",
-                colors: [
-                    {
-                        text: "Aquamarine",
-                    }, 
-                    {
-                        text: "Hotpink",
-                    }, 
-                    {
-                        text: "Gold",
-                    }, 
-                    {
-                        text: "Crimson",
-                    }, 
-                    {
-                        text: "Blueviolet",
-                    },
-                    {
-                        text: "Lightblue",
-                    }, 
-                    {
-                        text: "Cornflowerblue",
-                    }, 
-                    {
-                        text: "Skyblue",
-                    }, 
-                    {
-                        text: "Burlywood",
-                    }
-                ],
+                showDrag:false,
+                listData: [],
                 startArr:[],
+                pageList:[],
                 endArr:[],
                 count:0,
+                controlOnStart:true
             }
         },
         methods:{
             getdata (evt) {
-                console.log(evt.draggedContext.element.text)
+                console.log(evt.draggedContext.element)
             },
             datadragEnd (evt) {
                 evt.preventDefault();
                 console.log('拖动前的索引 :' + evt.oldIndex)
                 console.log('拖动后的索引 :' + evt.newIndex)
-                console.log(this.colors);
+                // console.log(this.colors);
+            },
+            log: function(evt) {
+                window.console.log(evt);
+            },
+            cloneDog(id ) {
+                this.pageList.push(id)
+                // return id
             }
         },
         mounted () {
@@ -85,15 +81,18 @@ import {
                 event.preventDefault();
                 event.stopPropagation();
             }
+            var self = this;
             $.ajax({
                 url: '/user/userInfo',
                 success:function(data){
-                    console.log(data)
+                    let da = JSON.parse(data)
+                    self.listData = da.data
                 }
             })
         },
         components:{
             draggable,
+            divimg,
             componentsList
         },
     }
