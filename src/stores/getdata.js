@@ -23,7 +23,7 @@ export default {
       state
     }, options) {
       return $.ajax({
-        url: 'http://*******/getLastNotice',
+        url: 'http://itougu.jrj.com.cn/xlive_poll/getLastNotice',
         dataType: 'json'
       }).then(data => {
           commit('setData', data)

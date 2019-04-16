@@ -1,0 +1,11 @@
+
+{
+    "result": "success",
+    "data": {
+      "userSn": "3785521",
+      "username": "范小饭",
+      "age": 18,
+      "imgUrl": "https://avatar.csdn.net/8/5/D/3_bocongbo.jpg"
+    },
+    "msg": ""
+}

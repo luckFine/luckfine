@@ -3,10 +3,10 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import App from 'components/app.vue'
 import data from 'stores/getdata'
-
-
 Vue.use(Vuex)
 Vue.use(VueRouter)
+
+// require('./mockjs')
 
 const Foo = { template: '<div>foo</div>' }
 const Bar = { template: '<div>bar</div>' }

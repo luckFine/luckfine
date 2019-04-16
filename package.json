@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^2.1.1",
+    "mockjs": "^1.0.1-beta3",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
@@ -19,7 +20,10 @@
   "dependencies": {
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.4.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
     "vue-router": "^3.0.5",
+    "vuedraggable": "^2.20.0",
     "vuex": "^3.1.0",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.3.1"
