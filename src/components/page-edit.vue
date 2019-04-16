@@ -34,7 +34,7 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
             <li>
                 <div v-for="item in activiyItem">
                     <p>{{item.label}}</p>
-                    <input type="text" v-model="item.labelValue" >
+                    <el-input v-model="item.labelValue" placeholder=""></el-input>
                 </div>
             </li>
         </ul>
