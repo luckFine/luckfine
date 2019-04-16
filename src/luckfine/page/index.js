@@ -1,19 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router'
 import App from 'components/app.vue'
 import data from 'stores/getdata'
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(ElementUI);
 
 // require('./mockjs')
 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+import Foo from 'components/preview'
+import Edit from 'components/page-edit'
+
 
 const routes = [
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
+    { 
+      name:'Foo',
+      path: '/Foo', 
+      component: Foo },
+    {
+      name:'/',
+      path: '/', 
+      component: Edit 
+    }
   ]
 
 const router = new VueRouter({

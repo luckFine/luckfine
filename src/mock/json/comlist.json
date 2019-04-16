@@ -3,17 +3,22 @@
     "result": "success",
     "data": [
       {
-          "name":"divimg",
-          "advanceValues":{
-             "src":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
-          }
-      },
-      {
         "name":"divimg",
-          "advanceValues":{
-             "src":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner2.jpg" 
+        "advanceFields":[
+            {
+            "label":"图片地址",
+            "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
           }
-    }        
+        ]
+      },{
+        "name":"swiper",
+        "advanceFields":[
+          {
+            "label":"数量",
+            "labelValue":4
+          }
+      ]
+      }       
     ],
     "msg": ""
 }

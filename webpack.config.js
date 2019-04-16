@@ -38,7 +38,9 @@ module.exports = {
         }
     },
     plugins:[
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template:`./src/luckfine/index.html`
+        }),
         new VueLoaderPlugin()
     ]
     // devServer: {
