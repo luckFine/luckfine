@@ -5,10 +5,11 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
     <div>
         <ul>
             <li>
-                <draggable v-model="listData"  
+                <draggable 
+                    :list="listData"  
                     @update="datadragEnd" 
                     :options = "{animation:500}" 
-                    @change="log"
+    
                     :clone="cloneDog"
                     :group="{ name: 'people', pull: 'clone', put: false }"
                     >
@@ -19,31 +20,37 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
             </li>
             <li>
                 <draggable 
-                    v-model="pageList"  
+                    :list="pageList"  
                     @update="datadragEnd" 
                     :options = "{animation:500}" 
                     group="people"
-                    @change="log"
+        
                     >
-                    <div v-for="item in pageList" @click="clickItem(item.advanceFields)">
+                    <div v-for="item,index in pageList" @click="clickItem(item.advanceFields,index)">
                         <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
                     </div>        
                 </draggable>  
                 <el-button @click="preview">预览</el-button>  
             </li>
             <li>
+                <div>
+                    <p>页面标题</p>
+                    <el-input v-model="wholePage.title" placeholder=""></el-input>  
+                    <p>页面背景</p>
+                    <colorpicker></colorpicker>
+                </div>
                 <div v-for="item in activiyItem">
                     <div v-if="item.label === 'input'">   
                         <p>{{item.describe}}</p>
                         <el-input v-model="item.labelValue" placeholder=""></el-input>    
-                    </div>
+                    </div>s
                     <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
                         <p>{{ele.describe}}</p>
                         <div>{{ele.labelValue}}</div>
                         <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
                     </div>
-
                 </div>
+                <el-button @click="deleteItem()">删除</el-button>  
             </li>
         </ul>
         <router-view></router-view>
@@ -55,6 +62,8 @@ import draggable from 'vuedraggable'
 import api from './../mock/componentsList'
 import divimg from './base/divimg'
 import swiper from './base/swiper'
+import videoplay from './base/videoplay'
+import colorpicker from './base/colorpicker'
 import componentsList from './components-list'
 import {
     mapState
@@ -65,7 +74,9 @@ import {
             return{
                 listData: [], // 全部组件
                 pageList:[], // 当前选中组件
-                activiyItem:[]
+                activiyItem:[],
+                activiyIndex:-1,
+                wholePage:''
             }
         },
         methods:{
@@ -78,16 +89,24 @@ import {
                 console.log('拖动后的索引 :' + evt.newIndex)
                 // console.log(this.colors);
             },
-            log: function(evt) {
-                window.console.log(evt);
-            },
+            // log: function(evt) {
+            //     window.console.log(evt);
+            // },
             cloneDog(id ) {
                 let data = this.deepClode(id)
                 this.pageList.push(data)
                 // return id
             },
-            clickItem(item){
+            clickItem(item,index){
                 this.activiyItem = item
+                this.activiyIndex = index
+            },
+            deleteItem(){
+                console.log(this.activiyIndex)
+                if(this.activiyIndex !== -1){
+                    this.pageList.splice(this.activiyIndex, 1);
+                }
+                console.log(this.pageList)
             },
             deepClode(obj){
                 let objClone = Array.isArray(obj)?[]:{};
@@ -133,6 +152,8 @@ import {
                 success:function(data){
                     let da = JSON.parse(data)
                     self.listData = da.data
+                    self.wholePage = da.whole
+                    document.title = self.wholePage.title
 
                 }
             })
@@ -142,6 +163,8 @@ import {
             draggable,
             divimg,
             swiper,
+            colorpicker,
+            videoplay,
             componentsList
         },
     }

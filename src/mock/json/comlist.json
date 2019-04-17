@@ -1,6 +1,10 @@
 
 {
     "result": "success",
+    "whole":{
+      "backgroundColor":"#333",
+      "title":"测试页面"
+    },
     "data": [
       {
         "name":"divimg",
@@ -32,7 +36,17 @@
               }
             ]
           }
-      ]
+        ]
+      },
+      {
+        "name":"videoplay",
+        "advanceFields":[
+            {
+            "label":"input",
+            "describe":"视频地址",
+            "labelValue":"http://flv.jrj.com.cn/video/2018/06/ab2fbdfd7f53c9479135bfcfa5b574da_201806021412.mp4" 
+          }          
+        ]
       }       
     ],
     "msg": ""

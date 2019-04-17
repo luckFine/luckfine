@@ -2,8 +2,8 @@
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
 </style>
 <template>
-    <div>
-        <div v-for="item in pageList" @click="clickItem(item.advanceFields)">
+    <div class="pageView">
+        <div v-for="item in pageList" >
             <component  v-bind:is="item.name" :advanceFields='item.advanceFields'></component>
         </div>        
     </div>
@@ -14,6 +14,7 @@ import draggable from 'vuedraggable'
 import api from './../mock/componentsList'
 import divimg from './base/divimg'
 import swiper from './base/swiper'
+import videoplay from './base/videoplay'
 import componentsList from './components-list'
 import {
     mapState
@@ -40,7 +41,8 @@ import {
             draggable,
             divimg,
             swiper,
-            componentsList
+            componentsList,
+            videoplay
         },
     }
 </script>
