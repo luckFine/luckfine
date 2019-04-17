@@ -23,7 +23,7 @@ img{
   .el-carousel__item:nth-child(2n) {
      background-color: #99a9bf;
   }
-  
+
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
   }
@@ -41,32 +41,35 @@ import { constants } from 'crypto';
                 imgData:[],
                 item:{
                     'describe':'图片地址',
-                    'labelValue':'' 
-                }     
+                    'labelValue':''
+                }
             }
 
         },
         watch:{
-            advanceFields:{
-                handler(){
-                    if(this.advanceFields[0].labelValue === '' ||this.advanceFields[0].labelValue === 0){
-                        return false
+            advanceFields: {
+                handler() {
+                    let inputValue = Number(this.advanceFields[0].labelValue);
+                    let swiper = this.advanceFields[1].inputData;
+                    let swiperLength = swiper.length;
+                    if(!inputValue) return false;
+                    let distance = Math.abs(inputValue - swiperLength);
+                    if(swiperLength < inputValue){
+                        for(let a = 0; a < distance; a++){
+                          swiper.push({
+                              'describe':'图片地址',
+                              'labelValue':''
+                            })
+                        }
                     }
-                    if(this.advanceFields[1].inputData.length < this.advanceFields[0].labelValue){
-                        let arr = this.deepClode(this.item)
-                        for(let a = 0; a < this.advanceFields[0].labelValue-this.advanceFields[1].inputData.length; a++){
-                            this.advanceFields[1].inputData.push(arr)
+                    else {
+                        for(let a = 0; a < distance; a++){
+                          swiper.pop()
                         }
-                    }else{
-                        for(let a = 0; a < this.advanceFields[1].inputData.length - this.advanceFields[0].labelValue; a++){
-                            this.advanceFields[1].inputData.shift()
-                        }
-                    }  
-                    this.$emit('input', this.advanceFields)               
+                    }
+                    this.$emit('input', this.advanceFields)
                 },
-                deep:true
-
-
+                deep: true
             }
         },
         methods:{
