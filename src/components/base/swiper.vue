@@ -1,19 +1,22 @@
 <template>
   <div class="block">
     <el-carousel height="150px">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item v-for="item in advanceFields[1].inputData" >
+        <img :src="item.labelValue" alt="">
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
-<style>
+<style scoped>
+img{
+    width: 100%;height: 100%;display: block
+}
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
     opacity: 0.75;
-    line-height: 150px;
+    /* line-height: 150px; */
     margin: 0;
   }
 
@@ -33,25 +36,50 @@ import {
     export default {
         props:['advanceFields'],
         data () {
-            // text: 'demo'
+            return{
+                imgData:[],
+                item:{
+                    'describe':'图片地址',
+                    'labelValue':'' 
+                }     
+            }
+
         },
-        // computed:{
-        //     value(){
-        //         if(this.advanceFields.length===1){
-        //             return this.advanceFields[0]
-        //         }
-        //     }
-        // },
-        // watch: {
-        //     advanceFields:{
-        //         handler(){
-        //             console.log('luckfine')
-        //         },
-        //         deep:true
-        //     }
-        // },
+        watch:{
+            advanceFields:{
+                handler(){
+                    console.log(this.advanceFields[0].labelValue)
+                    if(this.advanceFields[0].labelValue === '' ||this.advanceFields[0].labelValue === 0){
+                        // this.imgData = this.advanceFields[1].inputData
+                        return false
+                    }
+                    if(this.advanceFields[1].inputData.length < this.advanceFields[0].labelValue){
+                        let arr = []
+                        for(let a = 0; a < this.advanceFields[0].labelValue-this.advanceFields[1].inputData.length; a++){
+                            arr.push(this.item)
+                        }
+                        this.advanceFields[1].inputData = this.advanceFields[1].inputData.concat(arr)
+                    }else{
+                        this.advanceFields[1].inputData.length = this.advanceFields[0].labelValue
+                        for(let a = 0; a < this.advanceFields[1].inputData.length - this.advanceFields[0].labelValue; a++){
+                            this.advanceFields[1].inputData.shift()
+                        }
+                    }  
+                    this.$emit('input', this.advanceFields)               
+                },
+                deep:true
+
+
+            }
+        },
+        computed:{
+            // num(){
+            //     return this.advanceFields[0].labelValue
+            // }
+        },
         mounted () {
-            // console.log(this.advanceFields.length)
+            // this.imgData = this.advanceFields[1].inputData
+            // console.log(this.imgData)
         }
     }
 </script>

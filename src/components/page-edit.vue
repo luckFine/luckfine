@@ -33,8 +33,15 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
             </li>
             <li>
                 <div v-for="item in activiyItem">
-                    <p>{{item.label}}</p>
-                    <el-input v-model="item.labelValue" placeholder=""></el-input>
+                    <div v-if="item.label === 'input'">   
+                        <p>{{item.describe}}</p>
+                        <el-input v-model="item.labelValue" placeholder=""></el-input>    
+                    </div>
+                    <div v-if="item.label === 'inputMore'"  v-for='ele in item.inputData'>
+                        <p>{{ele.describe}}</p>
+                        <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
+                    </div>
+
                 </div>
             </li>
         </ul>
@@ -108,7 +115,7 @@ import {
         watch:{
             pageList:{
                 handler(){
-                    console.log(this.pageList)
+                    // console.log(this.pageList)
                 },
                 deep:true
             }
