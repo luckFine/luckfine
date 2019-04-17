@@ -1,7 +1,7 @@
 <template>
   <div class="block">
     <el-carousel height="150px">
-      <el-carousel-item v-for="item in advanceFields[1].inputData" >
+      <el-carousel-item v-for="item,index in advanceFields[1].inputData"  >
         <img :src="item.labelValue" alt="">
       </el-carousel-item>
     </el-carousel>
@@ -32,6 +32,7 @@ img{
 import {
     mapState
 } from 'vuex'
+import { constants } from 'crypto';
 
     export default {
         props:['advanceFields'],
@@ -48,19 +49,15 @@ import {
         watch:{
             advanceFields:{
                 handler(){
-                    console.log(this.advanceFields[0].labelValue)
                     if(this.advanceFields[0].labelValue === '' ||this.advanceFields[0].labelValue === 0){
-                        // this.imgData = this.advanceFields[1].inputData
                         return false
                     }
                     if(this.advanceFields[1].inputData.length < this.advanceFields[0].labelValue){
-                        let arr = []
+                        let arr = this.deepClode(this.item)
                         for(let a = 0; a < this.advanceFields[0].labelValue-this.advanceFields[1].inputData.length; a++){
-                            arr.push(this.item)
+                            this.advanceFields[1].inputData.push(arr)
                         }
-                        this.advanceFields[1].inputData = this.advanceFields[1].inputData.concat(arr)
                     }else{
-                        this.advanceFields[1].inputData.length = this.advanceFields[0].labelValue
                         for(let a = 0; a < this.advanceFields[1].inputData.length - this.advanceFields[0].labelValue; a++){
                             this.advanceFields[1].inputData.shift()
                         }
@@ -72,14 +69,28 @@ import {
 
             }
         },
-        computed:{
-            // num(){
-            //     return this.advanceFields[0].labelValue
-            // }
+        methods:{
+            deepClode(obj){
+                let objClone = Array.isArray(obj)?[]:{};
+                let key
+                if(obj && typeof obj==='object'){
+                    for(key in obj){
+                        if(obj.hasOwnProperty(key)){
+                            //判断ojb子元素是否为对象，如果是，递归复制
+                            if(obj[key]&&typeof obj[key] ==='object'){
+                                objClone[key] = this.deepClode(obj[key]);
+                            }else{
+                                //如果不是，简单复制
+                                objClone[key] = obj[key];
+                            }
+                        }
+                    }
+                }
+                return objClone;
+            }
         },
         mounted () {
-            // this.imgData = this.advanceFields[1].inputData
-            // console.log(this.imgData)
+
         }
     }
 </script>

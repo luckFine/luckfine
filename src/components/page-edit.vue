@@ -26,7 +26,7 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                     @change="log"
                     >
                     <div v-for="item in pageList" @click="clickItem(item.advanceFields)">
-                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields'></component>
+                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
                     </div>        
                 </draggable>  
                 <el-button @click="preview">预览</el-button>  
@@ -37,8 +37,9 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                         <p>{{item.describe}}</p>
                         <el-input v-model="item.labelValue" placeholder=""></el-input>    
                     </div>
-                    <div v-if="item.label === 'inputMore'"  v-for='ele in item.inputData'>
+                    <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
                         <p>{{ele.describe}}</p>
+                        <div>{{ele.labelValue}}</div>
                         <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
                     </div>
 
