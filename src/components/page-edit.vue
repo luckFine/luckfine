@@ -2,6 +2,10 @@
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
 .comBox{position: relative;}
 .center{text-align: center}
+.pageClass{position: relative;}
+.pageClass:hover{border: 1px solid red;opacity: 0.8}
+.pageClass:hover .delate{display: block;}
+.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer; }
 </style>
 <template>
     <div>
@@ -29,7 +33,8 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                     group="people"
         
                     >
-                    <div v-for="item,index in pageList" @click="clickItem(item.advanceFields,index)">
+                    <div v-for="item,index in pageList" @click.prevent="clickItem(item.advanceFields,index)" class="pageClass">
+                        <div class="delate" @click="deleteItem(index)">X</div>
                         <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
                     </div>        
                 </draggable>  
@@ -53,7 +58,6 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                         <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
                     </div>
                 </div>
-                <el-button @click="deleteItem()">删除</el-button>  
             </li>
         </ul>
         <router-view></router-view>
@@ -108,12 +112,12 @@ import {
                 this.activiyItem = item
                 this.activiyIndex = index
             },
-            deleteItem(){
-                console.log(this.activiyIndex)
+            deleteItem(index){
+                console.log('触发删除事件')
                 if(this.activiyIndex !== -1){
-                    this.pageList.splice(this.activiyIndex, 1);
+                    this.pageList.splice(index, 1);
                 }
-                console.log(this.pageList)
+                // console.log(this.pageList)
             },
             deepClode(obj){
                 let objClone = Array.isArray(obj)?[]:{};
