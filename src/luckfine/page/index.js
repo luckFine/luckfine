@@ -9,7 +9,7 @@ Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(ElementUI);
 
-// require('./mockjs')
+
 
 import Foo from 'components/preview'
 import Edit from 'components/page-edit'

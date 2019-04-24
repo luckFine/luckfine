@@ -44,7 +44,6 @@ import { constants } from 'crypto';
                     'labelValue':''
                 }
             }
-
         },
         watch:{
             advanceFields: {

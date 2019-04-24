@@ -16,6 +16,10 @@ import divimg from './base/divimg'
 import swiper from './base/swiper'
 import videoplay from './base/videoplay'
 import componentsList from './components-list'
+import fixbottom from './base/fixbottom'
+import fixright from './base/fixright'
+import messagebox from './base/messagebox'
+import submit from './base/submit'
 import {
     mapState
 } from 'vuex'
@@ -42,7 +46,11 @@ import {
             divimg,
             swiper,
             componentsList,
-            videoplay
+            videoplay,
+            fixbottom,
+            fixright,
+            messagebox,
+            submit
         },
     }
 </script>

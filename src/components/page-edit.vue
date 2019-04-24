@@ -1,5 +1,7 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
+.comBox{position: relative;}
+.center{text-align: center}
 </style>
 <template>
     <div>
@@ -13,8 +15,9 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                     :clone="cloneDog"
                     :group="{ name: 'people', pull: 'clone', put: false }"
                     >
-                    <div v-for="item in listData"  class = "drag-item">
-                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields'></component>
+                    <div v-for="item in listData"  class = "drag-item comBox">
+                        <p class="center">{{item.baseName}}</p>
+                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields' :source='"default"'></component>
                     </div>        
                 </draggable>                
             </li>
@@ -64,6 +67,10 @@ import divimg from './base/divimg'
 import swiper from './base/swiper'
 import videoplay from './base/videoplay'
 import colorpicker from './base/colorpicker'
+import fixbottom from './base/fixbottom'
+import fixright from './base/fixright'
+import messagebox from './base/messagebox'
+import submit from './base/submit'
 import componentsList from './components-list'
 import {
     mapState
@@ -165,7 +172,11 @@ import {
             swiper,
             colorpicker,
             videoplay,
-            componentsList
+            fixbottom,
+            fixright,
+            componentsList,
+            submit,
+            messagebox
         },
     }
 </script>
