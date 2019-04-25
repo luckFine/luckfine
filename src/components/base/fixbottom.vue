@@ -1,7 +1,7 @@
 <style scoped>
 .fixBottom{width: 100%;height: 100px;}
 .fixBottom img{width: 100%;height: 100px;}
-.fixBottomValue{position: fixed;bottom: 0;left: 0;width: 100%;height: 100px;}
+.fixBottomValue{position: fixed;height: 100px;margin-bottom: 0;float: left;}
 .fixBottomValue img{width: 100%;}
 </style>
 <template>

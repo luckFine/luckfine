@@ -11,19 +11,25 @@ Vue.use(ElementUI);
 
 
 
-import Foo from 'components/preview'
-import Edit from 'components/page-edit'
+import preview from 'components/page/preview'
+import webEdit from 'components/page/page-edit-web'
+import appEdit from 'components/page/page-edit-app'
 
 
 const routes = [
     { 
-      name:'Foo',
-      path: '/Foo', 
-      component: Foo },
+      name:'preview',
+      path: '/preview', 
+      component: preview },
     {
       name:'/',
       path: '/', 
-      component: Edit 
+      component: webEdit 
+    },
+    {
+      name:'/app',
+      path: '/app', 
+      component: appEdit 
     }
   ]
 

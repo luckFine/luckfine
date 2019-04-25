@@ -1,5 +1,7 @@
 <style scoped>
-ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
+ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e}
+.iphone{width: 300px;height: 600px; background: url('../../assets/img/iphone.png') center 0 no-repeat;background-size: 100%;margin: 0 auto;margin-top: 10px;overflow: hidden;}
+.iphoneContent{width: 256px;height: 554px;background: blue;margin: 0 auto; margin-top:18px; overflow: scroll}
 .comBox{position: relative;}
 .center{text-align: center}
 .pageClass{position: relative;}
@@ -11,6 +13,7 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
     <div>
         <ul>
             <li>
+                <h3 class="title">组件库</h3>
                 <draggable 
                     :list="listData"  
                     @update="datadragEnd" 
@@ -26,38 +29,26 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
                 </draggable>                
             </li>
             <li>
-                <draggable 
-                    :list="pageList"  
-                    @update="datadragEnd" 
-                    :options = "{animation:500}" 
-                    group="people"
-        
-                    >
-                    <div v-for="item,index in pageList" @click.prevent="clickItem(item.advanceFields,index)" class="pageClass">
-                        <div class="delate" @click="deleteItem(index)">X</div>
-                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
-                    </div>        
-                </draggable>  
+                <h3 class="title">页面预览</h3>
+                <div class="iphone">
+                    <div class="iphoneContent">
+                        <draggable 
+                            :list="pageList"  
+                            @update="datadragEnd" 
+                            :options = "{animation:500}" 
+                            group="people"
+                            >
+                            <div v-for="item,index in pageList" @click.prevent="clickItem(item.advanceFields,index)" class="pageClass">
+                                <div class="delate" @click="deleteItem(index)">X</div>
+                                <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
+                            </div>        
+                        </draggable>     
+                    </div>
+                </div>
                 <el-button @click="preview">预览</el-button>  
             </li>
             <li>
-                <div>
-                    <p>页面标题</p>
-                    <el-input v-model="wholePage.title" placeholder=""></el-input>  
-                    <p>页面背景</p>
-                    <colorpicker></colorpicker>
-                </div>
-                <div v-for="item in activiyItem">
-                    <div v-if="item.label === 'input'">   
-                        <p>{{item.describe}}</p>
-                        <el-input v-model="item.labelValue" placeholder=""></el-input>    
-                    </div>s
-                    <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
-                        <p>{{ele.describe}}</p>
-                        <div>{{ele.labelValue}}</div>
-                        <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
-                    </div>
-                </div>
+                <unit-config :activiyItem=activiyItem :wholePage=wholePage></unit-config>
             </li>
         </ul>
         <router-view></router-view>
@@ -66,16 +57,16 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
 <script>
 import $ from 'jquery'
 import draggable from 'vuedraggable'
-import api from './../mock/componentsList'
-import divimg from './base/divimg'
-import swiper from './base/swiper'
-import videoplay from './base/videoplay'
-import colorpicker from './base/colorpicker'
-import fixbottom from './base/fixbottom'
-import fixright from './base/fixright'
-import messagebox from './base/messagebox'
-import submit from './base/submit'
-import componentsList from './components-list'
+import api from './../../mock/componentsList'
+import divimg from './../base/divimg'
+import swiper from './../base/swiper'
+import videoplay from './../base/videoplay'
+import fixbottom from './../base/fixbottom'
+import fixright from './../base/fixright'
+import messagebox from '../base/messagebox'
+import submit from './../base/submit'
+import unitConfig from './../base/unit-config'
+import componentsList from './../components-list'
 import {
     mapState
 } from 'vuex'
@@ -100,9 +91,6 @@ import {
                 console.log('拖动后的索引 :' + evt.newIndex)
                 // console.log(this.colors);
             },
-            // log: function(evt) {
-            //     window.console.log(evt);
-            // },
             cloneDog(id ) {
                 let data = this.deepClode(id)
                 this.pageList.push(data)
@@ -152,7 +140,7 @@ import {
             }
         },
         mounted () {
-	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
+            //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
             document.body.ondrop = function (event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -174,13 +162,13 @@ import {
             draggable,
             divimg,
             swiper,
-            colorpicker,
             videoplay,
             fixbottom,
             fixright,
             componentsList,
             submit,
-            messagebox
-        },
+            messagebox,
+            unitConfig
+        }
     }
 </script>
