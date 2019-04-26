@@ -1,6 +1,6 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e}
-.comBox{position: relative;}
+/* .comBox{position: relative;} */
 .center{text-align: center}
 .pageClass{position: relative;}
 .pageClass:hover{border: 1px solid red;opacity: 0.8}

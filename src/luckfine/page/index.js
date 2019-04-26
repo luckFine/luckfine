@@ -14,6 +14,8 @@ Vue.use(ElementUI);
 import preview from 'components/page/preview'
 import webEdit from 'components/page/page-edit-web'
 import appEdit from 'components/page/page-edit-app'
+import login from 'components/page/login'
+import list from 'components/page/page-list'
 
 
 const routes = [
@@ -30,6 +32,11 @@ const routes = [
       name:'/app',
       path: '/app', 
       component: appEdit 
+    },
+    {
+      name:'/list',
+      path: '/list', 
+      component: list 
     }
   ]
 
