@@ -1,13 +1,3 @@
-<template>
-  <div class="block">
-    <el-carousel height="150px">
-      <el-carousel-item v-for="item,index in advanceFields[1].inputData"  >
-        <img :src="item.labelValue" alt="">
-      </el-carousel-item>
-    </el-carousel>
-  </div>
-</template>
-
 <style scoped>
 img{
     width: 100%;height: 100%;display: block
@@ -27,7 +17,22 @@ img{
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
   }
+  .block{
+      width:100%;
+      height:100%;
+      overflow: hidden;
+  }
 </style>
+<template>
+  <div class="block">
+        <el-carousel height="150px">
+                <el-carousel-item v-for="(item,index) in advanceFields[1].inputData" :key="index" >
+                        <img :src="item.labelValue" alt="">
+                </el-carousel-item>           
+        </el-carousel>
+  </div>
+</template>
+
 <script>
 import {
     mapState

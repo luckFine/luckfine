@@ -37,7 +37,12 @@ const routes = [
       name:'/list',
       path: '/list', 
       component: list 
-    }
+    },
+    {
+      name:'/login',
+      path: '/login', 
+      component: login 
+    },
   ]
 
 const router = new VueRouter({

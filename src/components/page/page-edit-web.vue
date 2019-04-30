@@ -35,7 +35,7 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                     group="people"
                     >
                     <div v-for="item,index in pageList" @click.prevent="clickItem(item.advanceFields,index)" class="pageClass">
-                        <div class="delate" @click="deleteItem(index)">X</div>
+                        <div class="delate" @click="deleteItem(index)">{{index}}</div>
                         <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
                     </div>        
                 </draggable>  
@@ -95,11 +95,7 @@ import {
                 this.activiyIndex = index
             },
             deleteItem(index){
-                console.log('触发删除事件')
-                if(this.activiyIndex !== -1){
-                    this.pageList.splice(index, 1);
-                }
-                // console.log(this.pageList)
+                this.pageList.splice(index, 1);
             },
             deepClode(obj){
                 let objClone = Array.isArray(obj)?[]:{};
