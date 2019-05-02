@@ -94,7 +94,24 @@
             "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
           }          
         ]
-      }       
+      },
+      {
+        "name":"button",
+        "baseName":"按钮",
+        "advanceFields":[
+            {
+            "label":"input",
+            "describe":"文字",
+            "labelValue":"按钮1" 
+          }          
+        ],
+        "style":{
+          "width": "100px",
+          "height":"60px",
+          "background":"skyblue",
+          "border-radius":"3px"
+        }
+      }     
     ],
     "msg": ""
 }

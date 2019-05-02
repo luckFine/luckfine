@@ -9,7 +9,7 @@
 <template>
 <div>
     <div class="lego"></div>
-    <left-Nav></left-Nav>
+    <left-Nav :page-name='page'></left-Nav>
 </div>
 </template>
 
@@ -18,7 +18,8 @@ import leftNav from '../base/left-nav'
 
 export default { 
   data() {
-    return {};
+    return {
+    };
   },
 
   methods: {
@@ -27,6 +28,15 @@ export default {
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      formatter(row, column) {
+        return row.address;
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
       }
   },
 components:{

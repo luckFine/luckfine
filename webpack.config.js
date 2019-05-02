@@ -34,6 +34,7 @@ module.exports = {
           vue: 'vue/dist/vue.min.js',
           components: path.resolve(__dirname + '/src/components/'),
           stores: path.resolve(__dirname + '/src/stores/'),
+          server: path.resolve(__dirname + '/src/server/'),
           '@': path.resolve('src')
         }
     },

@@ -4,7 +4,7 @@ img{width: 100%;height: 100%;display: block;}
 <template>
     <div>
         <div class="botton">
-            
+            {{value}}
         </div>
     </div>
 </template>
@@ -34,7 +34,8 @@ import {
             }
         },
         mounted () {
-            // console.log(this.advanceFields.length)
+            console.log('shiwo')
+            console.log(this.advanceFields)
         }
     }
 </script>

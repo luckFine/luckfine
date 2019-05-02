@@ -5,7 +5,7 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
 .pageClass{position: relative;}
 .pageClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate{display: block;}
-.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer; }
+.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;}
 </style>
 <template>
     <div>
@@ -59,12 +59,14 @@ import fixbottom from './../base/fixbottom'
 import fixright from './../base/fixright'
 import messagebox from '../base/messagebox'
 import submit from './../base/submit'
+import button from './../base/button'
 import unitConfig from './../base/unit-config'
 import componentsList from './../components-list'
+
 import {
     mapState
 } from 'vuex'
-
+import axios from 'axios'
     export default {
         data(){
             return{
@@ -135,18 +137,20 @@ import {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            var self = this;
-            $.ajax({
-                url: '/user/userInfo',
-                success:function(data){
-                    let da = JSON.parse(data)
-                    self.listData = da.data
-                    self.wholePage = da.whole
-                    document.title = self.wholePage.title
-
+            axios.get('/user/userInfo', {
+                params: {
+                    
                 }
             })
-            // console.log(deepClode)
+            .then((response) => {
+                let da = response.data
+                this.listData = da.data
+                this.wholePage = da.whole
+                document.title = this.wholePage.title
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         },
         components:{
             draggable,

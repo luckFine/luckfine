@@ -5,6 +5,9 @@ import ElementUI from 'element-ui';
 import VueRouter from 'vue-router'
 import App from 'components/app.vue'
 import data from 'stores/getdata'
+import login  from 'stores/login'
+import config from 'stores/config';
+
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(ElementUI);
@@ -14,7 +17,7 @@ Vue.use(ElementUI);
 import preview from 'components/page/preview'
 import webEdit from 'components/page/page-edit-web'
 import appEdit from 'components/page/page-edit-app'
-import login from 'components/page/login'
+import log from 'components/page/login'
 import list from 'components/page/page-list'
 
 
@@ -39,9 +42,9 @@ const routes = [
       component: list 
     },
     {
-      name:'/login',
-      path: '/login', 
-      component: login 
+      name:'/log',
+      path: '/log', 
+      component: log
     },
   ]
 
@@ -51,7 +54,9 @@ const router = new VueRouter({
 
 const store = new Vuex.Store({
     modules: {
-        data
+        data,
+        login,
+        config
     }
   })
 
