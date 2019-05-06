@@ -6,7 +6,7 @@
     
 <script>
   export default {
-    props:['advanceFields'],
+    props:['itemData'],
     data() {
       return {
         
@@ -14,13 +14,13 @@
     },
     computed:{
         value(){
-            if(this.advanceFields.length===1){
-                return this.advanceFields[0]
+            if(this.itemData.advanceFields.length===1){
+                return this.itemData.advanceFields[0]
             }
         }
     },
     mounted () {
-        console.log(this.advanceFields)
+        console.log(this.itemData.advanceFields)
     }
   };
 </script>

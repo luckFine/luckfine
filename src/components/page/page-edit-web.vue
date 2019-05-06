@@ -1,8 +1,8 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e}
-/* .comBox{position: relative;} */
+.comBox{position: relative;}
 .center{text-align: center}
-.pageClass{position: relative;}
+.pageClass{position: relative;width: 100%;min-height: 100px;}
 .pageClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate{display: block;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;}
@@ -22,7 +22,7 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                     >
                     <div v-for="item in listData"  class = "drag-item comBox">
                         <p class="center">{{item.baseName}}</p>
-                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields' :source='"default"'></component>
+                        <component  v-bind:is="item.name" :itemData='item' :source='"default"'></component>
                     </div>        
                 </draggable>                
             </li>
@@ -34,9 +34,9 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                     :options = "{animation:500}" 
                     group="people"
                     >
-                    <div v-for="item,index in pageList" @click.prevent="clickItem(item.advanceFields,index)" class="pageClass">
+                    <div v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="pageClass">
                         <div class="delate" @click="deleteItem(index)">{{index}}</div>
-                        <component  v-bind:is="item.name" :advanceFields='item.advanceFields' v-model="item.advanceFields"></component>
+                        <component  v-bind:is="item.name" :itemData='item' v-model="item.advanceFields"></component>
                     </div>        
                 </draggable>  
                 <el-button @click="preview">预览</el-button>  
@@ -59,7 +59,7 @@ import fixbottom from './../base/fixbottom'
 import fixright from './../base/fixright'
 import messagebox from '../base/messagebox'
 import submit from './../base/submit'
-import button from './../base/button'
+import btn from './../base/btn'
 import unitConfig from './../base/unit-config'
 import componentsList from './../components-list'
 
@@ -72,7 +72,7 @@ import axios from 'axios'
             return{
                 listData: [], // 全部组件
                 pageList:[], // 当前选中组件
-                activiyItem:[],
+                activiyItem:{},
                 activiyIndex:-1,
                 wholePage:''
             }
@@ -89,10 +89,12 @@ import axios from 'axios'
             },
             cloneDog(id ) {
                 let data = this.deepClode(id)
+                console.log(data)
                 this.pageList.push(data)
                 // return id
             },
             clickItem(item,index){
+                // console.log(this.pageList[index])
                 this.activiyItem = item
                 this.activiyIndex = index
             },
@@ -162,7 +164,8 @@ import axios from 'axios'
             componentsList,
             submit,
             messagebox,
-            unitConfig
+            unitConfig,
+            btn
         }
     }
 </script>

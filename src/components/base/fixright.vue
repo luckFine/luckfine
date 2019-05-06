@@ -6,7 +6,7 @@
 </style>
 <template>
     <div class="fixright">
-        <img v-if="advanceFields" :src="value.labelValue" :class="source === 'default' ? 'fixright' : 'fixrightValue'" >
+        <img v-if="itemData.advanceFields" :src="value.labelValue" :class="source === 'default' ? 'fixright' : 'fixrightValue'" >
     </div>
 </template>
 <script>
@@ -15,7 +15,7 @@ import {
 } from 'vuex'
 
     export default {
-        props:['advanceFields','source'],
+        props:['itemData','source'],
         data () {
             return {
                 
@@ -23,8 +23,8 @@ import {
         },
         computed:{
             value(){
-                if(this.advanceFields.length===1){
-                    return this.advanceFields[0]
+                if(this.itemData.advanceFields.length===1){
+                    return this.itemData.advanceFields[0]
                 }
             }
         },

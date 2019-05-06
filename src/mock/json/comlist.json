@@ -96,7 +96,7 @@
         ]
       },
       {
-        "name":"button",
+        "name":"btn",
         "baseName":"按钮",
         "advanceFields":[
             {
@@ -106,10 +106,19 @@
           }          
         ],
         "style":{
-          "width": "100px",
-          "height":"60px",
+          "width": 120,
+          "height":40,
           "background":"skyblue",
-          "border-radius":"3px"
+          "font-size":16,
+          "line-height":40,
+          "border-radius":20,
+          "position":"absolute",
+          "left":20,
+          "top":20
+        },
+        "event":{
+          "describe":"添加跳转链接",
+          "href":"https://www.smashingmagazine.com/2019/01/html5-input-types/#top"
         }
       }     
     ],

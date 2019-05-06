@@ -3,7 +3,7 @@ img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
     <div>
-        <img v-if="advanceFields" :src="value.labelValue" alt="">
+        <img v-if="itemData.advanceFields" :src="value.labelValue" alt="">
     </div>
 </template>
 <script>
@@ -12,14 +12,14 @@ import {
 } from 'vuex'
 
     export default {
-        props:['advanceFields'],
+        props:['itemData'],
         data () {
             // text: 'demo'
         },
         computed:{
             value(){
-                if(this.advanceFields.length===1){
-                    return this.advanceFields[0]
+                if(this.itemData.advanceFields.length===1){
+                    return this.itemData.advanceFields[0]
                 }
             }
         },

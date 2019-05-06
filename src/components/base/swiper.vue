@@ -26,7 +26,7 @@ img{
 <template>
   <div class="block">
         <el-carousel height="150px">
-                <el-carousel-item v-for="(item,index) in advanceFields[1].inputData" :key="index" >
+                <el-carousel-item v-for="(item,index) in itemData.advanceFields[1].inputData" :key="index" >
                         <img :src="item.labelValue" alt="">
                 </el-carousel-item>           
         </el-carousel>
@@ -40,7 +40,7 @@ import {
 import { constants } from 'crypto';
 
     export default {
-        props:['advanceFields'],
+        props:['itemData'],
         data () {
             return{
                 imgData:[],
@@ -51,10 +51,10 @@ import { constants } from 'crypto';
             }
         },
         watch:{
-            advanceFields: {
+            itemData: {
                 handler() {
-                    let inputValue = Number(this.advanceFields[0].labelValue);
-                    let swiper = this.advanceFields[1].inputData;
+                    let inputValue = Number(this.itemData.advanceFields[0].labelValue);
+                    let swiper = this.itemData.advanceFields[1].inputData;
                     let swiperLength = swiper.length;
                     if(!inputValue) return false;
                     let distance = Math.abs(inputValue - swiperLength);
@@ -71,7 +71,7 @@ import { constants } from 'crypto';
                           swiper.pop()
                         }
                     }
-                    this.$emit('input', this.advanceFields)
+                    this.$emit('input', this.itemData.advanceFields)
                 },
                 deep: true
             }
