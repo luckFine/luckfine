@@ -1,6 +1,22 @@
 <style scoped>
     .title{line-height: 60px;}
     .styleBox{padding: 0 15px;}
+    .styleBox >>>.el-color-picker{width:100%;height: 20px;}
+    .styleBox >>>.el-color-picker__trigger{width:100%;height: 20px;}
+    .disableSee{
+        width: 90px;
+        height: 100%;
+        background: red;
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity: 0;
+    }
+    .uploadButton{
+        width: 50px;
+        /* position: relative; */
+    }
 </style>
 
 <template>
@@ -18,11 +34,23 @@
             <el-tab-pane label="内容配置" name="second">
                 <el-collapse v-model="activeNames" @change="handleChange">
                     <el-collapse-item title="数据更新" name="1">
-                        <div v-for="item in activiyItem.advanceFields">
+                        <div v-for="item,index in activiyItem.advanceFields">
+
+                            <div v-if="item.label === 'divimg'">
+                                <p>{{item.describe}}</p>
+                                <el-input v-model="item.labelValue" placeholder="">
+                                    
+                                    <div slot="prepend" class="uploadButton">
+                                        <p>选择图片</p>
+                                        <input type="file" name="files" @click="upload($event,item,index)" class="disableSee" >
+                                    </div>
+                                </el-input>                                   
+                            </div>
                             <!-- 一级配置 -->
                             <div v-if="item.label === 'input'">   
                                 <p>{{item.describe}}</p>
-                                <el-input v-model="item.labelValue" placeholder=""></el-input>    
+                                <el-input v-model="item.labelValue" placeholder="">
+                                </el-input>    
                             </div>
                             <!-- 二级配置 -->
                             <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
@@ -36,19 +64,21 @@
                         <div class="styleBox" v-for="(val,key,index) in activiyItem.style"  v-if="characters[key]">
                             <p>{{characters[key]}}</p>
                             <!-- <el-input v-model="activiyItem.style[key]" placeholder=""></el-input>   -->
-                            <div class="block">
+                            <div v-if="key !== 'color' && key !== 'background'" class="block">
                                 <el-slider
                                 v-model="activiyItem.style[key]"
                                 max=1000
                                 show-input>
                                 </el-slider>
                             </div>
+                            <div v-if="key === 'color' || key === 'background'">
+                                <el-color-picker v-model="activiyItem.style[key]" show-alpha></el-color-picker>
+                            </div>
                         </div>
                     </el-collapse-item>
-                    <el-collapse-item title="设置事件" name="3">
-                        <div>简化流程：设计简洁直观的操作流程；</div>
-                        <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                        <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                    <el-collapse-item title="设置" name="3">
+                        <el-button type="primary" @click="addCompontent">添加二级组件</el-button>
+
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
@@ -58,8 +88,6 @@
                 </div>                 
             </el-tab-pane>
         </el-tabs>
-
-
     </div>
 </template>
 
@@ -72,12 +100,13 @@ import colorpicker from './colorpicker.vue'
         characters:{
             'width':'宽度',
             'height':'高度',
-            // 'background':'背景颜色',
+            'background':'背景颜色',
             'font-size':'字体大小',
             'line-height':'行高',
             'border-radius':'圆角',
             'left':'距离左边',
-            'top':'距离右边'
+            'top':'距离右边',
+            'color':'字体颜色'
         },
         activeNames: ['1']
       };
@@ -89,15 +118,47 @@ import colorpicker from './colorpicker.vue'
         },
         handleChange(val) {
             // console.log(val);
+        },
+        addCompontent(){
+            this.activiyItem.children.push()
+        },
+        upload(e,item,index){
+            var self = this;
+            var xhr, formData;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', 'https://up0.z3quant.com/z3upload/api/upload/multi');
+            xhr.setRequestHeader('enctype','multipart/form-data');
+            xhr.onload = function() {
+            var json;
+            if (xhr.status !== 200) {
+                alert('HTTP Error: ' + xhr.status);
+                return;
+            }
+            json = JSON.parse(xhr.responseText);
+            if (!json || typeof json.files[0].uri !== 'string') {
+                alert('Invalid JSON: ' + xhr.responseText);
+                return;
+            }
+                console.log(json.files[0].uri)
+                item.labelValue = json.files[0].uri
+            };
+            formData = new FormData();
+            formData.append('org', 'dfzq');
+            // formData.append('files', blobInfo.filename());
+            // console.log(e.target.files[0].name)
+            formData.append('files', e.target.files[0], e.target.files[0].name);
+            xhr.send(formData);            // console.log(e.target.files
         }
     },
-    computed:{
-
-    },
+    computed:mapState({
+        vueData: state => state.data.dataList
+    }),
     components:{
         colorpicker
     },
     mounted () {
+        this.$store.dispatch('data/getList')
         // console.log('sh3456789')
         // console.log(this.activiyItem)
     }

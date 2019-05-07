@@ -5,6 +5,7 @@ import ElementUI from 'element-ui';
 import VueRouter from 'vue-router'
 import App from 'components/app.vue'
 import data from 'stores/getdata'
+import compontentList from 'stores/compontentList'
 import login  from 'stores/login'
 import config from 'stores/config';
 
@@ -56,7 +57,8 @@ const store = new Vuex.Store({
     modules: {
         data,
         login,
-        config
+        config,
+        compontentList
     }
   })
 
