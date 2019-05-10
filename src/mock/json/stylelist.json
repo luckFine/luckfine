@@ -1,0 +1,20 @@
+{
+    "data":[
+        {
+            "classname":"bounce",
+            "loop":"false"
+        },
+        {
+            "classname":"flash",
+            "loop":"false"
+        },
+        {
+            "classname":"pulse",
+            "loop":"false"
+        },
+        {
+            "classname":"rubberBand",
+            "loop":"false"
+        }
+    ]
+}

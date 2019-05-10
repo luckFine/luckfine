@@ -77,8 +77,15 @@
                         </div>
                     </el-collapse-item>
                     <el-collapse-item title="设置" name="3">
-                        <el-button type="primary" @click="addCompontent">添加二级组件</el-button>
-
+                        <p>添加二级组件</p>
+                            <el-select v-model="value" clearable placeholder="请选择" v-if="activiyItem">
+                                <el-option
+                                v-for="item in comlist"
+                                :key="item.name"
+                                :label="item.baseName"
+                                :value="item.name">
+                                </el-option>
+                            </el-select>
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
@@ -92,6 +99,9 @@
 </template>
 
 <script>
+import {
+    mapState
+} from 'vuex'
 import colorpicker from './colorpicker.vue'
   export default {
     data() {
@@ -108,10 +118,22 @@ import colorpicker from './colorpicker.vue'
             'top':'距离右边',
             'color':'字体颜色'
         },
-        activeNames: ['1']
+        activeNames: ['1'],
+        value: ''
       };
     },
     props:['activiyItem','wholePage'],
+    watch:{
+        value(val){
+            let arr = this.comlist.filter((element, index, self) => {
+                if(element['name']===val){
+                    return element
+                }            
+            })
+            console.log(arr[0])
+            this.activiyItem.children.push(arr[0])
+        }
+    },
     methods: {
         handleClick(tab, event){
             // console.log(tab, event);
@@ -119,9 +141,10 @@ import colorpicker from './colorpicker.vue'
         handleChange(val) {
             // console.log(val);
         },
-        addCompontent(){
-            this.activiyItem.children.push()
-        },
+        // changeOption(item){
+        //     this.activiyItem.children.push(item)
+        //     console.log(this.activiyItem)
+        // },
         upload(e,item,index){
             var self = this;
             var xhr, formData;
@@ -152,15 +175,13 @@ import colorpicker from './colorpicker.vue'
         }
     },
     computed:mapState({
-        vueData: state => state.data.dataList
+        comlist: state => state.compontentList.comlist
     }),
     components:{
         colorpicker
     },
     mounted () {
-        this.$store.dispatch('data/getList')
-        // console.log('sh3456789')
-        // console.log(this.activiyItem)
+        this.$store.dispatch('compontentList/getCompontentList')
     }
   }
 </script>

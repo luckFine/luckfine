@@ -6,6 +6,8 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
 .pageClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate{display: block;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;}
+.magic:hover{}
+/* .children{position: absolute;top: 0;left: 0;} */
 </style>
 <template>
     <div>
@@ -29,8 +31,11 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                         </draggable>  
                     </el-collapse-item>
                     <el-collapse-item title=" UI 库" name="2">
-                        <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                        <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+
+                        <div v-for="item in stylelist">
+                            <h1  :class="[item.classname]" @click="magicStyle($event)">Magic cube</h1>
+                        </div>
+                        
                     </el-collapse-item>
                     <el-collapse-item title="效率 Efficiency" name="3">
                         <div>简化流程：设计简洁直观的操作流程；</div>
@@ -47,13 +52,12 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                     :options = "{animation:500}" 
                     group="people"
                     >
-                    <div v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="pageClass" :key="index">
+                    <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="pageClass father" :key="index">
                         <div class="delate" @click="deleteItem(index)">{{index}}</div>
-                        <component  v-bind:is="item.name" :itemData='item' v-model="item.advanceFields"></component>
-                        <div>
-                            <nested-draggable :tasks="item.children" />
-                        </div>
-                        <!-- <rawDisplayer :value="pageList" title="List" /> -->
+                        <component  v-bind:is="item.name" :itemData='item'></component>
+                        <!-- <div> -->
+                            <component v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" class="children"  v-bind:is="ele.name" :itemData='ele'></component>
+                        <!-- </div> -->
                     </div>        
                 </draggable>  
                 <el-button @click="preview">预览</el-button>  
@@ -136,6 +140,9 @@ import axios from 'axios'
                 this.pageList.push(data)
                 // return id
             },
+            magicStyle(event){
+                animateCSS('.event.target', 'animated')
+            },
             clickItem(item,index){
                 // console.log(this.pageList[index])
                 this.activiyItem = item
@@ -176,6 +183,9 @@ import axios from 'axios'
                 deep:true
             }
         },
+        computed:mapState({
+            stylelist: state => state.compontentList.stylelist
+        }),
         mounted () {
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
             document.body.ondrop = function (event) {
@@ -196,6 +206,10 @@ import axios from 'axios'
             .catch((error) => {
                 console.log(error);
             });
+
+            this.$store.dispatch('compontentList/getStyleList').then(() => {
+                console.log(this.stylelist)    
+            })      
         },
         components:{
             draggable,

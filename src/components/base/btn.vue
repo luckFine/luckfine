@@ -2,10 +2,8 @@
 img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
-    <div>
-        <div class="botton" :style="StyleSheet" @click="event(href)">
-            {{value.labelValue}}
-        </div>
+    <div class="botton" :style="StyleSheet" >
+        {{value.labelValue}}
     </div>
 </template>
 <script>
