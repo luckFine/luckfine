@@ -3,11 +3,12 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
 .comBox{position: relative;}
 .center{text-align: center}
 .pageClass{position: relative;width: 100%;min-height: 100px;}
-.pageClass:hover{border: 1px solid red;opacity: 0.8}
-.pageClass:hover .delate{display: block;}
+.pageClass:hover,.childClass:hover{border: 1px solid red;opacity: 0.8}
+.pageClass:hover .delate,.childClass:hover .delate{display: block;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;}
 .magic:hover{}
-/* .children{position: absolute;top: 0;left: 0;} */
+.children{}
+.childClass{position: absolute;top: 0;left: 0;white-space:nowrap}
 </style>
 <template>
     <div>
@@ -17,14 +18,14 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                     <el-collapse-item title="组件库" name="1">
                         <!-- <h3 class="title">组件库</h3> -->
                         <draggable 
-                            :list="listData"  
-                            @update="datadragEnd" 
-                            :options = "{animation:500}" 
+                            v-model="listData"  
+                            class="dragArea list-group"
+                       
             
                             :clone="cloneDog"
                             :group="{ name: 'people', pull: 'clone', put: false }"
                             >
-                            <div v-for="item in listData"  class = "drag-item comBox">
+                            <div v-for="item,index in listData"  class = "drag-item comBox list-group-item" :key="index">
                                 <p class="center">{{item.baseName}}</p>
                                 <component  v-bind:is="item.name" :itemData='item' :source='"default"'></component>
                             </div>        
@@ -43,17 +44,19 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
             <li>
                 <h3 class="title">页面预览</h3>
                 <draggable 
-                    :list="pageList"  
-                    @update="datadragEnd" 
-                    :options = "{animation:500}" 
+                    class="dragArea list-group"
+                    v-model="pageList"  
+               
+
                     group="people"
                     >
-                    <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="pageClass father" :key="index">
+                    <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
                         <div class="delate" @click="deleteItem(index)">{{index}}</div>
                         <component  v-bind:is="item.name" :itemData='item'></component>
-                        <!-- <div> -->
-                            <component v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
-                        <!-- </div> -->
+                        <!-- <div class="childClass" v-if="item.children.length>0" v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" >
+                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                        </div> -->
                     </div>        
                 </draggable>  
                 <el-button @click="preview">预览</el-button>  
@@ -94,31 +97,7 @@ import axios from 'axios'
                 activiyItem:{},
                 activiyIndex:-1,
                 wholePage:'',
-                activeNames: ['1'],
-                list: [
-                    {
-                    name: "task 1",
-                    tasks: [
-                        {
-                        name: "task 2",
-                        tasks: []
-                        }
-                    ]
-                    },
-                    {
-                    name: "task 3",
-                    tasks: [
-                        {
-                        name: "task 4",
-                        tasks: []
-                        }
-                    ]
-                    },
-                    {
-                    name: "task 5",
-                    tasks: []
-                    }
-                ]
+                activeNames: ['1']
             }
         },
         methods:{
@@ -126,24 +105,30 @@ import axios from 'axios'
                 console.log(evt.draggedContext.element)
             },
             datadragEnd (evt) {
-                evt.preventDefault();
+                // evt.preventDefault();
                 // console.log('拖动前的索引 :' + evt.oldIndex)
                 // console.log('拖动后的索引 :' + evt.newIndex)
                 console.log(this.pageList);
             },
             cloneDog(id ) {
                 let data = this.deepClode(id)
-                console.log(data)
                 this.pageList.push(data)
-                // return id
             },
             clickItem(item,index){
                 // console.log(this.pageList[index])
                 this.activiyItem = item
                 this.activiyIndex = index
             },
-            deleteItem(index){
+            deleteItem(index){    
+                // setTimeout(() => {
+                // console.log(this.pageList)
                 this.pageList.splice(index, 1);
+                // },100)
+                // this.pageList = this.deepClode(this.pageList)
+                // console.log(this.pageList)
+            },
+            deleteClilden(item,num){
+                item.splice(num, 1);
             },
             deepClode(obj){
                 let objClone = Array.isArray(obj)?[]:{};
