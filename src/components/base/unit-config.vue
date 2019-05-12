@@ -77,15 +77,18 @@
                         </div>
                     </el-collapse-item>
                     <el-collapse-item title="设置" name="3">
-                        <p>添加二级组件</p>
-                            <el-select v-model="value" clearable placeholder="请选择" v-if="activiyItem">
-                                <el-option
-                                v-for="item in comlist"
-                                :key="item.name"
-                                :label="item.baseName"
-                                :value="item.name">
-                                </el-option>
-                            </el-select>
+                        <div  v-if="activiyItem && activiyItem.advanceFields">
+                            <p>添加二级组件</p>
+                                <el-select v-model="value" clearable placeholder="请选择">
+                                    <el-option
+                                    v-for="item in comlist"
+                                    :key="item.name"
+                                    :label="item.baseName"
+                                    :value="item.name">
+                                    </el-option>
+                                </el-select>                            
+                        </div>
+
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>

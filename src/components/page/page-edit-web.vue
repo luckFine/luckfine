@@ -30,17 +30,13 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                             </div>        
                         </draggable>  
                     </el-collapse-item>
-                    <el-collapse-item title=" UI 库" name="2">
-
-                        <div v-for="item in stylelist">
-                            <h1  :class="[item.classname]" @click="magicStyle($event)">Magic cube</h1>
-                        </div>
-                        
-                    </el-collapse-item>
-                    <el-collapse-item title="效率 Efficiency" name="3">
+                    <el-collapse-item title=" UI模板库" name="2">
                         <div>简化流程：设计简洁直观的操作流程；</div>
                         <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                        <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                        <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>åå 
+                    </el-collapse-item>
+                    <el-collapse-item title="动效库" name="3">
+                        <style-config></style-config>
                     </el-collapse-item>
                 </el-collapse>             
             </li>
@@ -56,7 +52,7 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
                         <div class="delate" @click="deleteItem(index)">{{index}}</div>
                         <component  v-bind:is="item.name" :itemData='item'></component>
                         <!-- <div> -->
-                            <component v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" class="children"  v-bind:is="ele.name" :itemData='ele'></component>
+                            <component v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
                         <!-- </div> -->
                     </div>        
                 </draggable>  
@@ -82,6 +78,7 @@ import messagebox from '../base/messagebox'
 import submit from './../base/submit'
 import btn from './../base/btn'
 import unitConfig from './../base/unit-config'
+import styleConfig from './../base/style-config'
 import componentsList from './../components-list'
 
 
@@ -140,9 +137,6 @@ import axios from 'axios'
                 this.pageList.push(data)
                 // return id
             },
-            magicStyle(event){
-                animateCSS('.event.target', 'animated')
-            },
             clickItem(item,index){
                 // console.log(this.pageList[index])
                 this.activiyItem = item
@@ -183,9 +177,9 @@ import axios from 'axios'
                 deep:true
             }
         },
-        computed:mapState({
-            stylelist: state => state.compontentList.stylelist
-        }),
+        // computed:mapState({
+        //     stylelist: state => state.compontentList.stylelist
+        // }),
         mounted () {
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
             document.body.ondrop = function (event) {
@@ -206,10 +200,7 @@ import axios from 'axios'
             .catch((error) => {
                 console.log(error);
             });
-
-            this.$store.dispatch('compontentList/getStyleList').then(() => {
-                console.log(this.stylelist)    
-            })      
+    
         },
         components:{
             draggable,
@@ -222,6 +213,7 @@ import axios from 'axios'
             submit,
             messagebox,
             unitConfig,
+            styleConfig,
             btn
         }
     }

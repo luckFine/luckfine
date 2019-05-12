@@ -1,5 +1,13 @@
 
 <style scoped>
+.proName{
+  font-size: 40px;
+  text-align: center;
+  margin-top: 140px;
+}
+.proName span{
+  /* color:  */
+}
 .loginBox{
   width: 100%;
   height: 100%;
@@ -60,10 +68,10 @@
 
 <template>
 <div class="loginBox">
+  <div class="proName">
+      <span>可视化配置</span>平台
+  </div>
   <div class="wrapper-page">
-    <!-- <div class="text-center">
-      <a href="index.html" class="logo"><span>可视化<span>配置</span></span></a>
-    </div> -->
     <div class="m-t-40 card-box">
       <div class="text-center">
         <h4 class="text-uppercase">登录</h4>

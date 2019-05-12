@@ -2,19 +2,139 @@
     "data":[
         {
             "classname":"bounce",
-            "loop":"false"
+            "loop":false
         },
         {
             "classname":"flash",
-            "loop":"false"
+            "loop":false
         },
         {
             "classname":"pulse",
-            "loop":"false"
+            "loop":false
         },
         {
             "classname":"rubberBand",
-            "loop":"false"
+            "loop":false
+        },
+        {
+            "classname":"shake",
+            "loop":false
+        },
+        {
+            "classname":"headShake",
+            "loop":false
+        },
+        {
+            "classname":"swing",
+            "loop":false
+        },
+        {
+            "classname":"tada",
+            "loop":false
+        },
+        {
+            "classname":"wobble",
+            "loop":false
+        },
+        {
+            "classname":"jello",
+            "loop":false
+        },
+        {
+            "classname":"bounceIn",
+            "loop":false
+        },
+        {
+            "classname":"bounceInDown",
+            "loop":false
+        },
+        {
+            "classname":"bounceInLeft",
+            "loop":false
+        },
+        {
+            "classname":"bounceInRight",
+            "loop":false
+        },
+        {
+            "classname":"bounceInUp",
+            "loop":false
+        },
+        {
+            "classname":"bounceOut",
+            "loop":false
+        },
+        {
+            "classname":"bounceOutDown",
+            "loop":false
+        },
+        {
+            "classname":"bounceOutLeft",
+            "loop":false
+        },
+        {
+            "classname":"bounceOutRight",
+            "loop":false
+        },
+        {
+            "classname":"bounceOutUp",
+            "loop":false
+        },
+        {
+            "classname":"fadeIn",
+            "loop":false
+        },
+        {
+            "classname":"fadeInDown",
+            "loop":false
+        },
+        {
+            "classname":"fadeInDownBig",
+            "loop":false
+        },
+        {
+            "classname":"fadeInLeft",
+            "loop":false
+        },
+        {
+            "classname":"fadeInLeftBig",
+            "loop":false
+        },
+        {
+            "classname":"fadeInRight",
+            "loop":false
+        },
+        {
+            "classname":"fadeInRightBig",
+            "loop":false
+        },
+        {
+            "classname":"fadeInUp",
+            "loop":false
+        },
+        {
+            "classname":"fadeInUpBig",
+            "loop":false
+        },
+        {
+            "classname":"fadeOut",
+            "loop":false
+        },
+        {
+            "classname":"fadeOutDown",
+            "loop":false
+        },
+        {
+            "classname":"fadeOutDownBig",
+            "loop":false
+        },
+        {
+            "classname":"fadeOutLeft",
+            "loop":false
+        },
+        {
+            "classname":"fadeOutLeftBig",
+            "loop":false
         }
     ]
 }
