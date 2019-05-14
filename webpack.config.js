@@ -43,12 +43,12 @@ module.exports = {
             template:`./src/luckfine/index.html`
         }),
         new VueLoaderPlugin()
-    ]
-    // devServer: {
-    //     historyApiFallback: {
-    //       index: `/dist/h5/index.html`
-    //     },
-    //     host: '0.0.0.0',
-    //     disableHostCheck: true
-    // }
+    ],
+    devServer: {
+        proxy:{
+            '/actconf/api': {
+                target: 'http://localhost:4008'
+            }
+        }
+    }
 }

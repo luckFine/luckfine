@@ -9,7 +9,9 @@ const Router = require('koa-router');
 // router.delete('/actConf/act',activity.remove);
 
 exports.initRouter = () => {
-    const router = new Router();
+    const router = new Router({
+        prefix:'/actconf/api'
+    });
     return new Promise((resolve,reject) => {
         const dir = path.resolve(__dirname,'../api');
         fs.readdir(dir,(err,files)=>{
