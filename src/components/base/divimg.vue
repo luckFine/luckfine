@@ -14,7 +14,9 @@ import {
     export default {
         props:['itemData'],
         data () {
-            // text: 'demo'
+            return {
+                
+            }
         },
         computed:{
             value(){

@@ -112,11 +112,11 @@
           }          
         ],
         "style":{
-          "width": 120,
-          "height":40,
+          "width": 20,
+          "height":10,
           "font-size":16,
-          "line-height":40,
-          "border-radius":20,
+          "line-height":10,
+          "border-radius":50,
           "position":"absolute",
           "left":20,
           "top":20,

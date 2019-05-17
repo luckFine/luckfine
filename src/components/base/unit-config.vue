@@ -118,7 +118,7 @@ import colorpicker from './colorpicker.vue'
             'line-height':'行高',
             'border-radius':'圆角',
             'left':'距离左边',
-            'top':'距离右边',
+            'top':'距离上方',
             'color':'字体颜色'
         },
         activeNames: ['1'],
@@ -133,8 +133,8 @@ import colorpicker from './colorpicker.vue'
                     return element
                 }            
             })
-            console.log(arr[0])
             this.activiyItem.children.push(arr[0])
+            console.log(this.activiyItem)
         }
     },
     methods: {
@@ -145,6 +145,8 @@ import colorpicker from './colorpicker.vue'
             // console.log(val);
         },
         // changeOption(item){
+        //     console.log('shiwo')
+        //     console.log(item)
         //     this.activiyItem.children.push(item)
         //     console.log(this.activiyItem)
         // },

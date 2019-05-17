@@ -2,7 +2,7 @@
 img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
-    <div class="botton" :style="StyleSheet" >
+    <div class="botton" >
         {{value.labelValue}}
     </div>
 </template>
@@ -14,24 +14,26 @@ import {
     export default {
         props:['itemData'],
         data () {
-  
+            return {
+                
+            }
         },
         computed:{
             value(){
                 if(this.itemData.advanceFields.length===1){
                     return this.itemData.advanceFields[0]
                 }
-            },
-            StyleSheet(){
-                let obj = this.deepClode(this.itemData.style)
-                Object.keys(obj).forEach((key) => {
-                    if( typeof(obj[key]) == 'number'){
-                        let str = obj[key].toString()
-                        obj[key] = str+'px'
-                    }
-                })
-                return obj                
             }
+            // StyleSheet(){
+            //     let obj = this.deepClode(this.itemData.style)
+            //     Object.keys(obj).forEach((key) => {
+            //         if( typeof(obj[key]) == 'number'){
+            //             let str = obj[key].toString()
+            //             obj[key] = str+'px'
+            //         }
+            //     })
+            //     return obj                
+            // }
         },
         watch: {
             itemData:{

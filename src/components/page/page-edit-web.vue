@@ -1,5 +1,5 @@
 <style scoped>
-ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e}
+/* ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e} */
 .comBox{position: relative;}
 .center{text-align: center}
 .pageClass{position: relative;width: 100%;min-height: 100px;}
@@ -9,62 +9,74 @@ ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: bord
 .magic:hover{}
 .children{}
 .childClass{position: absolute;top: 0;left: 0;white-space:nowrap}
+/* 左侧导航 */
+.tabBar{width:100px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;}
+.tabBarContent{width: 300px;position: fixed;top: 0;z-index: 9;transition:left -200px 1s}
+.rightBar{width:350px;position: fixed;right: 0;top: 0;}
+.activityBar{left: 100px;}
 </style>
 <template>
     <div>
-        <ul>
-            <li>
-                <el-collapse v-model="activeNames" @change="handleChange">
-                    <el-collapse-item title="组件库" name="1">
-                        <!-- <h3 class="title">组件库</h3> -->
-                        <draggable 
-                            v-model="listData"  
-                            class="dragArea list-group"
-                       
-            
-                            :clone="cloneDog"
-                            :group="{ name: 'people', pull: 'clone', put: false }"
-                            >
-                            <div v-for="item,index in listData"  class = "drag-item comBox list-group-item" :key="index">
-                                <p class="center">{{item.baseName}}</p>
-                                <component  v-bind:is="item.name" :itemData='item' :source='"default"'></component>
-                            </div>        
-                        </draggable>  
-                    </el-collapse-item>
-                    <el-collapse-item title=" UI模板库" name="2">
-                        <div>简化流程：设计简洁直观的操作流程；</div>
-                        <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                        <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>åå 
-                    </el-collapse-item>
-                    <el-collapse-item title="动效库" name="3">
-                        <style-config></style-config>
-                    </el-collapse-item>
-                </el-collapse>             
+        <ul class="tabBar">
+            <li @click="activity('1')">
+                <i class="el-icon-location"></i>
+                <span slot="title">导航一</span>                    
             </li>
-            <li>
-                <h3 class="title">页面预览</h3>
-                <draggable 
-                    class="dragArea list-group"
-                    v-model="pageList"  
-               
-
-                    group="people"
-                    >
-                    <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
-                        <div class="delate" @click="deleteItem(index)">{{index}}</div>
-                        <component  v-bind:is="item.name" :itemData='item'></component>
-                        <!-- <div class="childClass" v-if="item.children.length>0" v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" >
-                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
-                            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
-                        </div> -->
-                    </div>        
-                </draggable>  
-                <el-button @click="preview">预览</el-button>  
+            <li @click="activity('2')" :class="{'activityBar':activityBar === '2'}">
+                <i class="el-icon-menu"></i>
+                <span slot="title">导航二</span>                    
             </li>
-            <li>
-                <unit-config :activiyItem=activiyItem :wholePage=wholePage></unit-config>
+            <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
+                <i class="el-icon-setting"></i>
+                <span slot="title">导航四</span>
             </li>
         </ul>
+        <div class="tabBarContent" :class="{'activityBar':activityBar === '1'}">
+            <div>
+                <draggable 
+                    v-model="listData"  
+                    class="dragArea list-group"
+                    :clone="cloneDog"
+                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    >
+                    <div v-for="item,index in listData"  class = "drag-item comBox list-group-item" :key="index">
+                        <p class="center">{{item.baseName}}</p>
+                        <component  v-bind:is="item.name" :itemData='item' :source='"default"'></component>
+                    </div>        
+                </draggable>  
+            </div>
+            <div>
+                <div>简化流程：设计简洁直观的操作流程；</div>
+                <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
+                <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>åå                 
+            </div>
+            <div>
+                <style-config></style-config>
+            </div>
+        </div>
+        <div>
+            <draggable 
+                class="dragArea list-group"
+                v-model="pageList"  
+                group="people"
+                >
+                <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
+                    <div class="delate" @click="deleteItem(index)">{{index}}</div>
+                    <component  v-bind:is="item.name" :itemData='item'></component>
+                    <div class="childClass" 
+                        v-if="item.children.length>0" 
+                        v-for="ele,num in item.children" 
+                        @click.prevent.stop="clickItem(ele,num)" 
+                        :style="StyleSheet" >
+                        <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                        <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                    </div>
+                </div>        
+            </draggable>  
+        </div>
+        <div class="rightBar">
+            <unit-config :activiyItem=activiyItem :wholePage=wholePage></unit-config>
+        </div>
         <router-view></router-view>
     </div>
 </template>
@@ -97,22 +109,23 @@ import axios from 'axios'
                 activiyItem:{},
                 activiyIndex:-1,
                 wholePage:'',
-                activeNames: ['1']
+                activityBar:''
             }
         },
         methods:{
             getdata (evt) {
                 console.log(evt.draggedContext.element)
             },
+            activity(num){
+                this.activityBar = num
+            },
             datadragEnd (evt) {
-                // evt.preventDefault();
-                // console.log('拖动前的索引 :' + evt.oldIndex)
-                // console.log('拖动后的索引 :' + evt.newIndex)
                 console.log(this.pageList);
             },
             cloneDog(id ) {
                 let data = this.deepClode(id)
-                this.pageList.push(data)
+                // this.pageList.push(data)
+                return data
             },
             clickItem(item,index){
                 // console.log(this.pageList[index])
@@ -120,15 +133,11 @@ import axios from 'axios'
                 this.activiyIndex = index
             },
             deleteItem(index){    
-                // setTimeout(() => {
-                // console.log(this.pageList)
                 this.pageList.splice(index, 1);
-                // },100)
-                // this.pageList = this.deepClode(this.pageList)
-                // console.log(this.pageList)
             },
             deleteClilden(item,num){
-                item.splice(num, 1);
+                console.log(item)
+                item.children.splice(num, 1);
             },
             deepClode(obj){
                 let objClone = Array.isArray(obj)?[]:{};
@@ -151,7 +160,9 @@ import axios from 'axios'
             preview(){
                 // 保存当前pageList
                 localStorage.setItem('pageList',JSON.stringify(this.pageList))
-                this.$router.push({name:'preview'})
+                let goRouter = this.$router.resolve({name:'preview'})
+                window.open(goRouter.href, '_blank');
+
             }
         },
         watch:{
@@ -162,9 +173,18 @@ import axios from 'axios'
                 deep:true
             }
         },
-        // computed:mapState({
-        //     stylelist: state => state.compontentList.stylelist
-        // }),
+        computed:{
+            StyleSheet(){
+                let obj = this.deepClode(this.activiyItem.style)
+                Object.keys(obj).forEach((key) => {
+                    if( typeof(obj[key]) == 'number'){
+                        let str = obj[key].toString()
+                        obj[key] = str+'%'
+                    }
+                })
+                return obj                
+            }
+        },
         mounted () {
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
             document.body.ondrop = function (event) {

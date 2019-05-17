@@ -15,7 +15,9 @@
 
 <script>
 import leftNav from '../base/left-nav'
-
+import {
+    mapState
+} from 'vuex'
 export default { 
   data() {
     return {
@@ -39,10 +41,17 @@ export default {
         console.log(index, row);
       }
   },
-components:{
-    leftNav
-},
-  mounted() {}
+  components:{
+      leftNav
+  },
+  computed:mapState({
+      dataList: state => state.data.dataList
+  }),
+  mounted() {
+    this.$store.dispatch('data/getList').then(() => {
+      console.log(this.dataList)
+    })
+  }
 };
 </script>
 
