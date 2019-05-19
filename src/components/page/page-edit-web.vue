@@ -5,34 +5,43 @@
 .pageClass{position: relative;width: 100%;min-height: 100px;}
 .pageClass:hover,.childClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate,.childClass:hover .delate{display: block;}
-.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;}
-.magic:hover{}
-.children{}
+.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;z-index: 5}
 .childClass{position: absolute;top: 0;left: 0;white-space:nowrap}
 /* 左侧导航 */
-.tabBar{width:100px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;}
-.tabBarContent{width: 300px;position: fixed;top: 0;z-index: 9;transition:left -200px 1s}
-.rightBar{width:350px;position: fixed;right: 0;top: 0;}
-.activityBar{left: 100px;}
+.tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;padding-top: 50px;box-sizing: border-box;}
+.tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color: #0467ff;}
+.tabBar p{text-align: center;}
+.tabBarContent{width: 200px;position: fixed;top: 0;z-index: 9;left: -200px;background: #fff;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);padding: 10px;box-sizing: border-box;}
+.rightBar{width:350px;position: fixed;right: -350px;top: 10%;background: #fff;z-index: 10;}
+.showRightBar{transition: right 0.7s;right: 0;}
+.showRightBarFalse{transition: right 0.7s;right: -350px;}
+.activityBar{transition: left 0.7s;left: 80px;}
+.activityBarFalse{transition: left 0.7s;left: -200px;}
+/* 主视图 */
+.mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
 </style>
 <template>
-    <div>
+    <div class="pageContent" >
         <ul class="tabBar">
             <li @click="activity('1')">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>                    
+                <i class="el-icon-s-management"></i>
+                <p slot="title">组件库</p>                    
             </li>
             <li @click="activity('2')" :class="{'activityBar':activityBar === '2'}">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>                    
+                <i class="el-icon-s-order"></i>
+                <p slot="title">模板库</p>                    
             </li>
             <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
+                <i class="el-icon-s-open"></i>
+                <p slot="title">动效库</p>
+            </li>
+            <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
+                <i class="el-icon-s-data"></i>
+                <p slot="title">数据分析</p>
             </li>
         </ul>
-        <div class="tabBarContent" :class="{'activityBar':activityBar === '1'}">
-            <div>
+        <div>
+            <div :class="[{'activityBar':activityBar === '1'},'tabBarContent']">
                 <draggable 
                     v-model="listData"  
                     class="dragArea list-group"
@@ -45,12 +54,12 @@
                     </div>        
                 </draggable>  
             </div>
-            <div>
+            <div  :class="[{'activityBar':activityBar === '2'},'tabBarContent']">
                 <div>简化流程：设计简洁直观的操作流程；</div>
                 <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
                 <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>åå                 
             </div>
-            <div>
+            <div  :class="[{'activityBar':activityBar === '3'},'tabBarContent']">
                 <style-config></style-config>
             </div>
         </div>
@@ -63,18 +72,22 @@
                 <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
                     <div class="delate" @click="deleteItem(index)">{{index}}</div>
                     <component  v-bind:is="item.name" :itemData='item'></component>
-                    <div class="childClass" 
-                        v-if="item.children.length>0" 
-                        v-for="ele,num in item.children" 
-                        @click.prevent.stop="clickItem(ele,num)" 
-                        :style="StyleSheet" >
-                        <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
-                        <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                    <div class="mainContent">
+                        <div class="childClass" 
+                            v-if="item.children.length>0" 
+                            v-for="ele,num in item.children" 
+                            @click.prevent.stop="clickItem(ele,num)" 
+                            :style="StyleSheet" >
+                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                        </div>
                     </div>
                 </div>        
-            </draggable>  
+            </draggable>
+            <el-button>预览</el-button>  
+            <el-button type="primary" @click="savePages">保存</el-button>
         </div>
-        <div class="rightBar">
+        <div :class="['rightBar',{'showRightBar':showRightBar},{'showRightBarFalse':!showRightBar}]">
             <unit-config :activiyItem=activiyItem :wholePage=wholePage></unit-config>
         </div>
         <router-view></router-view>
@@ -109,7 +122,8 @@ import axios from 'axios'
                 activiyItem:{},
                 activiyIndex:-1,
                 wholePage:'',
-                activityBar:''
+                activityBar:'',
+                showRightBar:false
             }
         },
         methods:{
@@ -117,7 +131,7 @@ import axios from 'axios'
                 console.log(evt.draggedContext.element)
             },
             activity(num){
-                this.activityBar = num
+                this.activityBar === num ? this.activityBar = '' : this.activityBar = num
             },
             datadragEnd (evt) {
                 console.log(this.pageList);
@@ -131,6 +145,7 @@ import axios from 'axios'
                 // console.log(this.pageList[index])
                 this.activiyItem = item
                 this.activiyIndex = index
+                this.showRightBar = true
             },
             deleteItem(index){    
                 this.pageList.splice(index, 1);
@@ -163,6 +178,13 @@ import axios from 'axios'
                 let goRouter = this.$router.resolve({name:'preview'})
                 window.open(goRouter.href, '_blank');
 
+            },
+            savePages(){
+                this.$store.dispatch('data/savePages',{
+                    entity:this.pageList
+                }).then(() => {
+                    console.log(this.savePage)
+                })
             }
         },
         watch:{
@@ -179,11 +201,12 @@ import axios from 'axios'
                 Object.keys(obj).forEach((key) => {
                     if( typeof(obj[key]) == 'number'){
                         let str = obj[key].toString()
-                        obj[key] = str+'%'
+                        obj[key] = str+'px'
                     }
                 })
                 return obj                
-            }
+            },
+            savePage: state => state.data.savePage
         },
         mounted () {
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
@@ -205,7 +228,15 @@ import axios from 'axios'
             .catch((error) => {
                 console.log(error);
             });
-    
+            let element = document.getElementById('app')
+            element.addEventListener("click",(event) => {
+                if(event.target.id === 'app'){
+                    this.showRightBar = false
+                    event.preventDefault();
+                    event.stopPropagation();                    
+                }
+
+            })
         },
         components:{
             draggable,

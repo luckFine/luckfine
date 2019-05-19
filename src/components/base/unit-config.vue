@@ -21,8 +21,8 @@
 
 <template>
     <div>
-        <h3 class="title">页面配置</h3>
-        <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+        <!-- <h3 class="title">页面配置</h3> -->
+        <el-tabs id="rightTab" v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane label="基本配置" name="first">
                 <div>
                     <p>页面标题</p>
@@ -92,11 +92,11 @@
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
-            <el-tab-pane label="图片上传" name="pic">
+            <!-- <el-tab-pane label="图片上传" name="pic">
                 <div>
                     图片上传
                 </div>                 
-            </el-tab-pane>
+            </el-tab-pane> -->
         </el-tabs>
     </div>
 </template>
@@ -139,7 +139,8 @@ import colorpicker from './colorpicker.vue'
     },
     methods: {
         handleClick(tab, event){
-            // console.log(tab, event);
+            event.preventDefault();
+            event.stopPropagation();
         },
         handleChange(val) {
             // console.log(val);

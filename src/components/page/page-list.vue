@@ -44,13 +44,13 @@ export default {
   components:{
       leftNav
   },
-  computed:mapState({
-      dataList: state => state.data.dataList
-  }),
+  // computed:mapState({
+  //     dataList: state => state.data.dataList
+  // }),
   mounted() {
-    this.$store.dispatch('data/getList').then(() => {
-      console.log(this.dataList)
-    })
+    // this.$store.dispatch('data/getList').then(() => {
+    //   console.log(this.dataList)
+    // })
   }
 };
 </script>
