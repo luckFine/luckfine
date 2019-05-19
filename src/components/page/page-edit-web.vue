@@ -11,7 +11,7 @@
 .tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;padding-top: 50px;box-sizing: border-box;}
 .tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color: #0467ff;}
 .tabBar p{text-align: center;}
-.tabBarContent{width: 200px;position: fixed;top: 0;z-index: 9;left: -200px;background: #fff;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);padding: 10px;box-sizing: border-box;}
+.tabBarContent{width: 200px;position: fixed;top: 0;z-index: 9;left: -200px;background: #fff;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);padding: 10px;box-sizing: border-box;height: 100%;overflow-y: scroll;}
 .rightBar{width:350px;position: fixed;right: -350px;top: 10%;background: #fff;z-index: 10;}
 .showRightBar{transition: right 0.7s;right: 0;}
 .showRightBarFalse{transition: right 0.7s;right: -350px;}
@@ -40,7 +40,7 @@
                 <p slot="title">数据分析</p>
             </li>
         </ul>
-        <div>
+        <!-- <div> -->
             <div :class="[{'activityBar':activityBar === '1'},'tabBarContent']">
                 <draggable 
                     v-model="listData"  
@@ -62,7 +62,7 @@
             <div  :class="[{'activityBar':activityBar === '3'},'tabBarContent']">
                 <style-config></style-config>
             </div>
-        </div>
+        <!-- </div> -->
         <div>
             <draggable 
                 class="dragArea list-group"
