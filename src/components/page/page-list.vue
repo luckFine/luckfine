@@ -50,6 +50,7 @@ export default {
   // }),
   mounted() {
 
+    console.log(equipmentInfo.getBrowserInfo())
   }
 };
 </script>
