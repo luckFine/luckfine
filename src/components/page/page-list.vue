@@ -15,6 +15,7 @@
 
 <script>
 import leftNav from '../base/left-nav'
+import equipmentInfo from '../../utils/equipmentInfo'
 import {
     mapState
 } from 'vuex'
@@ -48,9 +49,7 @@ export default {
   //     dataList: state => state.data.dataList
   // }),
   mounted() {
-    // this.$store.dispatch('data/getList').then(() => {
-    //   console.log(this.dataList)
-    // })
+
   }
 };
 </script>
