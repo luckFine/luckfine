@@ -77,7 +77,7 @@
                             v-if="item.children.length>0" 
                             v-for="ele,num in item.children" 
                             @click.prevent.stop="clickItem(ele,num)" 
-                            :style="StyleSheet" >
+                            :style="StyleSheet(ele)" >
                             <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
                             <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
                         </div>
@@ -181,10 +181,20 @@ import axios from 'axios'
             },
             savePages(){
                 this.$store.dispatch('data/savePages',{
-                    entity:this.pageList
+                    entity:encodeURI(this.pageList)
                 }).then(() => {
                     console.log(this.savePage)
                 })
+            },
+            StyleSheet(ele){
+                let obj = this.deepClode(ele.style)
+                Object.keys(obj).forEach((key) => {
+                    if( typeof(obj[key]) == 'number'){
+                        let str = obj[key].toString()
+                        obj[key] = str+'px'
+                    }
+                })
+                return obj                
             }
         },
         watch:{
@@ -196,16 +206,16 @@ import axios from 'axios'
             }
         },
         computed:{
-            StyleSheet(){
-                let obj = this.deepClode(this.activiyItem.style)
-                Object.keys(obj).forEach((key) => {
-                    if( typeof(obj[key]) == 'number'){
-                        let str = obj[key].toString()
-                        obj[key] = str+'px'
-                    }
-                })
-                return obj                
-            },
+            // StyleSheet(ele){
+            //     let obj = this.deepClode(ele.style)
+            //     Object.keys(obj).forEach((key) => {
+            //         if( typeof(obj[key]) == 'number'){
+            //             let str = obj[key].toString()
+            //             obj[key] = str+'px'
+            //         }
+            //     })
+            //     return obj                
+            // },
             savePage: state => state.data.savePage
         },
         mounted () {
