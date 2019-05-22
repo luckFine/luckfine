@@ -1,8 +1,8 @@
 const Koa = require('koa');
 const body = require('koa-body');
 const serve = require('koa-static');
-const {initDB} = require('./server/db');
-const {initRouter} = require('./server/router');
+const {initDB} = require('./db');
+const {initRouter} = require('./router');
 const server = new Koa();
 server.use(body());
 const init = () =>{

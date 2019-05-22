@@ -1,4 +1,3 @@
-const ActivityService = require('../services/Activity');
 exports.list = async function(ctx, next){
     const data = {
         errCode:0,
@@ -53,7 +52,9 @@ exports.update = async function(ctx, next){
     }
     try{
         const article = new ActivityService();
-        const result = await article.findAll();
+        let entity = ctx.request.body;
+        const result = await article.update(entity);
+        console.log(result);
         data.result = result;
     }catch(e){
         data.errCode = 1;

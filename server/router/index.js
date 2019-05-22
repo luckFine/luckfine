@@ -1,39 +1,69 @@
 const fs = require('fs');
 const path = require('path');
 const Router = require('koa-router');
-// const activity = require('../api/activity');
-// router.get('/actConf/act/list',activity.list);
-// router.get('/actConf/act/:id',activity.detail);
-// router.put('/actConf/act',activity.create);
-// router.post('/actConf/act',activity.update);
-// router.delete('/actConf/act',activity.remove);
 
+function dispatch(action,Controller){
+    // const Controller = action.controllerClass;
+    const name = action.name;
+    const controller = new Controller();
+    return async (ctx,next) => {
+        // console.log('handler request',ctx);
+        // 必须await
+        await controller[name](ctx,next);
+    }
+}
 exports.initRouter = () => {
     const router = new Router({
         prefix:'/actconf/api'
     });
     return new Promise((resolve,reject) => {
-        const dir = path.resolve(__dirname,'../api');
-        fs.readdir(dir,(err,files)=>{
-            if(err){
-                reject(err);
-            }else{
+        console.log('begin to init router...');
+        const startTime = new Date().getTime();
+        const dir = path.resolve(__dirname,'../api/controllers');
+        try{
+            const files = fs.readdirSync(dir);
+            if(files && files.length){
                 for(file of files){
                     const filepath = path.join(dir,file);
-                    const stats = fs.statSync(filepath);
-                    if(stats.isFile()){
-                        const controller = require(filepath);
-                        const basename = path.basename(filepath,'.js');
-                        console.log(basename);
-                        router.get(`/${basename}/list`,controller.list);
-                        router.get(`/${basename}/:id`,controller.detail);
-                        router.put(`/${basename}`,controller.create);
-                        router.post(`/${basename}`,controller.update);
-                        router.delete(`/${basename}`,controller.remove);
-                    }
-                };
-                resolve(router);
+                        const stats = fs.statSync(filepath);
+                        if(stats.isFile()){
+                            if(path.extname(file)!=='.js'){
+                                continue;
+                            }
+                            const Controller = require(filepath);
+                            for(route in Controller._mappingRoutes){
+                                const action = Controller._mappingRoutes[route];
+                                const type = (action.type || 'get').toLocaleLowerCase();
+                                const controllerName = Controller.name;
+                                const _url = `/${controllerName[0].toLocaleLowerCase()+controllerName.substring(1)+route}`
+                                console.log(`init route:[${type}]${_url}`)
+                                switch(type){
+                                    case "get":
+                                        router.get(_url,dispatch(action,Controller));
+                                        break
+                                    case "post":
+                                        router.post(_url,dispatch(action,Controller));
+                                        break;
+                                    case "put":
+                                        router.put(_url,dispatch(action,Controller));
+                                        break;
+                                    case "delete":
+                                        router.delete(_url,dispatch(action,Controller));
+                                        break;
+                                    default: 
+                                        router.all(_url,dispatch(action,Controller));
+                                        break;
+                                }
+                            }
+                        }
+                }
             }
-        });
+            console.log('end...')
+            console.log(`it takes ${new Date().getTime() - startTime} ms`);
+            resolve(router);
+        }catch(e){
+            console.log(e);
+            reject(e);
+        }
     }) 
 }

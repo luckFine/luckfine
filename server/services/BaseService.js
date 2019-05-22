@@ -23,4 +23,28 @@ module.exports = class BaseService{
         const result = await Model.find().exec();
         return result;
     }
+    async update(entity){
+        const Model = this.getModel();
+        try{
+            if(entity._id){
+                const result = await Model.findByIdAndUpdate(entity._id, entity, {new:true}).exec();
+                return result;
+            }else{
+                console.log('update failed:no id found');
+                throw new Exception();
+            }
+        }catch(e){
+            throw new Exception(e);
+        }
+        
+    }
+    async save(entity){
+        let result;
+        if(entity._id){
+            result = await this.update(entity);
+        }else{
+            result = await this.create(entity)
+        }
+        return result;
+    }
 }
