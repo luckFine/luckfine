@@ -1,6 +1,6 @@
 <style scoped>
 .navBox{
-    width: 250px;
+    width: 170px;
     height: 100%;
     position: fixed;
     background-color: rgb(84, 92, 100)
@@ -9,7 +9,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  margin-left: 250px;
+  margin-left: 170px;
 }
 .add{
   background: rgb(84, 92, 100);
@@ -75,14 +75,14 @@
             style="width: 100%"
             :default-sort = "{prop: 'date', order: 'descending'}"
             >
-            <el-table-column
+            <!-- <el-table-column
               prop="time"
               label="创建时间"
               sortable
               width="180">
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
-              prop="creater"
+              prop="creator"
               label="创建者"
               sortable
               width="180">
@@ -96,7 +96,7 @@
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  @click="handleEdit(scope.$index, scope.row,)">编辑</el-button>
                 <el-button
                   size="mini"
                   type="danger"
@@ -106,7 +106,7 @@
           </el-table>
         </template>
       </div>
-      <div class="add">
+      <div class="add" @click="addlist">
         新建
       </div>
     </div>
@@ -114,32 +114,20 @@
 </template>
 
 <script>
-
+import {
+    mapState
+} from 'vuex'
 import axios from 'axios'
 export default {
   name: 'login.vue',
   data() {
     return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+      tableData:'' 
     };
   },
-
+  computed:mapState({
+      dataList: state => state.data.dataList
+  }),
   methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
@@ -147,17 +135,8 @@ export default {
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      getData(listName){
-        axios.get('/magiCube/'+listName, {
-            params: {}
-          })
-          .then((response) => {
-            this.tableData = response.data.data
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      addlist(){
+        this.$router.push({name:'/'})
       },
       handleSelect(key, keyPath) {
         switch (key) 
@@ -168,14 +147,17 @@ export default {
       },
       handleEdit(index, row){
         this.$router.push({name:'/'})
-        console.log(index, row);
       },
       handleDelete(index, row) {
+        // row 为当前整条数据
         console.log(index, row);
       }
   },
   mounted() {
-      this.getData('webData')
+    this.$store.dispatch('data/getList').then(() => {
+      this.tableData = this.dataList.result
+      console.log(this.tableData)
+    })
   }
 };
 </script>

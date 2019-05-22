@@ -21,8 +21,8 @@
 
 <template>
     <div>
-        <h3 class="title">页面配置</h3>
-        <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+        <!-- <h3 class="title">页面配置</h3> -->
+        <el-tabs id="rightTab" v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane label="基本配置" name="first">
                 <div>
                     <p>页面标题</p>
@@ -92,11 +92,11 @@
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
-            <el-tab-pane label="图片上传" name="pic">
+            <!-- <el-tab-pane label="图片上传" name="pic">
                 <div>
                     图片上传
                 </div>                 
-            </el-tab-pane>
+            </el-tab-pane> -->
         </el-tabs>
     </div>
 </template>
@@ -118,7 +118,7 @@ import colorpicker from './colorpicker.vue'
             'line-height':'行高',
             'border-radius':'圆角',
             'left':'距离左边',
-            'top':'距离右边',
+            'top':'距离上方',
             'color':'字体颜色'
         },
         activeNames: ['1'],
@@ -133,18 +133,21 @@ import colorpicker from './colorpicker.vue'
                     return element
                 }            
             })
-            console.log(arr[0])
             this.activiyItem.children.push(arr[0])
+            console.log(this.activiyItem)
         }
     },
     methods: {
         handleClick(tab, event){
-            // console.log(tab, event);
+            event.preventDefault();
+            event.stopPropagation();
         },
         handleChange(val) {
             // console.log(val);
         },
         // changeOption(item){
+        //     console.log('shiwo')
+        //     console.log(item)
         //     this.activiyItem.children.push(item)
         //     console.log(this.activiyItem)
         // },
