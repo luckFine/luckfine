@@ -37,12 +37,11 @@ export default {
       commit,
       rootState,
       state
-    }, options) {
+    }, page) {
       return $.ajax({
         url: '/actconf/api/activity/create',
-        data:{
-          entity:options.entity
-        },
+        type:'post',
+        data:page,
         dataType: 'json'
       }).then(data => {
           console.log(options.entity)

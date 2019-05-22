@@ -71,6 +71,23 @@ class BaseController{
         }
         ctx.body = data;
     }
+    @post('/save')
+    async save(){
+        const data = {
+            errCode:0,
+            msg:'success'
+        }
+        try{
+            let entity = ctx.request.body;
+            const result = await this.service.save(entity);
+            console.log(result);
+            data.result = result;
+        }catch(e){
+            data.errCode = 1;
+            data.msg = 'failed';
+        }
+        ctx.body = data;
+    }
     @del('/remove/:id')
     async del(ctx,next){
     }

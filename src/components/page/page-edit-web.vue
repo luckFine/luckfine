@@ -181,7 +181,8 @@ import axios from 'axios'
             },
             savePages(){
                 this.$store.dispatch('data/savePages',{
-                    entity:encodeURI(this.pageList)
+                    content:this.pageList
+                    // entity:encodeURI(this.pageList)
                 }).then(() => {
                     console.log(this.savePage)
                 })
