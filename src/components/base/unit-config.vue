@@ -39,12 +39,25 @@
                             <div v-if="item.label === 'divimg'">
                                 <p>{{item.describe}}</p>
                                 <el-input v-model="item.labelValue" placeholder="">
-                                    
                                     <div slot="prepend" class="uploadButton">
-                                        <p>选择图片</p>
-                                        <input type="file" name="files" @click="upload($event,item,index)" class="disableSee" >
+                                        <p>输入图片地址</p>
                                     </div>
-                                </el-input>                                   
+                                </el-input>   
+                                <div slot="prepend" class="uploadButton">
+                                    <el-upload
+                                        class="upload-demo"
+                                        enctype="multipart/form-data"
+                                        name='files'
+                                        action="https://up0.z3quant.com/z3upload/api/upload/multi"
+                                        :headers='headers'
+                                        :data='upLoadData'
+                                        :show-file-list='false'
+                                        multiple
+                                        :on-success="success"
+                                        >
+                                        <el-button size="small" type="primary">选择图片</el-button>
+                                    </el-upload>
+                                </div>                             
                             </div>
                             <!-- 一级配置 -->
                             <div v-if="item.label === 'input'">   
@@ -121,8 +134,17 @@ import colorpicker from './colorpicker.vue'
             'top':'距离上方',
             'color':'字体颜色'
         },
+        headers:{
+            'enctype':'multipart/form-data'
+        },
         activeNames: ['1'],
-        value: ''
+        value: '',
+        piclist:[],
+        upLoadData:{
+          org:'dfzq',
+          files:''
+        },
+        morePicArr:[]
       };
     },
     props:['activiyItem','wholePage'],
@@ -134,7 +156,11 @@ import colorpicker from './colorpicker.vue'
                 }            
             })
             this.activiyItem.children.push(arr[0])
-            console.log(this.activiyItem)
+        },
+        morePicArr:{
+            handler(val){
+                this.$emit('input',val)
+            }
         }
     },
     methods: {
@@ -145,39 +171,17 @@ import colorpicker from './colorpicker.vue'
         handleChange(val) {
             // console.log(val);
         },
-        // changeOption(item){
-        //     console.log('shiwo')
-        //     console.log(item)
-        //     this.activiyItem.children.push(item)
-        //     console.log(this.activiyItem)
-        // },
-        upload(e,item,index){
-            var self = this;
-            var xhr, formData;
-            xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
-            xhr.open('POST', 'https://up0.z3quant.com/z3upload/api/upload/multi');
-            xhr.setRequestHeader('enctype','multipart/form-data');
-            xhr.onload = function() {
-            var json;
-            if (xhr.status !== 200) {
-                alert('HTTP Error: ' + xhr.status);
-                return;
+        success(response, file, fileList){
+            if(fileList.length>1){
+                this.morePicArr = fileList.map((currentValue,index,arr) => {
+                    let a = currentValue['name'].split('.')
+                    return a[0].substring(a[0].length-2)
+                })
+                this.morePicArr = morePicArr.sort()                
             }
-            json = JSON.parse(xhr.responseText);
-            if (!json || typeof json.files[0].uri !== 'string') {
-                alert('Invalid JSON: ' + xhr.responseText);
-                return;
-            }
-                console.log(json.files[0].uri)
-                item.labelValue = json.files[0].uri
-            };
-            formData = new FormData();
-            formData.append('org', 'dfzq');
-            // formData.append('files', blobInfo.filename());
-            // console.log(e.target.files[0].name)
-            formData.append('files', e.target.files[0], e.target.files[0].name);
-            xhr.send(formData);            // console.log(e.target.files
+
+            // console.log(file)
+            // console.log(fileList)
         }
     },
     computed:mapState({

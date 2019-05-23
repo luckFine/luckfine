@@ -9,7 +9,7 @@ export default {
   state: {
     // 初始化时，务必要把所有的数据成员做初始化，否则后面数据的更新，将不会触发显示的更新
     dataList: [],
-    savePage:''
+    savePageResult:''
   },
   mutations: {
     setData(state, res) {
@@ -44,7 +44,6 @@ export default {
         data:page,
         dataType: 'json'
       }).then(data => {
-          console.log(options.entity)
           commit('savePage', data)
       })
     }

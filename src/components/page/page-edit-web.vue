@@ -1,5 +1,5 @@
 <style scoped>
-/* ul>li{width: 33.3%;float: left;min-height: 1000px;padding: 10px;box-sizing: border-box;border:1px solid #8e8e8e} */
+/* .viewBox{width: 100%;min-height:800px;} */
 .comBox{position: relative;}
 .center{text-align: center}
 .pageClass{position: relative;width: 100%;min-height: 100px;}
@@ -7,6 +7,7 @@
 .pageClass:hover .delate,.childClass:hover .delate{display: block;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;z-index: 5}
 .childClass{position: absolute;top: 0;left: 0;white-space:nowrap}
+.bottomBox{width:100%;height:60px;position: fixed;left: 0;bottom: 0;z-index: 20;}
 /* 左侧导航 */
 .tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;padding-top: 50px;box-sizing: border-box;}
 .tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color: #0467ff;}
@@ -19,6 +20,18 @@
 .activityBarFalse{transition: left 0.7s;left: -200px;}
 /* 主视图 */
 .mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
+/* .pageContent:after{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '将组件拖拽到此处';
+    font-size: 30px;
+    line-height: 600px;
+    color: #d8d8d8;
+} */
 </style>
 <template>
     <div class="pageContent" >
@@ -65,7 +78,7 @@
         <!-- </div> -->
         <div>
             <draggable 
-                class="dragArea list-group"
+                class="dragArea viewBox  list-group"
                 v-model="pageList"  
                 group="people"
                 >
@@ -84,6 +97,8 @@
                     </div>
                 </div>        
             </draggable>
+        </div>
+        <div class="bottomBox">
             <el-button>预览</el-button>  
             <el-button type="primary" @click="savePages">保存</el-button>
         </div>
@@ -180,11 +195,15 @@ import axios from 'axios'
 
             },
             savePages(){
+                let str = this.pageList
                 this.$store.dispatch('data/savePages',{
-                    content:this.pageList
-                    // entity:encodeURI(this.pageList)
+                    content:str
                 }).then(() => {
-                    console.log(this.savePage)
+                    // 保存成功
+                    this.$message({
+                        message: '保存成功',
+                        type: 'success'
+                    });
                 })
             },
             StyleSheet(ele){
@@ -217,7 +236,7 @@ import axios from 'axios'
             //     })
             //     return obj                
             // },
-            savePage: state => state.data.savePage
+            savePage: state => state.data.savePageResult
         },
         mounted () {
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
