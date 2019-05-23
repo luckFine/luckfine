@@ -29,7 +29,8 @@ class BaseController{
             msg:'success'
         }
         try{
-            const result = await this.service.findAll();
+            const id = ctx.params.id;
+            const result = await this.service.findById(id);
             data.result = result;
         }catch(e){
             data.errCode = 1;

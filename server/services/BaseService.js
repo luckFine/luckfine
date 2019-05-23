@@ -23,6 +23,11 @@ module.exports = class BaseService{
         const result = await Model.find().exec();
         return result;
     }
+    async findById(id){
+        const Model = this.getModel();
+        const result = await Model.findById(id).exec();
+        return result;
+    }
     async update(entity){
         const Model = this.getModel();
         try{
