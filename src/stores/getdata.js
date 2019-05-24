@@ -9,7 +9,9 @@ export default {
   state: {
     // 初始化时，务必要把所有的数据成员做初始化，否则后面数据的更新，将不会触发显示的更新
     dataList: [],
-    savePageResult:''
+    savePageResult:'',
+    morePicArr:[],
+    pageDetailData:''
   },
   mutations: {
     setData(state, res) {
@@ -18,6 +20,12 @@ export default {
     savePage(state, res) {
       state.savePage = res;
     },
+    setMorePicArr(state, res) {
+      state.morePicArr = res;
+    },
+    pageDetail(state, res) {
+      state.pageDetailData = res;
+    }
   },
   // 浏览器环境才可以使用actions来获取数据，服务端应该用Node.js的方式获取数据后，通过mutations同步的把数据存入到store
   actions: {
@@ -37,15 +45,32 @@ export default {
       commit,
       rootState,
       state
-    }, page) {
+    }, options) {
       return $.ajax({
         url: '/actconf/api/activity/create',
         type:'post',
-        data:page,
+        data:{
+          content:options.content,
+          wholePage:options.wholePage,
+          _id:options._id
+        },
         dataType: 'json'
       }).then(data => {
           commit('savePage', data)
       })
-    }
+    },
+    pageDetail({
+      commit,
+      rootState,
+      state
+    }, options) {
+      return $.ajax({
+        url: '/actconf/api/activity/detail/'+options.id,
+        dataType: 'json'
+      }).then(data => {
+          console.log(data)
+          commit('pageDetail', data)
+      })
+    },
   }
 }

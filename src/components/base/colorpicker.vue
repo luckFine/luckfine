@@ -8,6 +8,11 @@
       return {
         color: ''
       }
+    },
+    watch:{
+      color(){
+        this.$emit('colorpicker',this.color)
+      }
     }
   };
 </script>

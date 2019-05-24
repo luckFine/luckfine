@@ -2,7 +2,7 @@
 /* .viewBox{width: 100%;min-height:800px;} */
 .comBox{position: relative;}
 .center{text-align: center}
-.pageClass{position: relative;width: 100%;min-height: 100px;}
+.pageClass{position: relative;width: 100%;}
 .pageClass:hover,.childClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate,.childClass:hover .delate{display: block;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;z-index: 5}
@@ -84,7 +84,7 @@
                 >
                 <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
                     <div class="delate" @click="deleteItem(index)">{{index}}</div>
-                    <component  v-bind:is="item.name" :itemData='item'></component>
+                    <component  v-bind:is="item.name" :itemData='item' :source='"visual"'></component>
                     <div class="mainContent">
                         <div class="childClass" 
                             v-if="item.children.length>0" 
@@ -136,7 +136,10 @@ import axios from 'axios'
                 pageList:[], // 当前选中组件
                 activiyItem:{},
                 activiyIndex:-1,
-                wholePage:'',
+                wholePage:{
+                    title:'',
+                    backgroud:'#e6e6e6'
+                },
                 activityBar:'',
                 showRightBar:false
             }
@@ -196,8 +199,11 @@ import axios from 'axios'
             },
             savePages(){
                 let str = this.pageList
+                let wholePage = this.wholePage
                 this.$store.dispatch('data/savePages',{
-                    content:str
+                    content:str,
+                    // wholePage:wholePage,
+                    _id:this.$route.params.id
                 }).then(() => {
                     // 保存成功
                     this.$message({
@@ -223,9 +229,28 @@ import axios from 'axios'
                     // console.log(this.pageList)
                 },
                 deep:true
+            },
+            morePicArr:{
+                handler(){
+                    let data = {
+                        'name':'divimg',
+                        'baseName':'静态部分',
+                        'advanceFields':[
+                            {
+                            'label':'divimg',
+                            'describe':'图片地址',
+                            'labelValue':'' 
+                        }
+                        ],
+                        'children':[]
+                    }
+                    data.advanceFields[0].labelValue = this.morePicArr
+                    this.pageList.push(data)
+                },
+                deep:true
             }
         },
-        computed:{
+        computed:mapState({
             // StyleSheet(ele){
             //     let obj = this.deepClode(ele.style)
             //     Object.keys(obj).forEach((key) => {
@@ -236,10 +261,26 @@ import axios from 'axios'
             //     })
             //     return obj                
             // },
-            savePage: state => state.data.savePageResult
-        },
+            savePage: state => state.data.savePageResult,
+            morePicArr: state => state.data.morePicArr,
+            pageDetailData: state => state.data.pageDetailData
+        }),
         mounted () {
-	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
+            //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
+            if(this.$route.params.id){
+                alert('编辑')
+                this.$store.dispatch('data/pageDetail',{
+                    id:this.$route.params.id
+                }).then(() => {
+                    if(this.pageDetailData.errCode === 0){
+                        this.pageList = this.pageDetailData.result.content
+                    }
+                    
+                    // console.log(this.pageDetailData)
+                })
+            }else{
+                alert('新建')
+            }
             document.body.ondrop = function (event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -252,8 +293,6 @@ import axios from 'axios'
             .then((response) => {
                 let da = response.data
                 this.listData = da.data
-                this.wholePage = da.whole
-                document.title = this.wholePage.title
             })
             .catch((error) => {
                 console.log(error);

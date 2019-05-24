@@ -1,10 +1,6 @@
 
 {
     "result": "success",
-    "whole":{
-      "backgroundColor":"#333",
-      "title":"测试页面"
-    },
     "data": [
       {
         "name":"divimg",

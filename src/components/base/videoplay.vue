@@ -1,6 +1,6 @@
 <template>
     <div :style="StyleSheet" >
-        <video :src="value.labelValue" autoplay controls></video>
+        <video :src="value.labelValue"  controls></video>
     </div>   
 </template>
     

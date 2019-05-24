@@ -146,7 +146,7 @@ export default {
         }
       },
       handleEdit(index, row){
-        this.$router.push({name:'/'})
+        this.$router.push({name:'/',params:{id:row._id}})
       },
       handleDelete(index, row) {
         // row 为当前整条数据

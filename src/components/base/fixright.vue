@@ -1,12 +1,12 @@
 <style scoped>
 .fixright{width:157px;height:260px;}
 .fixright img{width:157px;}
-.fixrightValue{position: fixed;top: 35%;right: 0;width: 100%;width:157px;height:260px;}
+.fixrightValue{position: fixed;top: 35%;right: 0;width: 100%;width:157px;height:260px;z-index: 9}
 .fixrightValue img{width:157px;}
 </style>
 <template>
-    <div class="fixright">
-        <img v-if="itemData.advanceFields" :src="value.labelValue" :class="source === 'default' ? 'fixright' : 'fixrightValue'" >
+    <div class="fixright"  :class="source === 'default' ? 'fixright' : 'fixrightValue'" >
+        <img v-if="itemData.advanceFields" :src="value.labelValue">
     </div>
 </template>
 <script>

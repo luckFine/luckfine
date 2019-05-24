@@ -28,7 +28,7 @@
                     <p>页面标题</p>
                     <el-input v-model="wholePage.title" placeholder=""></el-input>  
                     <p>页面背景</p>
-                    <colorpicker></colorpicker>
+                    <colorpicker v-on:colorpicker="bgcolor"></colorpicker>
                 </div>                 
             </el-tab-pane>
             <el-tab-pane label="内容配置" name="second">
@@ -119,6 +119,7 @@ import {
     mapState
 } from 'vuex'
 import colorpicker from './colorpicker.vue'
+import { setTimeout } from 'timers';
   export default {
     data() {
       return {
@@ -161,6 +162,13 @@ import colorpicker from './colorpicker.vue'
             handler(val){
                 this.$emit('input',val)
             }
+        },
+        wholePage:{
+            handler(val){
+                document.title = this.wholePage.title
+                document.body.style.background = this.wholePage.backgroud;
+            },
+            deep:true
         }
     },
     methods: {
@@ -171,21 +179,19 @@ import colorpicker from './colorpicker.vue'
         handleChange(val) {
             // console.log(val);
         },
+        bgcolor(data){
+            this.wholePage.backgroud = data
+        },
         success(response, file, fileList){
             if(fileList.length>1){
-                this.morePicArr = fileList.map((currentValue,index,arr) => {
-                    let a = currentValue['name'].split('.')
-                    return a[0].substring(a[0].length-2)
-                })
-                this.morePicArr = morePicArr.sort()                
+                this.morePicArr = file.response.files[0].uri
+                this.$store.commit('data/setMorePicArr',this.morePicArr)               
             }
-
-            // console.log(file)
-            // console.log(fileList)
         }
     },
     computed:mapState({
-        comlist: state => state.compontentList.comlist
+        comlist: state => state.compontentList.comlist,
+        morePicArr: state => state.data.morePicArr
     }),
     components:{
         colorpicker
