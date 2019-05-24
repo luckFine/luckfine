@@ -73,7 +73,7 @@ class BaseController{
         ctx.body = data;
     }
     @post('/save')
-    async save(){
+    async save(ctx,next){
         const data = {
             errCode:0,
             msg:'success'
@@ -91,6 +91,24 @@ class BaseController{
     }
     @del('/remove/:id')
     async del(ctx,next){
+        const data = {
+            errCode:0,
+            msg:'success'
+        }
+        try{
+            let id = ctx.params.id
+            if(id){
+                await this.service.removeById(entity);
+            }else{
+                let ids = ctx.query.ids;
+                ids = ids.split(',');
+                await this.service.remove(ids);
+            } 
+        }catch(e){
+            data.errCode = 1;
+            data.msg = 'failed';
+        }
+        ctx.body = data;
     }
 }
 module.exports = BaseController

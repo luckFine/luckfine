@@ -9,10 +9,9 @@ module.exports = class BaseService{
         }
         return this.Model;
     }
-    findById(id){
-        
-    }
     async create(entity){
+        const createTime = new Date().getTime();
+        entity = {...entity,createTime};
         const Model = this.getModel();
         const model = new Model(entity);
         const result = await model.save();
@@ -51,5 +50,14 @@ module.exports = class BaseService{
             result = await this.create(entity)
         }
         return result;
+    }
+    async removeById(id){
+        if(id === undefined){
+            return 
+        }
+        await Model.findbyIdAndRemove(id);
+    }
+    async remove(ids){
+        // await Model.
     }
 }

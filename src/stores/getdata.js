@@ -47,7 +47,7 @@ export default {
       state
     }, options) {
       return $.ajax({
-        url: '/actconf/api/activity/create',
+        url: '/actconf/api/activity/save',
         type:'post',
         data:{
           content:options.content,
