@@ -39,33 +39,23 @@ export default {
       rootState,
       state
     }, options) {
-      return axios.get('/actconf/api/activity/list').then(() => {
-        commit('setData', data)
+      return axios.get('/actconf/api/activity/list').then((data) => {
+        commit('setData', data.data)
       })
-      
-      // $.ajax({
-      //   url: '/actconf/api/activity/list',
-      //   dataType: 'json'
-      // }).then(data => {
-          
-      // })
     },
     savePages({
       commit,
       rootState,
       state
     }, options) {
-      return $.ajax({
-        url: '/actconf/api/activity/save',
-        type:'post',
-        data:{
+      return axios.get('/actconf/api/activity/save',{
+        params:{
           content:options.content,
           wholePage:options.wholePage,
           _id:options._id
-        },
-        dataType: 'json'
-      }).then(data => {
-          commit('savePage', data)
+        }        
+      }).then((data) => {
+        commit('savePage', data)
       })
     },
     pageDetail({
@@ -85,12 +75,8 @@ export default {
       rootState,
       state
     }, options) {
-      return $.ajax({
-        url: '/actconf/api/activity/remove/'+options.id,
-        dataType: 'json'
-      }).then(data => {
-          console.log(data)
-          commit('deleteResult', data)
+      return axios.delete('/actconf/api/activity/remove/'+options.id).then((data) => {
+        commit('setData', data.data)
       })
     },
   }
