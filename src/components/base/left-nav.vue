@@ -126,7 +126,8 @@ export default {
     };
   },
   computed:mapState({
-      dataList: state => state.data.dataList
+      dataList: state => state.data.dataList,
+      deleteResult: state => state.data.deleteResult
   }),
   methods: {
       handleOpen(key, keyPath) {
@@ -151,6 +152,11 @@ export default {
       handleDelete(index, row) {
         // row 为当前整条数据
         console.log(index, row);
+        this.$store.dispatch('data/deleteItem',{
+          id:row._id
+        }).then(() => {
+          console.log(this.deleteResult)
+        })
       }
   },
   mounted() {

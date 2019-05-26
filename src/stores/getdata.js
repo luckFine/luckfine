@@ -4,6 +4,7 @@
  */
 
 import $ from 'jquery'
+import axios from 'axios'
 export default {
   namespaced: true,
   state: {
@@ -11,7 +12,8 @@ export default {
     dataList: [],
     savePageResult:'',
     morePicArr:[],
-    pageDetailData:''
+    pageDetailData:'',
+    deleteResult:''
   },
   mutations: {
     setData(state, res) {
@@ -25,6 +27,9 @@ export default {
     },
     pageDetail(state, res) {
       state.pageDetailData = res;
+    },
+    deleteResult(state, res) {
+      state.deleteResult = res;
     }
   },
   // 浏览器环境才可以使用actions来获取数据，服务端应该用Node.js的方式获取数据后，通过mutations同步的把数据存入到store
@@ -34,12 +39,16 @@ export default {
       rootState,
       state
     }, options) {
-      return $.ajax({
-        url: '/actconf/api/activity/list',
-        dataType: 'json'
-      }).then(data => {
-          commit('setData', data)
+      return axios.get('/actconf/api/activity/list').then(() => {
+        commit('setData', data)
       })
+      
+      // $.ajax({
+      //   url: '/actconf/api/activity/list',
+      //   dataType: 'json'
+      // }).then(data => {
+          
+      // })
     },
     savePages({
       commit,
@@ -68,8 +77,20 @@ export default {
         url: '/actconf/api/activity/detail/'+options.id,
         dataType: 'json'
       }).then(data => {
-          console.log(data)
           commit('pageDetail', data)
+      })
+    },
+    deleteItem({
+      commit,
+      rootState,
+      state
+    }, options) {
+      return $.ajax({
+        url: '/actconf/api/activity/remove/'+options.id,
+        dataType: 'json'
+      }).then(data => {
+          console.log(data)
+          commit('deleteResult', data)
       })
     },
   }
