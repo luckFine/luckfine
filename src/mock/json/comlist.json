@@ -36,6 +36,15 @@
             ]
           }
         ],
+        "style":{
+          "width": 480,
+          "height":200,
+          "border-radius":50,
+          "position":"absolute",
+          "left":20,
+          "top":20,
+          "overflow":"hidden"
+        },
         "children":[]
       },
       {
@@ -47,7 +56,16 @@
             "describe":"视频地址",
             "labelValue":"http://flv.jrj.com.cn/video/2018/06/ab2fbdfd7f53c9479135bfcfa5b574da_201806021412.mp4" 
           }          
-        ]
+        ],
+        "style":{
+          "width": 480,
+          "height":200,
+          "border-radius":50,
+          "position":"absolute",
+          "left":20,
+          "top":20,
+          "overflow":"hidden"
+        }
       },
       {
         "name":"fixbottom",
@@ -79,10 +97,28 @@
         "advanceFields":[
             {
             "label":"input",
-            "describe":"图片地址",
-            "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
-          }          
+            "describe":"提示标题",
+            "labelValue":"可在此输入提示标题" 
+          },
+          {
+            "label":"input",
+            "describe":"提示内容",
+            "labelValue":"可在此输入提示标题" 
+          }           
         ],
+        "style":{
+          "width": 150,
+          "height":40,
+          "font-size":16,
+          "line-height":40,
+          "border-radius":50,
+          "position":"absolute",
+          "left":20,
+          "top":20,
+          "color":"#fff",
+          "background-color":"skyblue",
+          "background":"url('http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg')"
+        },
         "children":[]
       },
       {
@@ -117,7 +153,8 @@
           "left":20,
           "top":20,
           "color":"#fff",
-          "background":"skyblue"
+          "background-color":"skyblue",
+          "background":"url('http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg')"
         },
         "event":{
           "describe":"添加跳转链接",
