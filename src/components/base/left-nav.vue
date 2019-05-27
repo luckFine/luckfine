@@ -75,20 +75,20 @@
             style="width: 100%"
             :default-sort = "{prop: 'date', order: 'descending'}"
             >
-            <!-- <el-table-column
-              prop="time"
+            <el-table-column
+              prop="createTime"
               label="创建时间"
               sortable
               width="180">
-            </el-table-column> -->
+            </el-table-column>
             <el-table-column
-              prop="creator"
+              prop="wholePage.creater"
               label="创建者"
               sortable
               width="180">
             </el-table-column>
             <el-table-column
-              prop="title"
+              prop="wholePage.title"
               label="标题"
               :formatter="formatter">
             </el-table-column>
@@ -118,6 +118,7 @@ import {
     mapState
 } from 'vuex'
 import axios from 'axios'
+import { setTimeout } from 'timers';
 export default {
   name: 'login.vue',
   data() {
@@ -145,6 +146,8 @@ export default {
           case "1":
           this.getData('webData')
         }
+        
+        
       },
       handleEdit(index, row){
         this.$router.push({name:'/',params:{id:row._id}})
@@ -155,15 +158,28 @@ export default {
         this.$store.dispatch('data/deleteItem',{
           id:row._id
         }).then(() => {
-          console.log(this.deleteResult)
+          if(this.deleteResult.errCode === 0){
+            this.$message({
+                message: '删除成功',
+                type: 'success'
+            });
+            setTimeout(() => {
+              this.getList()
+            },1000)
+          }else{
+            this.$message.error('删除失败');
+          }
+
         })
+      },
+      getList(){
+        this.$store.dispatch('data/getList').then(() => {
+          this.tableData = this.dataList.result
+        })        
       }
   },
   mounted() {
-    this.$store.dispatch('data/getList').then(() => {
-      this.tableData = this.dataList.result
-      console.log(this.tableData)
-    })
+      this.getList()
   }
 };
 </script>

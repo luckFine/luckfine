@@ -48,12 +48,10 @@ export default {
       rootState,
       state
     }, options) {
-      return axios.get('/actconf/api/activity/save',{
-        params:{
+      return axios.post('/actconf/api/activity/save',{
           content:options.content,
           wholePage:options.wholePage,
-          _id:options._id
-        }        
+          _id:options._id     
       }).then((data) => {
         commit('savePage', data)
       })
@@ -76,7 +74,7 @@ export default {
       state
     }, options) {
       return axios.delete('/actconf/api/activity/remove/'+options.id).then((data) => {
-        commit('setData', data.data)
+        commit('deleteResult', data.data)
       })
     },
   }

@@ -33,6 +33,8 @@
                     <el-input v-model="wholePage.title" placeholder=""></el-input>  
                     <p>页面背景</p>
                     <colorpicker v-on:colorpicker="bgcolor"></colorpicker>
+                    <p>创建者</p>
+                    <el-input v-model="wholePage.creater" placeholder=""></el-input>  
                 </div>                 
             </el-tab-pane>
             <el-tab-pane label="内容配置" name="second">
@@ -206,6 +208,7 @@ import { setTimeout } from 'timers';
     },
     mounted () {
         this.$store.dispatch('compontentList/getCompontentList')
+        console.log(this.wholePage)
     }
   }
 </script>

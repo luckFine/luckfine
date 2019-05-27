@@ -99,6 +99,7 @@
             </draggable>
         </div>
         <div class="bottomBox">
+            <el-button @click="cancel">取消</el-button>  
             <el-button>预览</el-button>  
             <el-button type="primary" @click="savePages">保存</el-button>
         </div>
@@ -156,8 +157,10 @@ import axios from 'axios'
             },
             cloneDog(id ) {
                 let data = this.deepClode(id)
-                // this.pageList.push(data)
                 return data
+            },
+            cancel(){
+               this.$router.push({name:'/list'}) 
             },
             clickItem(item,index){
                 // console.log(this.pageList[index])
@@ -199,20 +202,24 @@ import axios from 'axios'
             },
             savePages(){
                 localStorage.setItem('pageList',JSON.stringify(this.pageList))
-                alert('保存成功')
-                // let str = this.pageList
-                // let wholePage = this.wholePage
-                // this.$store.dispatch('data/savePages',{
-                //     content:str,
-                //     // wholePage:wholePage,
-                //     _id:this.$route.params.id
-                // }).then(() => {
-                //     // 保存成功
-                //     this.$message({
-                //         message: '保存成功',
-                //         type: 'success'
-                //     });
-                // })
+                let str = this.pageList
+                let wholePage = this.wholePage
+                this.$store.dispatch('data/savePages',{
+                    content:str,
+                    wholePage:wholePage,
+                    _id:this.$route.params.id
+                }).then(() => {
+                    // 保存成功
+                    this.$message({
+                        message: '保存成功',
+                        type: 'success'
+                    });
+
+                    setTimeout(() => {
+                        this.$router.go(-1);
+                    }, 1000);
+
+                })
             },
             StyleSheet(ele){
                 let obj = this.deepClode(ele.style)
@@ -276,9 +283,8 @@ import axios from 'axios'
                 }).then(() => {
                     if(this.pageDetailData.errCode === 0){
                         this.pageList = this.pageDetailData.result.content
+                        this.wholePage = this.pageDetailData.result.wholePage
                     }
-                    
-                    // console.log(this.pageDetailData)
                 })
             }else{
                 alert('新建')
