@@ -98,7 +98,7 @@ class BaseController{
         try{
             let id = ctx.params.id
             if(id){
-                await this.service.removeById(entity);
+                await this.service.removeById(id);
             }else{
                 let ids = ctx.query.ids;
                 ids = ids.split(',');

@@ -19,7 +19,7 @@ module.exports = class BaseService{
     }
     async findAll(){
         const Model = this.getModel();
-        const result = await Model.find().exec();
+        const result = await Model.find({status:{$ne:"removed"}}).exec();
         return result;
     }
     async findById(id){
@@ -40,7 +40,6 @@ module.exports = class BaseService{
         }catch(e){
             throw new Exception(e);
         }
-        
     }
     async save(entity){
         let result;
@@ -55,7 +54,13 @@ module.exports = class BaseService{
         if(id === undefined){
             return 
         }
-        await Model.findbyIdAndRemove(id);
+        try{
+            const Model = this.getModel();
+            await Model.findByIdAndUpdate(id, {status:'removed'}).exec();
+        }catch(e){
+            throw new Exception(e);
+        }
+        
     }
     async remove(ids){
         // await Model.
