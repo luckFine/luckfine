@@ -17,6 +17,10 @@
         width: 50px;
         /* position: relative; */
     }
+    div >>>.el-tabs__content{
+        height: 600px;
+        overflow-y: scroll;
+    }
 </style>
 
 <template>
@@ -77,15 +81,18 @@
                         <div class="styleBox" v-for="(val,key,index) in activiyItem.style"  v-if="characters[key]">
                             <p>{{characters[key]}}</p>
                             <!-- <el-input v-model="activiyItem.style[key]" placeholder=""></el-input>   -->
-                            <div v-if="key !== 'color' && key !== 'background'" class="block">
+                            <div v-if="key !== 'color' && key !== 'background-color' && key !== 'background'" class="block">
                                 <el-slider
                                 v-model="activiyItem.style[key]"
                                 max=1000
                                 show-input>
                                 </el-slider>
                             </div>
-                            <div v-if="key === 'color' || key === 'background'">
+                            <div v-if="key === 'color' || key === 'background-color'">
                                 <el-color-picker v-model="activiyItem.style[key]" show-alpha></el-color-picker>
+                            </div>
+                            <div v-if="key === 'background'">
+                                <el-input v-model="activiyItem.style[key]" placeholder=""></el-input>   
                             </div>
                         </div>
                     </el-collapse-item>
@@ -127,7 +134,8 @@ import { setTimeout } from 'timers';
         characters:{
             'width':'宽度',
             'height':'高度',
-            'background':'背景颜色',
+            'background-color':'背景颜色',
+            'background':'背景图片',
             'font-size':'字体大小',
             'line-height':'行高',
             'border-radius':'圆角',
@@ -142,7 +150,7 @@ import { setTimeout } from 'timers';
         value: '',
         piclist:[],
         upLoadData:{
-          org:'dfzq',
+          org:'jrjact',
           files:''
         },
         morePicArr:[]

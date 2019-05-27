@@ -198,19 +198,21 @@ import axios from 'axios'
 
             },
             savePages(){
-                let str = this.pageList
-                let wholePage = this.wholePage
-                this.$store.dispatch('data/savePages',{
-                    content:str,
-                    // wholePage:wholePage,
-                    _id:this.$route.params.id
-                }).then(() => {
-                    // 保存成功
-                    this.$message({
-                        message: '保存成功',
-                        type: 'success'
-                    });
-                })
+                localStorage.setItem('pageList',JSON.stringify(this.pageList))
+                alert('保存成功')
+                // let str = this.pageList
+                // let wholePage = this.wholePage
+                // this.$store.dispatch('data/savePages',{
+                //     content:str,
+                //     // wholePage:wholePage,
+                //     _id:this.$route.params.id
+                // }).then(() => {
+                //     // 保存成功
+                //     this.$message({
+                //         message: '保存成功',
+                //         type: 'success'
+                //     });
+                // })
             },
             StyleSheet(ele){
                 let obj = this.deepClode(ele.style)

@@ -1,5 +1,5 @@
 <template>
-    <div :style="StyleSheet" >
+    <div>
         <video :src="value.labelValue"  controls></video>
     </div>   
 </template>
@@ -57,7 +57,7 @@
 <style scoped>
 div{
     width: 100%;
-    height: 200px;
+    height: 100%;
     background: #fff
 }
 video{

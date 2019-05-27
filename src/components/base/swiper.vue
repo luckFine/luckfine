@@ -1,7 +1,4 @@
 <style scoped>
-img{
-    width: 100%;height: 100%;display: block
-}
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
@@ -22,10 +19,15 @@ img{
       height:100%;
       overflow: hidden;
   }
+  img{
+      width: 100%;
+      height: 100%;
+      display: block;
+  }
 </style>
 <template>
   <div class="block">
-        <el-carousel height="150px">
+        <el-carousel>
                 <el-carousel-item v-for="(item,index) in itemData.advanceFields[1].inputData" :key="index" >
                         <img :src="item.labelValue" alt="">
                 </el-carousel-item>           
