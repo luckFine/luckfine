@@ -28,7 +28,8 @@
 <div class="navBox">
   <el-col :span="20">
     <el-menu
-      default-active="1"
+      :default-active='pagename'
+      router
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -36,28 +37,15 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
-      <el-menu-item index="1">
-        <!-- <template slot="title"> -->
+      <el-menu-item index="list">
           <i class="el-icon-location"></i>
           <span>web专题</span>
-        <!-- </template> -->
-        <!-- <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu> -->
       </el-menu-item>
-      <el-menu-item index="2">
+      <el-menu-item index="template">
         <i class="el-icon-menu"></i>
         <span slot="title">app专题</span>
       </el-menu-item>
-      <el-menu-item index="3" >
+      <el-menu-item index="template" >
         <i class="el-icon-document"></i>
         <span slot="title">模板专题</span>
       </el-menu-item>
@@ -67,49 +55,7 @@
       </el-menu-item>
     </el-menu>
   </el-col>
-    <div class="content">
-      <div>
-        <template>
-          <el-table
-            :data="tableData"
-            style="width: 100%"
-            :default-sort = "{prop: 'date', order: 'descending'}"
-            >
-            <el-table-column
-              prop="createTime"
-              label="创建时间"
-              sortable
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="wholePage.creater"
-              label="创建者"
-              sortable
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="wholePage.title"
-              label="标题"
-              :formatter="formatter">
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleEdit(scope.$index, scope.row,)">编辑</el-button>
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </template>
-      </div>
-      <div class="add" @click="addlist">
-        新建
-      </div>
-    </div>
+
 </div>
 </template>
 
@@ -118,68 +64,25 @@ import {
     mapState
 } from 'vuex'
 import axios from 'axios'
-import { setTimeout } from 'timers';
 export default {
   name: 'login.vue',
   data() {
     return {
-      tableData:'' 
+
     };
   },
-  computed:mapState({
-      dataList: state => state.data.dataList,
-      deleteResult: state => state.data.deleteResult
-  }),
+  props:['pagename'],
   methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
-      },
-      addlist(){
-        this.$router.push({name:'/'})
-      },
-      handleSelect(key, keyPath) {
-        switch (key) 
-        {
-          case "1":
-          this.getData('webData')
-        }
-        
-        
-      },
-      handleEdit(index, row){
-        this.$router.push({name:'/',params:{id:row._id}})
-      },
-      handleDelete(index, row) {
-        // row 为当前整条数据
-        console.log(index, row);
-        this.$store.dispatch('data/deleteItem',{
-          id:row._id
-        }).then(() => {
-          if(this.deleteResult.errCode === 0){
-            this.$message({
-                message: '删除成功',
-                type: 'success'
-            });
-            setTimeout(() => {
-              this.getList()
-            },1000)
-          }else{
-            this.$message.error('删除失败');
-          }
-
-        })
-      },
-      getList(){
-        this.$store.dispatch('data/getList').then(() => {
-          this.tableData = this.dataList.result
-        })        
       }
+      
   },
   mounted() {
-      this.getList()
+    console.log(this.pagename)
   }
 };
 </script>

@@ -20,6 +20,7 @@ import webEdit from 'components/page/page-edit-web'
 import appEdit from 'components/page/page-edit-app'
 import log from 'components/page/login'
 import list from 'components/page/page-list'
+import template from 'components/page/page-template-list'
 
 
 const routes = [
@@ -41,6 +42,11 @@ const routes = [
       name:'/list',
       path: '/list', 
       component: list 
+    },
+    {
+      name:'/template',
+      path: '/template', 
+      component: template 
     },
     {
       name:'/log',

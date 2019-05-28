@@ -26,45 +26,10 @@
 <template>
 <div>
     <div class="lego"></div>
-    <page-frame :page='"list"'>
+    <page-frame :page='"template"'>
       <div class="content" slot="main">
         <div>
-          <template>
-            <el-table
-              :data="tableData"
-              style="width: 100%"
-              :default-sort = "{prop: 'date', order: 'descending'}"
-              >
-              <el-table-column
-                prop="wholePage.title"
-                label="标题"
-                >
-              </el-table-column>
-              <el-table-column
-                prop="createTime"
-                label="创建时间"
-                sortable
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="wholePage.creater"
-                label="创建者"
-                sortable
-                width="180">
-              </el-table-column>
-              <el-table-column label="操作">
-                <template slot-scope="scope">
-                  <el-button
-                    size="mini"
-                    @click="handleEdit(scope.$index, scope.row,)">编辑</el-button>
-                  <el-button
-                    size="mini"
-                    type="danger"
-                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-          </template>
+            mubn
         </div>
         <div class="add" @click="addlist">
           新建
