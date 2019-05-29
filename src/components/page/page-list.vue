@@ -92,10 +92,10 @@ export default {
         return row.address;
       },
       addlist(){
-        this.$router.push({name:'/'})
+        this.$router.push({name:'edit'})
       },
       handleEdit(index, row){
-        this.$router.push({name:'/',params:{id:row._id}})
+        this.$router.push({name:'edit',params:{id:row._id}})
       },
       handleDelete(index, row) {
         // row 为当前整条数据

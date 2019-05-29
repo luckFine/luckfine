@@ -10,7 +10,7 @@
 .bottomBox{width:100%;height:60px;position: fixed;left: 0;bottom: 0;z-index: 20;}
 /* 左侧导航 */
 .tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;padding-top: 50px;box-sizing: border-box;}
-.tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color: #0467ff;}
+.tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color:rgb(84, 92, 100);}
 .tabBar p{text-align: center;}
 .tabBarContent{width: 200px;position: fixed;top: 0;z-index: 9;left: -200px;background: #fff;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);padding: 10px;box-sizing: border-box;height: 100%;overflow-y: scroll;}
 .rightBar{width:350px;position: fixed;right: -350px;top: 10%;background: #fff;z-index: 10;}
@@ -201,25 +201,47 @@ import axios from 'axios'
 
             },
             savePages(){
-                localStorage.setItem('pageList',JSON.stringify(this.pageList))
-                let str = this.pageList
-                let wholePage = this.wholePage
-                this.$store.dispatch('data/savePages',{
-                    content:str,
-                    wholePage:wholePage,
-                    _id:this.$route.params.id
-                }).then(() => {
-                    // 保存成功
-                    this.$message({
-                        message: '保存成功',
-                        type: 'success'
-                    });
+                if(this.$route.params.id && this.$route.params.scene==='add'){
+                    localStorage.setItem('pageList',JSON.stringify(this.pageList))
+                    let str = this.pageList
+                    let wholePage = this.wholePage
+                    this.$store.dispatch('data/savePages',{
+                        content:str,
+                        wholePage:wholePage,
+                    }).then(() => {
+                        // 保存成功
+                        this.$message({
+                            message: '保存成功',
+                            type: 'success'
+                        });
 
-                    setTimeout(() => {
-                        this.$router.go(-1);
-                    }, 1000);
+                        setTimeout(() => {
+                            this.$router.go(-1);
+                        }, 1000);
 
-                })
+                    })                    
+                }else{
+                    localStorage.setItem('pageList',JSON.stringify(this.pageList))
+                    let str = this.pageList
+                    let wholePage = this.wholePage
+                    this.$store.dispatch('data/savePages',{
+                        content:str,
+                        wholePage:wholePage,
+                        _id:this.$route.params.id
+                    }).then(() => {
+                        // 保存成功
+                        this.$message({
+                            message: '保存成功',
+                            type: 'success'
+                        });
+
+                        setTimeout(() => {
+                            this.$router.go(-1);
+                        }, 1000);
+
+                    })   
+                }
+
             },
             StyleSheet(ele){
                 let obj = this.deepClode(ele.style)
@@ -276,6 +298,8 @@ import axios from 'axios'
         }),
         mounted () {
             //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
+            alert(this.$route.params.id)
+            alert(this.$route.params.scene)
             if(this.$route.params.id){
                 alert('编辑')
                 this.$store.dispatch('data/pageDetail',{

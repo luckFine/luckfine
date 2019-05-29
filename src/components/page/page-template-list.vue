@@ -9,6 +9,7 @@
   height: 100%;
   position: fixed;
   margin-left: 170px;
+  overflow: scroll;
 }
 .add{
   background: rgb(84, 92, 100);
@@ -21,6 +22,45 @@
   line-height:30px;
   margin:20px;
 }
+/* xitong */
+body {
+  margin: 5px;
+  font-family: Helvetica, sans-serif;
+}
+.item {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  font-size: 1.2em;
+  color: rgb(0,158,107);
+}
+.compontentBox{
+  pointer-events: none
+}
+.item:after {
+  content: attr(index);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.wf-transition {
+  transition: opacity .3s ease;
+  -webkit-transition: opacity .3s ease;
+}
+.wf-enter {
+  opacity: 0;
+}
+.item-move {
+  transition: all .5s cubic-bezier(.55,0,.1,1);
+  -webkit-transition: all .5s cubic-bezier(.55,0,.1,1);
+}
+
+/* end */
 </style>
 
 <template>
@@ -29,11 +69,32 @@
     <page-frame :page='"template"'>
       <div class="content" slot="main">
         <div>
-            mubn
+          <waterfall :line-gap="300" :watch="tableData">
+            <!-- each component is wrapped by a waterfall slot -->
+            <waterfall-slot
+              v-for="(item, index) in tableData"
+              :width=generateRandomWidth()
+              :height=generateRandomHeight()
+              :order="index"
+              :key="item.id"
+            >
+              <!--
+                your component
+              -->
+              <div class="item" >
+                <div v-for="ele in item.content" class="compontentBox" >
+                    
+                    <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>                   
+                </div>
+                <div @click="addNew(item._id,'add')">基于此模板创建</div>
+              </div>
+            </waterfall-slot>
+          </waterfall>
+          
         </div>
-        <div class="add" @click="addlist">
+        <!-- <div class="add" @click="addlist">
           新建
-        </div>
+        </div> -->
       </div>
     </page-frame>
 </div>
@@ -42,13 +103,25 @@
 <script>
 import pageFrame from './../base/page-frame'
 import equipmentInfo from '../../utils/equipmentInfo'
+import Waterfall from 'vue-waterfall/lib/waterfall'
+import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
+
+import divimg from './../base/divimg'
+import swiper from './../base/swiper'
+import videoplay from './../base/videoplay'
+import fixbottom from './../base/fixbottom'
+import fixright from './../base/fixright'
+import messagebox from '../base/messagebox'
+import submit from './../base/submit'
+import btn from './../base/btn'
 import {
     mapState
 } from 'vuex'
 export default { 
   data() {
     return {
-      tableData:''
+      tableData:'',
+      align: 'center'
     };
   },
 
@@ -56,11 +129,18 @@ export default {
       formatter(row, column) {
         return row.address;
       },
-      addlist(){
-        this.$router.push({name:'/'})
-      },
+      // addlist(){
+      //   this.$router.push({
+      //       name:"edit",
+      //       params:{
+      //         id:id,
+      //         scene:scene
+      //       }
+      //     });
+      //   }
+      // },
       handleEdit(index, row){
-        this.$router.push({name:'/',params:{id:row._id}})
+        // this.$router.push({name:'/',params:{id:row._id}})
       },
       handleDelete(index, row) {
         // row 为当前整条数据
@@ -86,10 +166,40 @@ export default {
         this.$store.dispatch('data/getList').then(() => {
           this.tableData = this.dataList.result
         })        
+      },
+      generateRandomWidth(){
+        let width =  100 + ~~(Math.random() * 50)
+        return width
+      },
+      generateRandomHeight(){
+        let height =  100 + ~~(Math.random() * 50)
+        return height
+      },
+      addNew(id,scene){
+        console.log(id)
+        // this.$router.push({path:'/edit/'+id+'/'+scene})
+        this.$router.push({
+            name:"edit",
+            params:{
+              id:id,
+              scene:scene
+            }
+          });
       }
+
   },
   components:{
-      pageFrame
+      pageFrame,
+      Waterfall,
+      WaterfallSlot,
+      divimg,
+      swiper,
+      videoplay,
+      fixbottom,
+      fixright,
+      submit,
+      messagebox,
+      btn
   },
   computed:mapState({
       dataList: state => state.data.dataList,
@@ -97,7 +207,6 @@ export default {
   }),
   mounted() {
     this.getList()
-    console.log(equipmentInfo.getBrowserInfo())
   }
 };
 </script>

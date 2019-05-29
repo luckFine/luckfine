@@ -29,8 +29,8 @@ const routes = [
       path: '/preview', 
       component: preview },
     {
-      name:'/',
-      path: '/', 
+      name:'edit',
+      path: '/edit', 
       component: webEdit 
     },
     {
