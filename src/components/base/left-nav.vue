@@ -41,7 +41,7 @@
           <i class="el-icon-location"></i>
           <span>web专题</span>
       </el-menu-item>
-      <el-menu-item index="template">
+      <el-menu-item index="app">
         <i class="el-icon-menu"></i>
         <span slot="title">app专题</span>
       </el-menu-item>
