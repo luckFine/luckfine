@@ -32,11 +32,11 @@
 <template>
 <div>
     <div class="lego"></div>
-    <page-frame :page='"app"'>
+    <page-frame :page='"analysis"'>
       <div class="content" slot="main">
-          <p class="awit">
-              静等惊喜~
-          </p>
+        <p class="awit">
+            静等惊喜~
+        </p>
       </div>
     </page-frame>
 </div>

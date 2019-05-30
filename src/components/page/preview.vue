@@ -26,6 +26,7 @@ import fixright from './../base/fixright'
 import messagebox from '../base/messagebox'
 import submit from './../base/submit'
 import btn from './../base/btn'
+import tabs from './../base/tabs'
 import unitConfig from './../base/unit-config'
 import styleConfig from './../base/style-config'
 import componentsList from './../components-list'
@@ -87,7 +88,8 @@ import {
             messagebox,
             unitConfig,
             styleConfig,
-            btn
+            btn,
+            tabs
         },
     }
 </script>

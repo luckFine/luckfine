@@ -35,6 +35,24 @@ body {
   bottom: 20px;
   font-size: 1.2em;
   color: rgb(0,158,107);
+  box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+  overflow-y: scroll;
+}
+.addNew{
+  display: none
+}
+.item:hover .addNew{
+  width: 100%;
+  height: 60px;
+  line-height: 64px;
+  font-size: 18px;
+  text-align: center;
+  background: rgb(84, 92, 100);
+  color: rgb(255, 208, 75);
+  position: absolute;
+  left: 0;
+  bottom: 0;  
+  display:block;
 }
 .compontentBox{
   pointer-events: none
@@ -69,7 +87,7 @@ body {
     <page-frame :page='"template"'>
       <div class="content" slot="main">
         <div>
-          <waterfall :line-gap="300" :watch="tableData">
+          <waterfall :line-gap="450" :watch="tableData">
             <!-- each component is wrapped by a waterfall slot -->
             <waterfall-slot
               v-for="(item, index) in tableData"
@@ -86,7 +104,7 @@ body {
                     
                     <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>                   
                 </div>
-                <div @click="addNew(item._id,'add')">基于此模板创建</div>
+                <div class="addNew" @click="addNew(item._id,'add')">基于此模板创建</div>
               </div>
             </waterfall-slot>
           </waterfall>
@@ -172,7 +190,7 @@ export default {
         return width
       },
       generateRandomHeight(){
-        let height =  100 + ~~(Math.random() * 50)
+        let height =  160 + ~~(Math.random() * 50)
         return height
       },
       addNew(id,scene){

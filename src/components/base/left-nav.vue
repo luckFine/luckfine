@@ -49,7 +49,7 @@
         <i class="el-icon-document"></i>
         <span slot="title">模板专题</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="analysis">
         <i class="el-icon-setting"></i>
         <span slot="title">数据分析</span>
       </el-menu-item>

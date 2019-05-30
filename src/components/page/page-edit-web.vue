@@ -34,7 +34,7 @@
 } */
 </style>
 <template>
-    <div class="pageContent" >
+    <div class="pageContent" id="pageContent">
         <ul class="tabBar">
             <li @click="activity('1')">
                 <i class="el-icon-s-management"></i>
@@ -84,7 +84,14 @@
                 >
                 <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
                     <div class="delate" @click="deleteItem(index)">{{index}}</div>
-                    <component  v-bind:is="item.name" :itemData='item' :source='"visual"'></component>
+                    <component  
+                        v-bind:is="item.name" 
+                        :itemData='item' 
+                        :source='"visual"' 
+                        :pageList=pageList
+                        :fixed='index' 
+                        >
+                    </component>
                     <div class="mainContent">
                         <div class="childClass" 
                             v-if="item.children.length>0" 
@@ -100,7 +107,7 @@
         </div>
         <div class="bottomBox">
             <el-button @click="cancel">取消</el-button>  
-            <el-button>预览</el-button>  
+            <el-button @click="preview">预览</el-button>  
             <el-button type="primary" @click="savePages">保存</el-button>
         </div>
         <div :class="['rightBar',{'showRightBar':showRightBar},{'showRightBarFalse':!showRightBar}]">
@@ -121,6 +128,7 @@ import fixright from './../base/fixright'
 import messagebox from '../base/messagebox'
 import submit from './../base/submit'
 import btn from './../base/btn'
+import tabs from './../base/tabs'
 import unitConfig from './../base/unit-config'
 import styleConfig from './../base/style-config'
 import componentsList from './../components-list'
@@ -161,6 +169,9 @@ import axios from 'axios'
             },
             cancel(){
                this.$router.push({name:'/list'}) 
+            },
+            receiveChild(index){
+                this.pageList.splice(index, 1);
             },
             clickItem(item,index){
                 // console.log(this.pageList[index])
@@ -298,8 +309,6 @@ import axios from 'axios'
         }),
         mounted () {
             //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
-            alert(this.$route.params.id)
-            alert(this.$route.params.scene)
             if(this.$route.params.id){
                 alert('编辑')
                 this.$store.dispatch('data/pageDetail',{
@@ -351,7 +360,8 @@ import axios from 'axios'
             messagebox,
             unitConfig,
             styleConfig,
-            btn
+            btn,
+            tabs
         }
     }
 </script>
