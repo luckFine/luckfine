@@ -20,22 +20,14 @@
 .activityBarFalse{transition: left 0.7s;left: -200px;}
 /* 主视图 */
 .mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
-/* .pageContent:after{
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: '将组件拖拽到此处';
-    font-size: 30px;
-    line-height: 600px;
-    color: #d8d8d8;
-} */
 </style>
 <template>
     <div class="pageContent" id="pageContent">
         <ul class="tabBar">
+            <li @click="cancel">
+                <i class="el-icon-s-home"></i>
+                <p slot="title">首页</p>                    
+            </li>
             <li @click="activity('1')">
                 <i class="el-icon-s-management"></i>
                 <p slot="title">组件库</p>                    

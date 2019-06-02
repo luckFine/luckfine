@@ -13,6 +13,7 @@
     /* font-size: 30px; */
     /* color: white; */
     flex-shrink: 1;
+    cursor: pointer;
 }
 img{
     width: 100%;
