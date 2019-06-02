@@ -1,17 +1,17 @@
 <style scoped>
 .tab{
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display:flex; 
     justify-content: space-between
 }
 .tab li{
     width: 100%;
-    height: 50px;
-    border: 2px solid black;
-    background-color: red;
-    font-size: 30px;
-    color: white;
+    /* height: 50px; */
+    /* border: 2px solid black; */
+    background: red;
+    /* font-size: 30px; */
+    /* color: white; */
     flex-shrink: 1;
 }
 img{
@@ -20,15 +20,19 @@ img{
     display: block;
 }
 .block{
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
 }
 </style>
 <template>
   <div class="block">
         <ul class="tab">
-            <li v-for="item,index in itemData.advanceFields[0].labelValue" @click.prevent.stop="showTab(index)" :key="indnx">
-                {{itemData.advanceFields[1].tabData[index].labelValue}}
+            <li 
+                :style="{width:liWidth+'%',background:'url('+itemData.advanceFields[0].normalBg+') no-repeat',height:itemData.advanceFields[0].normalBg+'px'}" 
+                v-for="(item,index) in itemData.advanceFields[1].inputData" 
+                @click.stop.prevent="showTab(index)" 
+                :key="index">
+                {{itemData.advanceFields[1].inputData[index].tabName}}
             </li>
         </ul>
          <ul class="tabContent">
@@ -44,37 +48,39 @@ import {
     mapState
 } from 'vuex'
 import { constants } from 'crypto';
+import { setTimeout } from 'timers';
 
     export default {
         props:['itemData'],
         data () {
             return{
-                itemData:'',
-                active:''
-                
+                active:'',
+                liWidth:''
             }
         },
         watch:{
             itemData: {
                 handler() {
                     let inputValue = Number(this.itemData.advanceFields[0].labelValue);
-                    let swiper = this.itemData.advanceFields[1].inputData;
-                    let swiperLength = swiper.length;
+                    let tabs = this.itemData.advanceFields[1].inputData;
+                    let tabsLength = tabs.length;
                     if(!inputValue) return false;
-                    let distance = Math.abs(inputValue - swiperLength);
-                    if(swiperLength < inputValue){
+                    let distance = Math.abs(inputValue - tabsLength);
+                    this.liWidth = 100/this.itemData.advanceFields[0].labelValue
+                    if(tabsLength < inputValue){
                         for(let a = 0; a < distance; a++){
-                          swiper.push({
-                              'describe':'图片地址',
-                              'labelValue':''
+                          tabs.push({
+                              'tabName':'输入tab名称',
+                              'imgSrc':'输入图片地址'
                             })
                         }
                     }
                     else {
                         for(let a = 0; a < distance; a++){
-                          swiper.pop()
+                          tabs.pop()
                         }
                     }
+                    console.log(this.itemData.advanceFields)
                     this.$emit('input', this.itemData.advanceFields)
                 },
                 deep: true
@@ -99,23 +105,27 @@ import { constants } from 'crypto';
                 }
                 return objClone;
             },
-            StyleSheet(ele){
-                let obj = this.deepClode(ele.style)
-                Object.keys(obj).forEach((key) => {
-                    if( typeof(obj[key]) == 'number'){
-                        let str = obj[key].toString()
-                        obj[key] = str+'px'
-                    }
-                })
-                return obj                
-            },
             showTab(index){
-                this.active = this.itemData.advanceFields[1].inputData[index].labelValue
+                // if(this.itemData.advanceFields){
+                    this.active = this.itemData.advanceFields[1].inputData[index].imgSrc
+                // }else{
+                //     setTimeout(() => {
+                //         this.showTab('0')
+                //     },10)
+                // }
+                
             }
         },
         mounted () {
-            this.showTab(0)
-            console.log(this.itemData)
+            if(this.itemData){
+                this.showTab('0')
+                // this.active = this.itemData.advanceFields[1].inputData[index].imgSrc
+            }else{
+                setTimeout(() => {
+                    console.log('56789')
+                    this.showTab('0')
+                },10)
+            }
         }
     }
 </script>

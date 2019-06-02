@@ -77,6 +77,10 @@ body {
   transition: all .5s cubic-bezier(.55,0,.1,1);
   -webkit-transition: all .5s cubic-bezier(.55,0,.1,1);
 }
+.mainContent{
+width: 300px;position: absolute;top: 0%;left: 50%;margin-left: -150px;height: 100%;
+}
+/* .vue-waterfall-slot{position: relative;} */
 
 /* end */
 </style>
@@ -101,8 +105,17 @@ body {
               -->
               <div class="item" >
                 <div v-for="ele in item.content" class="compontentBox" >
-                    
-                    <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>                   
+                    <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>   
+                    <!-- <div class="mainContent">
+                        <div class="childClass" 
+                            v-if="item.children.length>0" 
+                            v-for="ele,num in item.children" 
+                            @click.prevent.stop="clickItem(ele,num)" 
+                            :style="StyleSheet(ele)" >
+                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                        </div>
+                    </div>                 -->
                 </div>
                 <div class="addNew" @click="addNew(item._id,'add')">基于此模板创建</div>
               </div>
@@ -132,6 +145,7 @@ import fixright from './../base/fixright'
 import messagebox from '../base/messagebox'
 import submit from './../base/submit'
 import btn from './../base/btn'
+import tabs from './../base/tabs'
 import {
     mapState
 } from 'vuex'
@@ -217,7 +231,8 @@ export default {
       fixright,
       submit,
       messagebox,
-      btn
+      btn,
+      tabs
   },
   computed:mapState({
       dataList: state => state.data.dataList,

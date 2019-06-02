@@ -174,7 +174,6 @@ import axios from 'axios'
                 this.pageList.splice(index, 1);
             },
             clickItem(item,index){
-                // console.log(this.pageList[index])
                 this.activiyItem = item
                 this.activiyIndex = index
                 this.showRightBar = true
@@ -183,7 +182,6 @@ import axios from 'axios'
                 this.pageList.splice(index, 1);
             },
             deleteClilden(item,num){
-                console.log(item)
                 item.children.splice(num, 1);
             },
             deepClode(obj){

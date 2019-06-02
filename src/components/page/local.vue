@@ -26,16 +26,7 @@ img{
 </style>
 <template>
   <div class="block">
-        <ul class="tab">
-            <li v-for="item,index in datall.advanceFields[0].labelValue" @click="showTab(index)" :key="indnx">
-                {{datall.advanceFields[1].tabData[index].labelValue}}
-            </li>
-        </ul>
-         <ul class="tabContent">
-            <li>
-                <img :src="active" alt="">
-            </li>
-        </ul>       
+      <div>456789</div>
   </div>
 </template>
 
@@ -44,85 +35,36 @@ import {
     mapState
 } from 'vuex'
 import { constants } from 'crypto';
+import { setTimeout } from 'timers';
 
     export default {
         props:['itemData'],
         data () {
             return{
-                datall:{
-                    "name":"tabs",
-                    "baseName":"轮播图",
-                    "advanceFields":[
-                    {
-                        "label":"input",
-                        "describe":"数量",
-                        "labelValue":3
-                    },
-                    {
-                        "label":"inputMore",
-                        "inputData":[
-                        {
-                            "describe":"图片地址",
-                            "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
-                        },
-                        {
-                            "describe":"图片地址",
-                            "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner2.jpg" 
-                        },
-                        {
-                            "describe":"图片地址",
-                            "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner3.jpg" 
-                        }
-                        ],
-                        "tabData":[
-                            {
-                                "describe":"输入文案",
-                                "labelValue":"东方证券" 
-                            },
-                            {
-                                "describe":"输入文案",
-                                "labelValue":"长城证券" 
-                            },
-                            {
-                                "describe":"输入文案",
-                                "labelValue":"老虎证券" 
-                            },
-                        ]
-                    }
-                    ],
-                    "style":{
-                        "width": 480,
-                        "height":200,
-                        "border-radius":50,
-                        "position":"absolute",
-                        "left":20,
-                        "top":20,
-                        "overflow":"hidden"
-                    },
-                    "children":[]
-                },
-                active:1
+                active:''
+                
             }
         },
         watch:{
             itemData: {
                 handler() {
+                    console.log(this.itemData)
                     let inputValue = Number(this.itemData.advanceFields[0].labelValue);
-                    let swiper = this.itemData.advanceFields[1].inputData;
-                    let swiperLength = swiper.length;
+                    let tabs = this.itemData.advanceFields[1].inputData;
+                    let tabsLength = tabs.length;
                     if(!inputValue) return false;
-                    let distance = Math.abs(inputValue - swiperLength);
-                    if(swiperLength < inputValue){
+                    let distance = Math.abs(inputValue - tabsLength);
+                    if(tabsLength < inputValue){
                         for(let a = 0; a < distance; a++){
-                          swiper.push({
-                              'describe':'图片地址',
-                              'labelValue':''
+                          tabs.push({
+                              'tabName':'输入tab名称',
+                              'imgSrc':'输入图片地址'
                             })
                         }
                     }
                     else {
                         for(let a = 0; a < distance; a++){
-                          swiper.pop()
+                          tabs.pop()
                         }
                     }
                     this.$emit('input', this.itemData.advanceFields)
@@ -160,11 +102,25 @@ import { constants } from 'crypto';
                 return obj                
             },
             showTab(index){
-                this.active = this.datall.advanceFields[1].inputData[index].labelValue
+                // if(this.itemData.advanceFields){
+                    this.active = this.itemData.advanceFields[1].inputData[index].imgSrc
+                // }else{
+                //     setTimeout(() => {
+                //         this.showTab('0')
+                //     },10)
+                // }
+                
             }
         },
         mounted () {
-
+            // if(this.itemData.advanceFields){
+            //     this.showTab('0')
+            //     // this.active = this.itemData.advanceFields[1].inputData[index].imgSrc
+            // }else{
+            //     setTimeout(() => {
+            //         this.showTab('0')
+            //     },10)
+            // }
         }
     }
 </script>

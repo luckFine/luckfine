@@ -21,6 +21,15 @@
         height: 600px;
         overflow-y: scroll;
     }
+    .tabValue li{
+        float: left;
+    }
+    .tabValue li:first-child{
+        width: 30%;
+    }
+    .tabValue li:first-child +li{
+        width: 70%;
+    }
 </style>
 
 <template>
@@ -42,51 +51,82 @@
                     <el-collapse-item title="数据更新" name="1">
                         <div v-for="item,index in activiyItem.advanceFields">
 
-                            <div v-if="item.label === 'divimg'">
-                                <p>{{item.describe}}</p>
-                                <el-input v-model="item.labelValue" placeholder="">
+                            <div v-if="activiyItem.name !== 'tabs'">
+                                <div v-if="item.label === 'divimg'">
+                                    <p>{{item.describe}}</p>
+                                    <el-input v-model="item.labelValue" placeholder="">
+                                        <div slot="prepend" class="uploadButton">
+                                            <p>输入图片地址</p>
+                                        </div>
+                                    </el-input>   
                                     <div slot="prepend" class="uploadButton">
-                                        <p>输入图片地址</p>
-                                    </div>
-                                </el-input>   
-                                <div slot="prepend" class="uploadButton">
-                                    <el-upload
-                                        class="upload-demo"
-                                        enctype="multipart/form-data"
-                                        name='files'
-                                        action="https://up0.z3quant.com/z3upload/api/upload/multi"
-                                        :headers='headers'
-                                        :data='upLoadData'
-                                        :show-file-list='false'
-                                        multiple
-                                        :on-success="success"
-                                        >
-                                        <el-button size="small" type="primary">选择图片</el-button>
-                                    </el-upload>
-                                </div>                             
+                                        <el-upload
+                                            class="upload-demo"
+                                            enctype="multipart/form-data"
+                                            name='files'
+                                            action="https://up0.z3quant.com/z3upload/api/upload/multi"
+                                            :headers='headers'
+                                            :data='upLoadData'
+                                            :show-file-list='false'
+                                            multiple
+                                            :on-success="success"
+                                            >
+                                            <el-button size="small" type="primary">选择图片</el-button>
+                                        </el-upload>
+                                    </div>                             
+                                </div>
+                                <!-- 一级配置 -->
+                                <div v-if="item.label === 'input'">   
+                                    <p>{{item.describe}}</p>
+                                    <el-input v-model="item.labelValue" placeholder="">
+                                    </el-input>    
+                                </div>
+                                <!-- 二级配置 -->
+                                <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
+                                    <p>{{ele.describe}}</p>
+                                    <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
+                                </div>
                             </div>
-                            <!-- 一级配置 -->
-                            <div v-if="item.label === 'input'">   
-                                <p>{{item.describe}}</p>
-                                <el-input v-model="item.labelValue" placeholder="">
-                                </el-input>    
-                            </div>
-                            <!-- 二级配置 -->
-                            <div v-if="item.label === 'inputMore'"  v-for='(ele,index) in item.inputData'>
-                                <p>{{ele.describe}}</p>
-                                <el-input v-model="ele.labelValue" placeholder=""></el-input>                       
+
+                            <div v-if="activiyItem.name === 'tabs'">
+                                <div v-if="item.label === 'input'">   
+                                    <p>{{item.describe}}</p>
+                                    <el-input v-model="item.labelValue" placeholder="">
+                                    </el-input>  
+                                    <ul>
+                                        <li>
+                                            <el-input v-model="item.normalBg" placeholder="" >
+                                                <div slot="prepend" class="uploadButton">
+                                                    <p>tab背景</p>
+                                                </div>
+                                            </el-input>
+                                        </li>
+                                        <li>
+                                            <el-input v-model="item.actBg" placeholder="">
+                                                <div slot="prepend" class="uploadButton">
+                                                    <p>tab地址</p>
+                                                </div>
+                                            </el-input>
+                                        </li>
+                                    </ul> 
+                                </div>
+
+                                <ul class="tabValue clearfix" v-if="item.label === 'inputMore'" v-for='(ele,index) in item.inputData'>
+                                    <li><el-input v-model="ele.tabName" placeholder="" ></el-input></li>
+                                    <li><el-input v-model="ele.imgSrc" placeholder=""></el-input></li>
+                                </ul> 
                             </div>
                         </div> 
                     </el-collapse-item>
                     <el-collapse-item title="设置样式" name="2">
                     <!-- 样式配置 -->
-                        <div class="styleBox" v-for="(val,key,index) in activiyItem.style"  v-if="characters[key]">
+                        <div class="styleBox" v-for="(val,key,index) in activiyItem.style"  v-if="characters[key]"> 
                             <p>{{characters[key]}}</p>
                             <!-- <el-input v-model="activiyItem.style[key]" placeholder=""></el-input>   -->
                             <div v-if="key !== 'color' && key !== 'background-color' && key !== 'background'" class="block">
                                 <el-slider
                                 v-model="activiyItem.style[key]"
-                                max=1000
+                                max=5000
                                 show-input>
                                 </el-slider>
                             </div>
@@ -208,7 +248,7 @@ import { setTimeout } from 'timers';
     },
     mounted () {
         this.$store.dispatch('compontentList/getCompontentList')
-        console.log(this.wholePage)
+        console.log(this.activiyItem)
     }
   }
 </script>

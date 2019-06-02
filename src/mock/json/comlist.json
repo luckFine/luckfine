@@ -169,37 +169,34 @@
         {
             "label":"input",
             "describe":"数量",
-            "labelValue":3
+            "labelValue":5,
+            "normalBg":"tab背景",
+            "actBg":""
+
         },
         {
             "label":"inputMore",
             "inputData":[
             {
-                "describe":"图片地址",
-                "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+                "tabName":"东方证券",
+                "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
             },
             {
-                "describe":"图片地址",
-                "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner2.jpg" 
+              "tabName":"东方证券",
+              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
             },
             {
-                "describe":"图片地址",
-                "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner3.jpg" 
+              "tabName":"东方证券",
+              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+            },
+            {
+              "tabName":"东方证券",
+              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+            },
+            {
+              "tabName":"东方证券",
+              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
             }
-            ],
-            "tabData":[
-                {
-                    "describe":"输入文案",
-                    "labelValue":"东方证券" 
-                },
-                {
-                    "describe":"输入文案",
-                    "labelValue":"长城证券" 
-                },
-                {
-                    "describe":"输入文案",
-                    "labelValue":"老虎证券" 
-                }
             ]
         }
         ],
@@ -208,8 +205,11 @@
             "height":200,
             "border-radius":50,
             "position":"absolute",
+            "font-size":16,
+            "line-height":30,
             "left":20,
             "top":20,
+            "color":"#fff",
             "overflow":"hidden"
         },
         "children":[]
