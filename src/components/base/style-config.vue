@@ -14,7 +14,9 @@
 <template>
     <div>
         <div v-for="item,index in stylelist" >
-            <p  :class="[item.classname,'infinite',{'animated':checkindex === index}]" @click="magicStyle(index)">Magic cube</p>
+            <p  
+            :class="[item.classname,'infinite',{'animated':checkindex === index}]" 
+            @click="magicStyle(index)">{{item.classname}}</p>
         </div>
                         
     </div>
@@ -43,9 +45,7 @@
             }
         },
         mounted () {
-            this.$store.dispatch('compontentList/getStyleList').then(() => {
-                console.log(this.stylelist)
-            })
+            this.$store.dispatch('compontentList/getStyleList')
         }
     }
 </script>

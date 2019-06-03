@@ -81,5 +81,4 @@ var Misc = {
         return promise
     }
 }
-
-module.exports = Misc;
+export default Misc

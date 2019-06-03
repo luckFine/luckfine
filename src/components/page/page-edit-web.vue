@@ -24,26 +24,26 @@
 <template>
     <div class="pageContent" id="pageContent">
         <ul class="tabBar">
-            <li @click="cancel">
+            <!-- <li @click="cancel">
                 <i class="el-icon-s-home"></i>
                 <p slot="title">首页</p>                    
-            </li>
+            </li> -->
             <li @click="activity('1')">
                 <i class="el-icon-s-management"></i>
                 <p slot="title">组件库</p>                    
             </li>
-            <li @click="activity('2')" :class="{'activityBar':activityBar === '2'}">
+            <!-- <li @click="activity('2')" :class="{'activityBar':activityBar === '2'}">
                 <i class="el-icon-s-order"></i>
                 <p slot="title">模板库</p>                    
-            </li>
+            </li> -->
             <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
                 <i class="el-icon-s-open"></i>
                 <p slot="title">动效库</p>
             </li>
-            <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
+            <!-- <li @click="activity('3')" :class="{'activityBar':activityBar === '3'}">
                 <i class="el-icon-s-data"></i>
                 <p slot="title">数据分析</p>
-            </li>
+            </li> -->
         </ul>
         <!-- <div> -->
             <div :class="[{'activityBar':activityBar === '1'},'tabBarContent']">
@@ -85,12 +85,13 @@
                         >
                     </component>
                     <div class="mainContent">
-                        <div class="childClass" 
+                        <div 
+                            :class="[childClass,classname(ele)]"  
                             v-if="item.children.length>0" 
                             v-for="ele,num in item.children" 
                             @click.prevent.stop="clickItem(ele,num)" 
                             :style="StyleSheet(ele)" >
-                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                            <div class="delate" @click.prevent.stop="deleteClilden(item,num)">{{index}}</div>
                             <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
                         </div>
                     </div>
@@ -200,6 +201,16 @@ import axios from 'axios'
                 let goRouter = this.$router.resolve({name:'preview'})
                 window.open(goRouter.href, '_blank');
 
+            },
+            classname(ele){
+                if(ele.addclass && ele.addclass.classname){
+                    let name = ele.addclass.classname
+                    let infinite = ele.addclass.loop === true ? 'infinite' : ''
+                    return [name,infinite,'animated']                     
+                }else{
+                    return false
+                }
+               
             },
             savePages(){
                 if(this.$route.params.id && this.$route.params.scene==='add'){

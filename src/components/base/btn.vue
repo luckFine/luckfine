@@ -2,7 +2,7 @@
 img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
-    <div class="botton" >
+    <div id="botton">
         {{value.labelValue}}
     </div>
 </template>
@@ -12,7 +12,7 @@ import {
 } from 'vuex'
 
     export default {
-        props:['itemData'],
+        props:['itemData','source'],
         data () {
             return {
                 
@@ -23,17 +23,10 @@ import {
                 if(this.itemData.advanceFields.length===1){
                     return this.itemData.advanceFields[0]
                 }
+            },
+            eventHref(){
+                return this.itemData.clickEventHref.href
             }
-            // StyleSheet(){
-            //     let obj = this.deepClode(this.itemData.style)
-            //     Object.keys(obj).forEach((key) => {
-            //         if( typeof(obj[key]) == 'number'){
-            //             let str = obj[key].toString()
-            //             obj[key] = str+'px'
-            //         }
-            //     })
-            //     return obj                
-            // }
         },
         watch: {
             itemData:{
@@ -62,12 +55,30 @@ import {
                 }
                 return objClone;
             },
+            buy(){
+                if(window.sso_userID != ''){
+                    window.location.href = 'http://itougu.jrj.com.cn/activity/web/groupOrderWeb.jspa#/?productSubId='+this.itemData.isBuy.productId+'&type='+this.itemData.isBuy.type+'&bizCode=5&productId='+this.itemData.isBuy.productSubId+'&offLine=1'
+                }else{
+                    window.location.href = 'http://sso.jrj.com.cn/sso/ssopassportlogin?ReturnURL=' + encodeURIComponent(window.location.href)
+                    return
+                }
+            },
             event(href){
-                window.location.href = href
+                if(this.itemData.isBuy){
+                    this.buy()
+                }else{
+                    window.open(this.eventHref)
+                }
             }
         },
         mounted () {
-            
+            if(this.source === 'preview'){
+                var element=document.getElementById("botton")
+                var slef = this
+                element.addEventListener('click',function(){
+                    slef.event()
+                })
+            }
         }
     }
 </script>

@@ -116,6 +116,55 @@
                                     <li><el-input v-model="ele.imgSrc" placeholder=""></el-input></li>
                                 </ul> 
                             </div>
+                            <!-- 点击跳转 -->
+                            <div v-if="activiyItem.clickEventHref && !activiyItem.isBuy.isBuy">
+                                <p>{{activiyItem.clickEventHref.describe}}</p>
+                                <el-input v-model="activiyItem.clickEventHref.href" placeholder="">
+                                </el-input>    
+                            </div>
+
+                            <div v-if="activiyItem.addclass && activiyItem.addclass.open">
+                                <p>添加动效</p>
+                                <el-select v-model="classValue" clearable placeholder="请选择">
+                                    <el-option
+                                    v-for="(item) in stylelist"
+                                    :key="item.classname"
+                                    :label="item.classname"
+                                    :value="item.classname">
+                                    </el-option>
+                                </el-select>  
+                            </div>
+                            <!-- 点击购买 -->
+                            <div v-if="activiyItem.name === 'btn'">
+                                <p>是否是购买</p>
+                                <el-switch
+                                    v-model="activiyItem.isBuy.isBuy"
+                                    active-text="是"
+                                    inactive-text="否">
+                                </el-switch>
+                                <div v-if="activiyItem.isBuy.isBuy">
+                                    <el-input v-model="activiyItem.isBuy.productSubId" placeholder="">
+                                        <div slot="prepend" class="uploadButton">
+                                            <p>产品类型</p>
+                                        </div>
+                                    </el-input>  
+                                    <el-input v-model="activiyItem.isBuy.productId" placeholder="">
+                                        <div slot="prepend" class="uploadButton">
+                                            <p>产品id</p>
+                                        </div>
+                                    </el-input>
+                                    <el-input v-model="activiyItem.isBuy.type" placeholder="">
+                                        <div slot="prepend" class="uploadButton">
+                                            <p>产品周期</p>
+                                        </div>
+                                    </el-input>
+                                    <el-input v-model="activiyItem.isBuy.href" placeholder="">
+                                        <div slot="prepend" class="uploadButton">
+                                            <p>成功连接</p>
+                                        </div>
+                                    </el-input> 
+                                </div>
+                            </div>
                         </div> 
                     </el-collapse-item>
                     <el-collapse-item title="设置样式" name="2">
@@ -137,20 +186,34 @@
                                 <el-input v-model="activiyItem.style[key]" placeholder=""></el-input>   
                             </div>
                         </div>
+                        <!-- 提交信息的弹窗 -->
+                        <div v-if="activiyItem.name === 'submit'">
+                            <div> 
+                                <el-input v-model="activiyItem.styleBg.background" placeholder="">
+                                    <div slot="prepend" class="uploadButton">
+                                        <p>弹窗背景</p>
+                                    </div>
+                                </el-input>  
+                                <el-input v-model="activiyItem.styleSuc.background" placeholder="">
+                                    <div slot="prepend" class="uploadButton">
+                                        <p>成功背景</p>
+                                    </div>
+                                </el-input>  
+                            </div>
+                        </div>
                     </el-collapse-item>
                     <el-collapse-item title="设置" name="3">
                         <div  v-if="activiyItem && activiyItem.advanceFields">
                             <p>添加二级组件</p>
-                                <el-select v-model="value" clearable placeholder="请选择">
-                                    <el-option
-                                    v-for="item in comlist"
-                                    :key="item.name"
-                                    :label="item.baseName"
-                                    :value="item.name">
-                                    </el-option>
-                                </el-select>                            
+                            <el-select v-model="value" clearable placeholder="请选择">
+                                <el-option
+                                v-for="item in comlist"
+                                :key="item.name"
+                                :label="item.baseName"
+                                :value="item.name">
+                                </el-option>
+                            </el-select>                            
                         </div>
-
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
@@ -195,7 +258,9 @@ import { setTimeout } from 'timers';
           org:'jrjact',
           files:''
         },
-        morePicArr:[]
+        morePicArr:[],
+        classValue:'',
+        loop:''
       };
     },
     props:['activiyItem','wholePage'],
@@ -207,6 +272,9 @@ import { setTimeout } from 'timers';
                 }            
             })
             this.activiyItem.children.push(arr[0])
+        },
+        classValue(val){
+            this.activiyItem.addclass.classname = val
         },
         morePicArr:{
             handler(val){
@@ -241,14 +309,17 @@ import { setTimeout } from 'timers';
     },
     computed:mapState({
         comlist: state => state.compontentList.comlist,
-        morePicArr: state => state.data.morePicArr
+        morePicArr: state => state.data.morePicArr,
+        stylelist: state => state.compontentList.stylelist
     }),
     components:{
         colorpicker
     },
     mounted () {
         this.$store.dispatch('compontentList/getCompontentList')
-        console.log(this.activiyItem)
+        this.$store.dispatch('compontentList/getStyleList').then(() => {
+            console.log(this.stylelist)
+        })
     }
   }
 </script>

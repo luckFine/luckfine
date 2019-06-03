@@ -1,18 +1,41 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
+.mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
 </style>
 <template>
     <div class="pageView">
         <div  
         v-for="item,index in pageList" 
-        @click.prevent.stop="clickItem(item,index)" 
         class="list-group-item pageClass father" 
         :key="index">
-            <component  v-bind:is="item.name" :itemData='item'></component>
-            <div class="childClass" v-if="item.children.length>0" v-for="ele,num in item.children" @click.prevent.stop="clickItem(ele,num)" :style="StyleSheet(ele)" >
-                <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+            <component  
+                v-bind:is="item.name" 
+                :source='"preview"' 
+                :fixed='index'
+                :itemData='item'>
+            </component>
+            <div class="mainContent">
+                <div :class="[childClass,classname(ele)]" 
+                    v-if="item.children.length>0" 
+                    v-for="ele,num in item.children" 
+                    :style="StyleSheet(ele)"
+                    >
+                    <component :source='"preview"'  class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                </div>                
             </div>
-        </div>              
+
+        </div>
+        <!-- <div class="childClass" 
+            v-if="item.children.length>0" 
+            v-for="ele,num in item.children" 
+            @click.prevent.stop="clickItem(ele,num)" 
+            :style="StyleSheet(ele)" >
+            <div class="delate" @click.prevent.stop="deleteClilden(item,num)">{{index}}</div>
+            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+        </div> -->
+
+
+
     </div>
 </template>
 <script>
@@ -64,10 +87,20 @@ import {
                 Object.keys(obj).forEach((key) => {
                     if( typeof(obj[key]) == 'number'){
                         let str = obj[key].toString()
-                        obj[key] = str+'%'
+                        obj[key] = str+'px'
                     }
                 })
                 return obj                
+            },
+            classname(ele){
+                if(ele.addclass && ele.addclass.classname){
+                    let name = ele.addclass.classname
+                    let infinite = ele.addclass.loop === true ? 'infinite' : ''
+                    return [name,infinite,'animated']                         
+                }else{
+                    return ''
+                }
+           
             }
         },
         computed:{

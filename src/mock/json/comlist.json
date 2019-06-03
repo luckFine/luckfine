@@ -12,6 +12,11 @@
             "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
           }
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
         "children":[]
       },{
         "name":"swiper",
@@ -36,6 +41,11 @@
             ]
           }
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
         "style":{
           "width": 480,
           "height":200,
@@ -65,6 +75,11 @@
           "left":20,
           "top":20,
           "overflow":"hidden"
+        },
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
         }
       },
       {
@@ -77,6 +92,11 @@
             "labelValue":"//i0.jrjimg.cn/assets/web/images/nineteen-web-b7.27fb2f218c828c0dc566f489c52bd7e6.jpg" 
           }          
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
         "children":[]
       },
       {
@@ -89,6 +109,11 @@
             "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
           }          
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
         "children":[]
       },
       {
@@ -106,6 +131,11 @@
             "labelValue":"可在此输入提示标题" 
           }           
         ],
+        "addclass":{
+          "open":true,
+          "classname":"",
+          "loop":true
+        },
         "style":{
           "width": 150,
           "height":40,
@@ -131,6 +161,31 @@
             "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
           }          
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
+        "style":{
+          "width": 150,
+          "height":40,
+          "font-size":16,
+          "line-height":40,
+          "border-radius":50,
+          "position":"absolute",
+          "left":20,
+          "top":20,
+          "color":"#fff",
+          "background-color":"skyblue",
+          "background":"url('http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg')"
+        },
+        "styleBg":{
+          "background":"http://i0.jrjimg.cn/assets/web/images/web-pop1.4d71523648361d04592863c087392114.jpg"
+        },
+        "styleSuc":{
+          "background":"http://i0.jrjimg.cn/assets/web/images/web-pop2.91674ff7a0e241692503b029f56710f7.jpg"
+        },
+        "acid":"",
         "children":[]
       },
       {
@@ -141,7 +196,7 @@
             "label":"input",
             "describe":"文字",
             "labelValue":"按钮1" 
-          }          
+            }     
         ],
         "style":{
           "width": 150,
@@ -156,9 +211,21 @@
           "background-color":"skyblue",
           "background":"url('http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg')"
         },
-        "event":{
+        "clickEventHref":{
           "describe":"添加跳转链接",
           "href":"https://www.smashingmagazine.com/2019/01/html5-input-types/#top"
+        },
+        "addclass":{
+          "open":true,
+          "classname":"",
+          "loop":true
+        },
+        "isBuy":{
+          "isBuy":true,
+          "productId":"",
+          "productSubId":"",
+          "type":"",
+          "href":""
         },
         "children":[]
       },
@@ -200,6 +267,11 @@
             ]
         }
         ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
         "style":{
             "width": 480,
             "height":200,
