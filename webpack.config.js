@@ -3,10 +3,13 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry:  path.join(__dirname, 'src/luckfine/page/index.js'),
+    entry:  {
+        index:path.join(__dirname, 'src/luckfine/page/index.js'),
+        activity:path.join(__dirname, 'src/luckfine/page/activity.js')
+    },
     mode:'develop',
     output: {
-        filename: 'bundle.js',
+        filename: './[name].js',
         path: path.join(__dirname, 'dist')
     },
     module: {
@@ -40,7 +43,16 @@ module.exports = {
     },
     plugins:[
         new HtmlWebpackPlugin({
-            template:`./src/luckfine/index.html`
+            template:`./src/luckfine/index.html`,
+            filename:'index.html',
+            chunks:['index'],
+            inject: 'true'
+        }),
+        new HtmlWebpackPlugin({
+            template:`./src/luckfine/index.html`,
+            filename:'activity.html',
+            chunks:['activity'],
+            inject: 'true'
         }),
         new VueLoaderPlugin()
     ],

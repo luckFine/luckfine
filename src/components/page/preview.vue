@@ -60,7 +60,8 @@ import {
     export default {
         data(){
             return{
-                pageList:[] // 当前选中组件
+                pageList:[], // 当前选中组件
+                id:this.$route.params.id
             }
         },
         methods:{
@@ -103,10 +104,19 @@ import {
            
             }
         },
-        computed:{
-        },
+        computed:mapState({
+            pageDetailData: state => state.data.pageDetailData
+        }),
         mounted () {
-            this.pageList = JSON.parse(window.localStorage.getItem('pageList'))
+            // this.pageList = JSON.parse(window.localStorage.getItem('pageList'))
+            console.log(this.id);
+            if(this.id){
+                this.$store.dispatch('data/pageDetail',{id:this.id}).then(() => {
+                    this.pageList = this.pageDetailData.result.content
+                })
+            }else{
+                this.pageList = JSON.parse(window.localStorage.getItem('pageList'))
+            }
 	        //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
         },
         components:{

@@ -6,9 +6,25 @@ class Activity extends BaseController{
         super();
         this.service = new ActivityService();
     }
-    @url('/special')
-    recentActs(ctx,next){
-        ctx.body = "recent acts";
+    @post('/publish')
+    async publish(ctx,next){
+        const data = {
+            errCode:0,
+            msg:'success'
+        }
+        const _id = ctx.request.body._id;
+        const status = ctx.request.body.status?"online":""
+        const entity = {
+            _id,
+            status
+        }
+        try{
+            data.result = await this.service.update(entity);
+            ctx.body = data;
+        }catch(e){
+            data.msg = "failed";
+            ctx.body = data;
+        }
     }
 }
 module.exports = Activity

@@ -44,19 +44,39 @@
                 prop="createTime"
                 label="创建时间"
                 sortable
-                width="180">
+                width="200">
               </el-table-column>
               <el-table-column
                 prop="wholePage.creater"
                 label="创建者"
                 sortable
-                width="180">
+                width="120">
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button
+                  <el-button :disabled="scope.row.status==='online'"
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row,)">编辑</el-button>
+                  <el-button v-if="scope.row.status!=='online'"
+                    size="mini"
+                    type="primary"
+                    @click="publish(scope.row,1)">上线</el-button>
+                  <el-button v-else
+                    size="mini"
+                    type="primary"
+                    @click="publish(scope.row,0)">下线</el-button>
+                  <el-button v-if="scope.row.status==='online'"
+                    size="mini"
+                    type="primary"
+                    @click="view(scope.row)">查看</el-button>
+                  <el-button v-else
+                    size="mini"
+                    type="primary"
+                    @click="preview(scope.row)">预览</el-button>
+                  <el-button
+                    size="mini"
+                    type="primary"
+                    @click="handleDelete(scope.$index, scope.row)">复制</el-button>
                   <el-button
                     size="mini"
                     type="danger"
@@ -116,6 +136,17 @@ export default {
           }
 
         })
+      },
+      publish(activity,status){
+        
+        this.$store.dispatch('data/publish',{id:activity._id,status:status})
+      },
+      view(row){
+        window.open(`//localhost:8080/activity.html#/${row._id}`);
+        // window.location.href=`//localhost:8080/activity.html/#/${row._id}`;
+      },
+      preview(row){
+        this.$router.push({name:'preview',params:{id:row._id}})
       },
       getList(){
         this.$store.dispatch('data/getList').then(() => {

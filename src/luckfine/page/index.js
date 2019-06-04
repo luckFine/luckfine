@@ -28,11 +28,11 @@ import local from 'components/page/local'
 const routes = [
     { 
       name:'preview',
-      path: '/preview', 
+      path: '/preview/:id', 
       component: preview },
     {
       name:'edit',
-      path: '/edit', 
+      path: '/edit/:id', 
       component: webEdit 
     },
     {

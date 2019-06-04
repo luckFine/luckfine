@@ -30,6 +30,18 @@ export default {
     },
     deleteResult(state, res) {
       state.deleteResult = res;
+    },
+    updateData(state,res){
+      let itemIndex;
+      state.dataList.result.some((item,index) => {
+        if(item._id === res._id){
+          itemIndex = index;
+          return true;
+        }
+      })
+      if(itemIndex!==undefined){
+        state.dataList.result.splice(itemIndex,1,res);
+      }
     }
   },
   // 浏览器环境才可以使用actions来获取数据，服务端应该用Node.js的方式获取数据后，通过mutations同步的把数据存入到store
@@ -77,5 +89,17 @@ export default {
         commit('deleteResult', data.data)
       })
     },
+    publish({commit},{id,status}){
+      return axios.post('/actconf/api/activity/publish',{
+        _id:id,
+        status
+      }).then((d) => {
+        const data = d.data;
+        if(data.errCode === 0){
+          const entity = data.result;
+          commit('updateData',entity);
+        }
+      })
+    }
   }
 }
