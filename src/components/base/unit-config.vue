@@ -95,7 +95,7 @@
                                     </el-input>  
                                     <ul>
                                         <li>
-                                            <el-input v-model="item.normalBg" placeholder="" >
+                                            <el-input  placeholder="" >
                                                 <div slot="prepend" class="uploadButton">
                                                     <p>tab背景</p>
                                                 </div>

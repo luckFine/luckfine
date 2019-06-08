@@ -237,7 +237,7 @@
             "label":"input",
             "describe":"数量",
             "labelValue":5,
-            "normalBg":"tab背景",
+            "normalBg":"",
             "actBg":""
 
         },

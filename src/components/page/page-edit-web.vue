@@ -19,7 +19,7 @@
 .activityBar{transition: left 0.7s;left: 80px;}
 .activityBarFalse{transition: left 0.7s;left: -200px;}
 /* 主视图 */
-.mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
+.mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 </style>
 <template>
     <div class="pageContent" id="pageContent">
@@ -167,6 +167,7 @@ import axios from 'axios'
                 this.pageList.splice(index, 1);
             },
             clickItem(item,index){
+                console.log(item)
                 this.activiyItem = item
                 this.activiyIndex = index
                 this.showRightBar = true
