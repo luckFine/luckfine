@@ -240,6 +240,7 @@ import {
 } from 'vuex'
 import colorpicker from './colorpicker.vue'
 import { setTimeout } from 'timers';
+
   export default {
     data() {
       return {
@@ -309,18 +310,37 @@ import { setTimeout } from 'timers';
             this.wholePage.backgroud = data
         },
         success(response, file, fileList){
+            let pp = []
+            // let more = []
             if(fileList.length>1){
 
-                this.morePicArr = file.response.files[0].uri
+                // this.morePicArr = file.response.files[0].uri
                 // fileList.
-                // for(let a = 0; a<fileList.length; a++){
-                //     fileList[name]
-                // }
-                console.log(fileList.length)
-                // console.log(fileList.)
-                console.log(fileList)
-                console.log(this.morePicArr)
-                // this.$store.commit('data/setMorePicArr',this.morePicArr)               
+                
+                for(let a = 0; a<fileList.length; a++){
+                    pp.push(fileList[a].name)
+                }
+                // console.log(pp)
+                pp.sort()
+                for(let a = 0;a <pp.length; a++){
+                    fileList.forEach(item => {
+                        if(item.name==pp[a]){
+                            // more.push(item.response.files[0].uri)
+                            console.log(item)
+                            this.morePicArr = item.response.files[0].uri
+                        }
+                    })           
+
+                }
+                // console.log(more)
+
+
+                // console.log(fileList.length)
+                // // console.log(fileList.)
+                // console.log(fileList)
+                // console.log()
+                // this.morePicArr = more
+                this.$store.commit('data/setMorePicArr',this.morePicArr)               
             }
         }
     },
