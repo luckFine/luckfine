@@ -78,6 +78,7 @@
                                             :show-file-list='false'
                                             multiple
                                             :on-success="success"
+                                            :before-upload="beforeUpload"
                                             >
                                             <el-button size="small" type="primary">选择图片</el-button>
                                         </el-upload>
@@ -262,7 +263,7 @@ import { setTimeout } from 'timers';
         },
         activeNames: ['1'],
         value: '',
-        piclist:[],
+        picList:[],
         upLoadData:{
           org:'jrjact',
           files:''
@@ -287,7 +288,7 @@ import { setTimeout } from 'timers';
         },
         morePicArr:{
             handler(val){
-                this.$emit('input',val)
+                this.$emit('input', val)
             }
         },
         wholePage:{
@@ -309,38 +310,30 @@ import { setTimeout } from 'timers';
         bgcolor(data){
             this.wholePage.backgroud = data
         },
+        beforeUpload(file) {
+            this.picList.push(file)
+        },
         success(response, file, fileList){
-            let pp = []
-            // let more = []
-            if(fileList.length>1){
-
-                // this.morePicArr = file.response.files[0].uri
-                // fileList.
-                
-                for(let a = 0; a<fileList.length; a++){
-                    pp.push(fileList[a].name)
+            if(fileList.length > 1) {
+                // for(let a = 0; a<fileList.length; a++){
+                //     pp.push(fileList[a].name)
+                // }
+                // pp.sort()
+                // for(let a = 0;a <pp.length; a++){
+                //     fileList.forEach(item => {
+                //         if(item.name==pp[a]){
+                //             this.morePicArr = item.response.files[0].uri
+                //         }
+                //     })
+                // }
+                // this.$store.commit('data/setMorePicArr', this.morePicArr)
+                let targetIndex = this.picList.findIndex(item => {
+                    return item.uid === file.uid
+                })
+                if(targetIndex > -1) {
+                    this.storage[targetIndex].remoteUrl = response.files[0].uri
                 }
-                // console.log(pp)
-                pp.sort()
-                for(let a = 0;a <pp.length; a++){
-                    fileList.forEach(item => {
-                        if(item.name==pp[a]){
-                            // more.push(item.response.files[0].uri)
-                            console.log(item)
-                            this.morePicArr = item.response.files[0].uri
-                        }
-                    })           
-
-                }
-                // console.log(more)
-
-
-                // console.log(fileList.length)
-                // // console.log(fileList.)
-                // console.log(fileList)
-                // console.log()
-                // this.morePicArr = more
-                this.$store.commit('data/setMorePicArr',this.morePicArr)               
+                console.log(this.picList)
             }
         }
     },
