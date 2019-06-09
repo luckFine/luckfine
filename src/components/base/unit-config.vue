@@ -40,10 +40,18 @@
                 <div>
                     <p>页面标题</p>
                     <el-input v-model="wholePage.title" placeholder=""></el-input>  
-                    <p>页面背景</p>
-                    <colorpicker v-on:colorpicker="bgcolor"></colorpicker>
                     <p>创建者</p>
                     <el-input v-model="wholePage.creater" placeholder=""></el-input>  
+                    <p>活动时间</p>
+                    <div class="block">
+                        <el-date-picker
+                        v-model="wholePage.section"
+                        type="datetimerange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
                 </div>                 
             </el-tab-pane>
             <el-tab-pane label="内容配置" name="second">
@@ -138,11 +146,11 @@
                             <div v-if="activiyItem.name === 'btn'">
                                 <p>是否是购买</p>
                                 <el-switch
-                                    v-model="activiyItem.isBuy.isBuy"
+                                    v-model="activiyItem.isBuy && activiyItem.isBuy.isBuy"
                                     active-text="是"
                                     inactive-text="否">
                                 </el-switch>
-                                <div v-if="activiyItem.isBuy.isBuy">
+                                <div v-if="activiyItem.isBuy && activiyItem.isBuy.isBuy">
                                     <el-input v-model="activiyItem.isBuy.productSubId" placeholder="">
                                         <div slot="prepend" class="uploadButton">
                                             <p>产品类型</p>
@@ -302,8 +310,17 @@ import { setTimeout } from 'timers';
         },
         success(response, file, fileList){
             if(fileList.length>1){
+
                 this.morePicArr = file.response.files[0].uri
-                this.$store.commit('data/setMorePicArr',this.morePicArr)               
+                // fileList.
+                // for(let a = 0; a<fileList.length; a++){
+                //     fileList[name]
+                // }
+                console.log(fileList.length)
+                // console.log(fileList.)
+                console.log(fileList)
+                console.log(this.morePicArr)
+                // this.$store.commit('data/setMorePicArr',this.morePicArr)               
             }
         }
     },
@@ -317,9 +334,7 @@ import { setTimeout } from 'timers';
     },
     mounted () {
         this.$store.dispatch('compontentList/getCompontentList')
-        this.$store.dispatch('compontentList/getStyleList').then(() => {
-            console.log(this.stylelist)
-        })
+        this.$store.dispatch('compontentList/getStyleList')
     }
   }
 </script>

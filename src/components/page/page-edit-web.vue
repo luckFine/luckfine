@@ -5,12 +5,12 @@
 .pageClass{position: relative;width: 100%;}
 .pageClass:hover,.childClass:hover{border: 1px solid red;opacity: 0.8}
 .pageClass:hover .delate,.childClass:hover .delate{display: block;}
-.delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;display:none;cursor: pointer;z-index: 5}
+.delate{position: absolute;top: 0;right: 0;color: #fff;display:none;cursor: pointer;z-index: 5}
 .childClass{position: absolute;top: 0;left: 0;white-space:nowrap}
 .bottomBox{width:100%;height:60px;position: fixed;left: 0;bottom: 0;z-index: 20;}
 /* 左侧导航 */
-.tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;background: #e6e6e6;color:rgb(84, 92, 100);z-index: 10;background: #fff;padding-top: 50px;box-sizing: border-box;}
-.tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color:rgb(84, 92, 100);}
+.tabBar{width:80px;height: 100%; position: fixed;left: 0;top: 0;color: #fff;background:rgb(84, 92, 100);z-index: 10;padding-top: 50px;box-sizing: border-box;}
+.tabBar i{font-size: 1.5em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color:#fff;}
 .tabBar p{text-align: center;}
 .tabBarContent{width: 200px;position: fixed;top: 0;z-index: 9;left: -200px;background: #fff;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);padding: 10px;box-sizing: border-box;height: 100%;overflow-y: scroll;}
 .rightBar{width:350px;position: fixed;right: -350px;top: 10%;background: #fff;z-index: 10;}
@@ -75,7 +75,9 @@
                 group="people"
                 >
                 <div  v-for="item,index in pageList" @click.prevent.stop="clickItem(item,index)" class="list-group-item pageClass father" :key="index">
-                    <div class="delate" @click="deleteItem(index)">{{index}}</div>
+                    <div class="delate" @click="deleteItem(index)">
+                        <el-button type="primary" icon="el-icon-delete"></el-button>
+                    </div>
                     <component  
                         v-bind:is="item.name" 
                         :itemData='item' 
@@ -91,7 +93,9 @@
                             v-for="ele,num in item.children" 
                             @click.prevent.stop="clickItem(ele,num)" 
                             :style="StyleSheet(ele)" >
-                            <div class="delate" @click.prevent.stop="deleteClilden(item,num)">{{index}}</div>
+                            <div class="delate" @click.prevent.stop="deleteClilden(item,num)">
+                                <el-button type="primary" icon="el-icon-delete"></el-button>
+                            </div>
                             <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
                         </div>
                     </div>

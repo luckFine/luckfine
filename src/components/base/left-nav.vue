@@ -63,7 +63,7 @@
 import {
     mapState
 } from 'vuex'
-import axios from 'axios'
+
 export default {
   name: 'login.vue',
   data() {
