@@ -256,7 +256,8 @@ import { setTimeout } from 'timers';
             'border-radius':'圆角',
             'left':'距离左边',
             'top':'距离上方',
-            'color':'字体颜色'
+            'color':'字体颜色',
+            'z-index':'层级'
         },
         headers:{
             'enctype':'multipart/form-data'
@@ -270,7 +271,8 @@ import { setTimeout } from 'timers';
         },
         morePicArr:[],
         classValue:'',
-        loop:''
+        loop:'',
+        successNum:0
       };
     },
     props:['activiyItem','wholePage'],
@@ -310,30 +312,39 @@ import { setTimeout } from 'timers';
         bgcolor(data){
             this.wholePage.backgroud = data
         },
-        beforeUpload(file) {
-            this.picList.push(file)
-        },
+        // beforeUpload(file) {
+        //     this.picList.push(file)
+        // },
         success(response, file, fileList){
             if(fileList.length > 1) {
-                // for(let a = 0; a<fileList.length; a++){
-                //     pp.push(fileList[a].name)
-                // }
-                // pp.sort()
-                // for(let a = 0;a <pp.length; a++){
-                //     fileList.forEach(item => {
-                //         if(item.name==pp[a]){
-                //             this.morePicArr = item.response.files[0].uri
-                //         }
-                //     })
-                // }
-                // this.$store.commit('data/setMorePicArr', this.morePicArr)
-                let targetIndex = this.picList.findIndex(item => {
-                    return item.uid === file.uid
-                })
-                if(targetIndex > -1) {
-                    this.storage[targetIndex].remoteUrl = response.files[0].uri
+                // console.log(fileList)
+                // console.log('hahh')
+                // console.log(file)
+                let pp = []
+                this.successNum++
+                if(Number(this.successNum)===Number(fileList.length)){
+                    for(let a = 0; a<fileList.length; a++){
+                        pp.push(fileList[a].name)
+                    }
+                    pp.sort()
+                    for(let a = 0;a <pp.length; a++){
+                        fileList.forEach(item => {
+                            if(item.name==pp[a]){
+                                this.morePicArr.push(item.response.files[0].uri)
+                            }
+                        })
+                    }
                 }
-                console.log(this.picList)
+                console.log(this.morePicArr)
+                // this.$store.commit('data/setMorePicArr', this.morePicArr)
+                // let targetIndex = this.picList.findIndex(item => {
+                //     return item.uid === file.uid
+                // })
+                // if(targetIndex > -1) {
+                //     this.picList[targetIndex].remoteUrl = response.files[0].uri
+                // }
+                this.$store.commit('data/setMorePicArr', this.morePicArr)
+                // console.log(this.picList)
             }
         }
     },

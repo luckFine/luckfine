@@ -78,6 +78,8 @@ import {
                 element.addEventListener('click',function(){
                     slef.event()
                 })
+            }else{
+                return
             }
         }
     }

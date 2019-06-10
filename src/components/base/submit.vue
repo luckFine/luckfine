@@ -2,9 +2,9 @@
   <div>
     <!-- <el-button type="text" @click="open">点击打开提交信息</el-button> -->
     <div class="popBtn" 
-    @click="pop=!pop"
-    :style="{background:'url('+itemData.style.background+') no-repeat'}"
-    >tujiao </div>
+    id="popBtn"
+    :style="{background:'url('+itemData.style.background+') no-repeat;height:'+itemData.style.height+'px'}"
+    >{{itemData.advanceFields[0].labelValue}}</div>
     <div class="pop" 
       v-if="pop"
       :style="{background:'url('+itemData.styleBg.background+') no-repeat'}" 
@@ -48,8 +48,11 @@ import Misc from './../../utils/misc'
         popSucessType:false
       }
     },
-    props:['itemData'],
+    props:['itemData','source'],
     methods: {
+      changePop(){
+        this.pop = true
+      },
       close(){
         this.pop = false
         this.popSucessType = false
@@ -101,11 +104,22 @@ import Misc from './../../utils/misc'
       }
     },
     mounted(){
-      console.log(Misc)
+      alert(this.source)
+      if(this.source === 'preview'){
+          let element=document.getElementById("popBtn")
+          var slef = this
+          element.addEventListener('click',function(){
+              slef.changePop()
+          })
+      }
     }
   }
 </script>
 <style scoped>
+.popBtn{
+  min-height: 50px;
+  z-index: 77;
+}
 .pop {
     width: 583px;
     height: 366px;

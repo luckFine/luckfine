@@ -208,7 +208,7 @@ import axios from 'axios'
 
             },
             classname(ele){
-                if(ele.addclass && ele.addclass.classname){
+                if(ele && ele.addclass && ele.addclass.classname){
                     let name = ele.addclass.classname
                     let infinite = ele.addclass.loop === true ? 'infinite' : ''
                     return [name,infinite,'animated']                     
@@ -291,24 +291,19 @@ import axios from 'axios'
                         }
                         ],
                         'children':[]
+                    }                      
+                    for(let a = 0; a <this.morePicArr.length;a++){
+                        let obj = this.deepClode(data)
+                        obj.advanceFields[0].labelValue = this.morePicArr[a]
+                        this.pageList.push(obj)    
+                        console.log(this.pageList)                      
                     }
-                    data.advanceFields[0].labelValue = this.morePicArr
-                    this.pageList.push(data)
+
                 },
                 deep:true
             }
         },
         computed:mapState({
-            // StyleSheet(ele){
-            //     let obj = this.deepClode(ele.style)
-            //     Object.keys(obj).forEach((key) => {
-            //         if( typeof(obj[key]) == 'number'){
-            //             let str = obj[key].toString()
-            //             obj[key] = str+'px'
-            //         }
-            //     })
-            //     return obj                
-            // },
             savePage: state => state.data.savePageResult,
             morePicArr: state => state.data.morePicArr,
             pageDetailData: state => state.data.pageDetailData
@@ -316,7 +311,7 @@ import axios from 'axios'
         mounted () {
             //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
             if(this.$route.params.id){
-                alert('编辑')
+                // alert('编辑')
                 this.$store.dispatch('data/pageDetail',{
                     id:this.$route.params.id
                 }).then(() => {
@@ -326,7 +321,7 @@ import axios from 'axios'
                     }
                 })
             }else{
-                alert('新建')
+                // alert('新建')
             }
             document.body.ondrop = function (event) {
                 event.preventDefault();

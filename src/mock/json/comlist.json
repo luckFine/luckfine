@@ -155,14 +155,14 @@
         "name":"submit",
         "baseName":"提交信息弹窗",
         "advanceFields":[
-            {
+          {
             "label":"input",
-            "describe":"图片地址",
-            "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
-          }          
+            "describe":"文字",
+            "labelValue":"提交信息按钮" 
+            }           
         ],
         "addclass":{
-          "open":false,
+          "open":true,
           "classname":"",
           "loop":true
         },
@@ -175,6 +175,7 @@
           "position":"absolute",
           "left":20,
           "top":20,
+          "z-index":77,
           "color":"#fff",
           "background-color":"skyblue",
           "background":"url('http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg')"
