@@ -5,29 +5,32 @@
     id="popBtn"
     :style="{background:'url('+itemData.style.background+') no-repeat;height:'+itemData.style.height+'px'}"
     >{{itemData.advanceFields[0].labelValue}}</div>
-    <div class="pop" 
-      v-if="pop"
-      :style="{background:'url('+itemData.styleBg.background+') no-repeat'}" 
-      >
-        <div class="join">
-            <span class="userNamebox">
-              <input type="text" class="userName" placeholder="请输入您的中文名" v-model="userName" />
-              <em v-html="txtUHtml" v-if="txtUShow"></em>
-          </span>
-            <span class="phonebox">
-              <input type="text" class="phone" placeholder="请输入您的11位手机号码" v-model="phone" />
-              <em v-html="txtPHtml" v-if="txtPShow"></em>
-          </span>
-            <a href="javascript:;" class="btn btn-large btn-join" @click="joinSubmit">立即预约</a>
-        </div>
-        <a href="javascript:;" class="close" @click="close"></a>
+    <div class="mask" v-if="pop || popSucessType">
+      <div class="pop" 
+        v-if="pop"
+        :style="{background:'url('+itemData.styleBg.background+') no-repeat'}" 
+        >
+          <div class="join">
+              <span class="userNamebox">
+                <input type="text" class="userName" placeholder="请输入您的中文名" v-model="userName" />
+                <em v-html="txtUHtml" v-if="txtUShow"></em>
+            </span>
+              <span class="phonebox">
+                <input type="text" class="phone" placeholder="请输入您的11位手机号码" v-model="phone" />
+                <em v-html="txtPHtml" v-if="txtPShow"></em>
+            </span>
+              <a href="javascript:;" class="btn btn-large btn-join" @click="joinSubmit">立即预约</a>
+          </div>
+          <a href="javascript:;" class="close" @click="close"></a>
+      </div>
+      <div class="popSucess" 
+        :style="{background:'url('+itemData.styleSuc.background+') no-repeat'}"
+        v-if="popSucessType">
+          <a href="javascript:;" @click="close"></a>
+          <a href="javascript:;" @click="close"></a>
+      </div>      
     </div>
-    <div class="popSucess" 
-      :style="{background:'url('+itemData.styleSuc.background+') no-repeat'}"
-      v-if="popSucessType">
-        <a href="javascript:;" @click="close"></a>
-        <a href="javascript:;" @click="close"></a>
-    </div>
+
   </div>
  
 </template>
@@ -116,6 +119,7 @@ import Misc from './../../utils/misc'
   }
 </script>
 <style scoped>
+.mask{width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);position: fixed;top: 0;left: 0;z-index: 5;overflow: hidden;}
 .popBtn{
   min-height: 40px;
   z-index: 77;

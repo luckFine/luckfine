@@ -2,7 +2,7 @@
 img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
-    <div id="botton">
+    <div id="botton" :style="'height:'+itemData.style.height+'px'">
         {{value.labelValue}}
     </div>
 </template>
@@ -64,7 +64,7 @@ import {
                 }
             },
             event(href){
-                if(this.itemData.isBuy){
+                if(this.itemData.isBuy.isBuy){
                     this.buy()
                 }else{
                     window.open(this.eventHref)
@@ -72,6 +72,7 @@ import {
             }
         },
         mounted () {
+            // alert(this.source)
             if(this.source === 'preview'){
                 var element=document.getElementById("botton")
                 var slef = this

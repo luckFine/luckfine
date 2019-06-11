@@ -22,15 +22,16 @@
 .mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 .comBox >>>.popBtn,.comBox >>>#botton,.comBox .message{width:150px;height:40px;line-height:40px;font-size: 16px;text-align: center;border-radius: 40px;background:rgb(84, 92, 100);margin: 0 auto;color: #fff;}
 .comBox >>>.tab{background-color:rgb(84, 92, 100);color:#fff;}
+/* .home{margin-bottom: 100px;} */
 /* .drag-item{min-height: } */
 </style>
 <template>
     <div class="pageContent" id="pageContent">
         <ul class="tabBar">
-            <!-- <li @click="cancel">
+            <div @click="cancel" class="home">
                 <i class="el-icon-s-home"></i>
                 <p slot="title">首页</p>                    
-            </li> -->
+            </div>
             <li @click="activity('1')">
                 <i class="el-icon-s-management"></i>
                 <p slot="title">组件库</p>                    
@@ -92,7 +93,7 @@
                     <div class="mainContent">
                         <div 
                             :class="[childClass,classname(ele)]"  
-                            v-if="item.children.length>0" 
+                            v-if="item.children.length>0 && item.name !=='fixbottom'" 
                             v-for="ele,num in item.children" 
                             @click.prevent.stop="clickItem(ele,num)" 
                             :style="StyleSheet(ele)" >
@@ -143,8 +144,6 @@ import axios from 'axios'
             return{
                 listData: [], // 全部组件
                 pageList:[], // 当前选中组件
-                activiyItem:{},
-                activiyIndex:-1,
                 wholePage:{
                     title:'',
                     backgroud:'#e6e6e6'
@@ -175,8 +174,11 @@ import axios from 'axios'
             },
             clickItem(item,index){
                 console.log(item)
-                this.activiyItem = item
-                this.activiyIndex = index
+                // this.activiyItem = item
+                this.$store.commit('data/setactiviyItem', item)
+                // this.activiyIndex = index
+                console.log(this.activiyIndex)
+                this.$store.commit('data/setactiviyIndex', index)
                 this.showRightBar = true
             },
             deleteItem(index){    
@@ -309,7 +311,9 @@ import axios from 'axios'
         computed:mapState({
             savePage: state => state.data.savePageResult,
             morePicArr: state => state.data.morePicArr,
-            pageDetailData: state => state.data.pageDetailData
+            pageDetailData: state => state.data.pageDetailData,
+            activiyItem: state => state.data.activiyItem,
+            activiyIndex: state => state.data.activiyIndex
         }),
         mounted () {
             //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效

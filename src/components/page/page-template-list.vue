@@ -38,10 +38,18 @@ body {
   box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
   overflow-y: scroll;
 }
-.addNew{
-  display: none
+.itemBox{
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  font-size: 1.2em;
+  color: rgb(0,158,107);
+  box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+  overflow: hidden;
 }
-.item:hover .addNew{
+.addNew{
   width: 100%;
   height: 60px;
   line-height: 64px;
@@ -103,22 +111,25 @@ width: 300px;position: absolute;top: 0%;left: 50%;margin-left: -150px;height: 10
               <!--
                 your component
               -->
-              <div class="item" >
-                <div v-for="ele in item.content" class="compontentBox" >
-                    <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>   
-                    <!-- <div class="mainContent">
-                        <div class="childClass" 
-                            v-if="item.children.length>0" 
-                            v-for="ele,num in item.children" 
-                            @click.prevent.stop="clickItem(ele,num)" 
-                            :style="StyleSheet(ele)" >
-                            <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
-                            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
-                        </div>
-                    </div>                 -->
-                </div>
-                <div class="addNew" @click="addNew(item._id,'add')">基于此模板创建</div>
+              <div class="itemBox">
+                <div class="item" >
+                  <div v-for="ele in item.content" class="compontentBox" >
+                      <component  v-bind:is="ele.name" :itemData='ele' :source='"default"'></component>   
+                      <!-- <div class="mainContent">
+                          <div class="childClass" 
+                              v-if="item.children.length>0" 
+                              v-for="ele,num in item.children" 
+                              @click.prevent.stop="clickItem(ele,num)" 
+                              :style="StyleSheet(ele)" >
+                              <div class="delate" @click="deleteClilden(item,num)">{{index}}</div>
+                              <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
+                          </div>
+                      </div>                 -->
+                  </div>
+                </div>  
+                <div class="addNew" @click="addNew(item._id,'add')">基于此模板创建</div>              
               </div>
+
             </waterfall-slot>
           </waterfall>
           

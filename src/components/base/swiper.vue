@@ -29,7 +29,7 @@
 </style>
 <template>
   <div class="block">
-        <el-carousel height='100'>
+        <el-carousel :height="itemData.style.height+'px'">
                 <el-carousel-item v-for="(item,index) in itemData.advanceFields[1].inputData" :key="index" >
                         <img :src="item.labelValue" alt="">
                 </el-carousel-item>           
