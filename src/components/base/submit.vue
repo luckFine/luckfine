@@ -104,7 +104,7 @@ import Misc from './../../utils/misc'
       }
     },
     mounted(){
-      alert(this.source)
+      // alert(this.source)
       if(this.source === 'preview'){
           let element=document.getElementById("popBtn")
           var slef = this
@@ -117,7 +117,7 @@ import Misc from './../../utils/misc'
 </script>
 <style scoped>
 .popBtn{
-  min-height: 50px;
+  min-height: 40px;
   z-index: 77;
 }
 .pop {

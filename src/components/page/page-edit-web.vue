@@ -20,6 +20,9 @@
 .activityBarFalse{transition: left 0.7s;left: -200px;}
 /* 主视图 */
 .mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
+.comBox >>>.popBtn,.comBox >>>#botton,.comBox .message{width:150px;height:40px;line-height:40px;font-size: 16px;text-align: center;border-radius: 40px;background:rgb(84, 92, 100);margin: 0 auto;color: #fff;}
+.comBox >>>.tab{background-color:rgb(84, 92, 100);color:#fff;}
+/* .drag-item{min-height: } */
 </style>
 <template>
     <div class="pageContent" id="pageContent">
@@ -53,7 +56,7 @@
                     :clone="cloneDog"
                     :group="{ name: 'people', pull: 'clone', put: false }"
                     >
-                    <div v-for="item,index in listData"  class = "drag-item comBox list-group-item" :key="index">
+                    <div v-for="item,index in listData"  class = "drag-item comBox list-group-item"  :key="index">
                         <p class="center">{{item.baseName}}</p>
                         <component  v-bind:is="item.name" :itemData='item' :source='"default"'></component>
                     </div>        

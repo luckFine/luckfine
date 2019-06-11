@@ -1,5 +1,8 @@
 <template>
-  <el-button type="text" @click="open">点击提示弹窗</el-button>
+  <div class="message">
+    <el-button type="text" @click="open">点击提示弹窗</el-button>
+  </div>
+  
 </template>
 
 <script>

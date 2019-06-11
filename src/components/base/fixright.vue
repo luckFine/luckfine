@@ -1,5 +1,5 @@
 <style scoped>
-.fixright{width:157px;height:260px;}
+/* .fixright{width:157px;height:260px;} */
 .fixright img{width:157px;}
 .delate{width: 30px;height: 30px;position: absolute;top: 0;right: 0;color: #fff;background:blue;cursor: pointer;z-index: 5}
 .fixrightValue{position: fixed;top: 35%;right: 0;width: 100%;width:157px;height:260px;z-index: 9}

@@ -125,12 +125,6 @@
                                     <li><el-input v-model="ele.imgSrc" placeholder=""></el-input></li>
                                 </ul> 
                             </div>
-                            <!-- 点击跳转 -->
-                            <div v-if="activiyItem.clickEventHref && !activiyItem.isBuy.isBuy">
-                                <p>{{activiyItem.clickEventHref.describe}}</p>
-                                <el-input v-model="activiyItem.clickEventHref.href" placeholder="">
-                                </el-input>    
-                            </div>
 
                             <div v-if="activiyItem.addclass && activiyItem.addclass.open">
                                 <p>添加动效</p>
@@ -172,7 +166,14 @@
                                             <p>成功连接</p>
                                         </div>
                                     </el-input> 
+                                    <a href="http://wiki2.jrj.com.cn/pages/viewpage.action?pageId=5228086" type="primary" target="_blank">查看参数<i class="el-icon-view el-icon--right"></i> </a>
                                 </div>
+                            </div>
+                            <!-- 点击跳转 -->
+                            <div v-if="activiyItem.clickEventHref && !activiyItem.isBuy.isBuy">
+                                <p>{{activiyItem.clickEventHref.describe}}</p>
+                                <el-input v-model="activiyItem.clickEventHref.href" placeholder="">
+                                </el-input>    
                             </div>
                         </div> 
                     </el-collapse-item>

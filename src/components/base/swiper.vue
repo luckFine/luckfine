@@ -10,13 +10,15 @@
   .el-carousel__item:nth-child(2n) {
      background-color: #99a9bf;
   }
-
+  div >>>.el-carousel__container{
+        height:100px; 
+     }
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
   }
   .block{
       width:100%;
-      height:100%;
+      min-height:100px;
       overflow: hidden;
   }
   img{
@@ -27,7 +29,7 @@
 </style>
 <template>
   <div class="block">
-        <el-carousel>
+        <el-carousel height='100'>
                 <el-carousel-item v-for="(item,index) in itemData.advanceFields[1].inputData" :key="index" >
                         <img :src="item.labelValue" alt="">
                 </el-carousel-item>           

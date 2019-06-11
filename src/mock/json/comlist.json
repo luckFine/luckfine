@@ -9,7 +9,7 @@
             {
             "label":"divimg",
             "describe":"图片地址",
-            "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+            "labelValue":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg" 
           }
         ],
         "addclass":{
@@ -32,11 +32,11 @@
             "inputData":[
               {
                 "describe":"图片地址",
-                "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+                "labelValue":"https://itg1.jrjimg.cn/201906/10/editor_upload/editor_upload_15601327738721.jpg" 
               },
               {
                 "describe":"图片地址",
-                "labelValue":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+                "labelValue":"https://itg1.jrjimg.cn/201906/03/editor_upload/editor_upload_15595415149141.jpg" 
               }
             ]
           }
@@ -64,7 +64,7 @@
             {
             "label":"input",
             "describe":"视频地址",
-            "labelValue":"http://flv.jrj.com.cn/video/2018/06/ab2fbdfd7f53c9479135bfcfa5b574da_201806021412.mp4" 
+            "labelValue":"http://flv.jrj.com.cn/src_video/20181225/7f67242c38ed1ca41c75e8e225bca5e8/GQ/5c221e661b871.mp4" 
           }          
         ],
         "style":{
@@ -89,7 +89,7 @@
             {
             "label":"input",
             "describe":"图片地址",
-            "labelValue":"//i0.jrjimg.cn/assets/web/images/nineteen-web-b7.27fb2f218c828c0dc566f489c52bd7e6.jpg" 
+            "labelValue":"http://i0.jrjimg.cn/assets/web/images/yhcx-web-bg5.fba0725197d5b1bd37ed15b2d9e5f6ab.jpg" 
           }          
         ],
         "addclass":{
@@ -106,7 +106,7 @@
             {
             "label":"input",
             "describe":"图片地址",
-            "labelValue":"http://itg1.jrjimg.cn/201510/14/itougu/itougu_14448078044641.jpg" 
+            "labelValue":"http://i0.jrjimg.cn/itougu-web/itougu/images/itougu/qrcode.png" 
           }          
         ],
         "addclass":{
@@ -162,7 +162,7 @@
             }           
         ],
         "addclass":{
-          "open":true,
+          "open":false,
           "classname":"",
           "loop":true
         },
@@ -237,7 +237,7 @@
         {
             "label":"input",
             "describe":"数量",
-            "labelValue":5,
+            "labelValue":3,
             "normalBg":"",
             "actBg":""
 
@@ -246,24 +246,16 @@
             "label":"inputMore",
             "inputData":[
             {
-                "tabName":"东方证券",
-                "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+                "tabName":"tab1",
+                "imgSrc":"//i0.jrjimg.cn/assets/web/images/zczg-web-bg1.97fff36c672a96084f190fb3c30ecce3.jpg" 
             },
             {
-              "tabName":"东方证券",
-              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+              "tabName":"tab2",
+              "imgSrc":"http://i0.jrjimg.cn/assets/web/images/zczg-web-bg3.753e7281ce0af83d69463cb052b1671e.jpg" 
             },
             {
-              "tabName":"东方证券",
-              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
-            },
-            {
-              "tabName":"东方证券",
-              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
-            },
-            {
-              "tabName":"东方证券",
-              "imgSrc":"http://i0.jrjimg.cn/zqt-red-1000/focus/xlive_20180423/images/web/heimaBanner1.jpg" 
+              "tabName":"tab3",
+              "imgSrc":"//i0.jrjimg.cn/assets/web/images/zczg-web-bg4.3fd44d62d94a695eeadd582e4651d13a.jpg" 
             }
             ]
         }
