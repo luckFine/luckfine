@@ -279,13 +279,17 @@ import { setTimeout } from 'timers';
     props:['activiyItem','wholePage'],
     watch:{
         value(val){
-            console.log(val)
-            let arr = this.comlist.filter((element, index, self) => {
-                if(element['name']===val){
-                    return element
-                }            
-            })
-            this.activiyItem.children.push(arr[0])
+            if(val){
+                let arr = this.comlist.filter((element, index, self) => {
+                    if(element['name']===val){
+                        return element
+                    }            
+                })
+                this.activiyItem.children.push(arr[0])                
+            }else{
+                return 
+            }
+
         },
         classValue(val){
             this.activiyItem.addclass.classname = val
