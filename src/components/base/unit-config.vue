@@ -104,7 +104,7 @@
                                     </el-input>  
                                     <ul>
                                         <li>
-                                            <el-input  placeholder="" >
+                                            <el-input v-model='item.normalBg'  placeholder="" >
                                                 <div slot="prepend" class="uploadButton">
                                                     <p>tab背景</p>
                                                 </div>
@@ -318,8 +318,13 @@ import { setTimeout } from 'timers';
         bgcolor(data){
             this.wholePage.backgroud = data
         },
+        beforeUpload(){
+            // this.morePicArr = []
+            // console.log(this.morePicArr)
+        },
         success(response, file, fileList){
-            if(fileList.length > 1) {
+            // if(fileList.length > 1) {
+                this.morePicArr = []
                 let pp = []
                 this.successNum++
                 if(Number(this.successNum)===Number(fileList.length)){
@@ -337,7 +342,7 @@ import { setTimeout } from 'timers';
                 }
                 this.$store.commit('data/setMorePicArr', this.morePicArr)
             }
-        }
+        // }
     },
     computed:mapState({
         comlist: state => state.compontentList.comlist,

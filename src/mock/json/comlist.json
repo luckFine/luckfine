@@ -41,6 +41,9 @@
             ]
           }
         ],
+        "typeSelect":{
+          
+        },
         "addclass":{
           "open":false,
           "classname":"",
