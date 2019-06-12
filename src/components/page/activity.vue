@@ -65,14 +65,19 @@ export default {
             return objClone;
         },
         StyleSheet(ele){
-            let obj = this.deepClode(ele.style)
-            Object.keys(obj).forEach((key) => {
-                if( typeof(obj[key]) == 'number'){
-                    let str = obj[key].toString()
-                    obj[key] = str+'px'
-                }
-            })
-            return obj                
+            if(ele){
+                let obj = this.deepClode(ele.style)
+                Object.keys(obj).forEach((key) => {
+                    if( typeof(obj[key]) == 'number'){
+                        let str = obj[key].toString()
+                        obj[key] = str+'px'
+                    }
+                })
+                return obj                 
+            }else{
+                return ''
+            }
+               
         },
         classname(ele){
             if(ele.addclass && ele.addclass.classname){

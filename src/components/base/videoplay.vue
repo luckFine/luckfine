@@ -17,16 +17,6 @@
             if(this.itemData.advanceFields.length===1){
                 return this.itemData.advanceFields[0]
             }
-        },
-        StyleSheet(){
-            let obj = this.deepClode(this.itemData.style)
-            Object.keys(obj).forEach((key) => {
-                if( typeof(obj[key]) == 'number'){
-                    let str = obj[key].toString()
-                    obj[key] = str+'px'
-                }
-            })
-            return obj                
         }
     },
     methods:{

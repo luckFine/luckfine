@@ -173,11 +173,11 @@ import axios from 'axios'
                 this.pageList.splice(index, 1);
             },
             clickItem(item,index){
-                console.log(item)
+                // console.log(item)
                 // this.activiyItem = item
                 this.$store.commit('data/setactiviyItem', item)
                 // this.activiyIndex = index
-                console.log(this.activiyIndex)
+                // console.log(this.activiyIndex)
                 this.$store.commit('data/setactiviyIndex', index)
                 this.showRightBar = true
             },
@@ -266,14 +266,20 @@ import axios from 'axios'
 
             },
             StyleSheet(ele){
-                let obj = this.deepClode(ele.style)
-                Object.keys(obj).forEach((key) => {
-                    if( typeof(obj[key]) == 'number'){
-                        let str = obj[key].toString()
-                        obj[key] = str+'px'
-                    }
-                })
-                return obj                
+                console.log(ele)
+                if(ele){
+                    let obj = this.deepClode(ele.style)
+                    Object.keys(obj).forEach((key) => {
+                        if( typeof(obj[key]) == 'number'){
+                            let str = obj[key].toString()
+                            obj[key] = str+'px'
+                        }
+                    })
+                    return obj                      
+                }else{
+                    return ''
+                }
+              
             }
         },
         watch:{

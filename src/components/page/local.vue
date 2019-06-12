@@ -91,16 +91,6 @@ import { setTimeout } from 'timers';
                 }
                 return objClone;
             },
-            StyleSheet(ele){
-                let obj = this.deepClode(ele.style)
-                Object.keys(obj).forEach((key) => {
-                    if( typeof(obj[key]) == 'number'){
-                        let str = obj[key].toString()
-                        obj[key] = str+'px'
-                    }
-                })
-                return obj                
-            },
             showTab(index){
                 // if(this.itemData.advanceFields){
                     this.active = this.itemData.advanceFields[1].inputData[index].imgSrc

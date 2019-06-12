@@ -279,6 +279,7 @@ import { setTimeout } from 'timers';
     props:['activiyItem','wholePage'],
     watch:{
         value(val){
+            console.log(val)
             let arr = this.comlist.filter((element, index, self) => {
                 if(element['name']===val){
                     return element
@@ -313,14 +314,8 @@ import { setTimeout } from 'timers';
         bgcolor(data){
             this.wholePage.backgroud = data
         },
-        // beforeUpload(file) {
-        //     this.picList.push(file)
-        // },
         success(response, file, fileList){
             if(fileList.length > 1) {
-                // console.log(fileList)
-                // console.log('hahh')
-                // console.log(file)
                 let pp = []
                 this.successNum++
                 if(Number(this.successNum)===Number(fileList.length)){
@@ -336,16 +331,7 @@ import { setTimeout } from 'timers';
                         })
                     }
                 }
-                console.log(this.morePicArr)
-                // this.$store.commit('data/setMorePicArr', this.morePicArr)
-                // let targetIndex = this.picList.findIndex(item => {
-                //     return item.uid === file.uid
-                // })
-                // if(targetIndex > -1) {
-                //     this.picList[targetIndex].remoteUrl = response.files[0].uri
-                // }
                 this.$store.commit('data/setMorePicArr', this.morePicArr)
-                // console.log(this.picList)
             }
         }
     },
