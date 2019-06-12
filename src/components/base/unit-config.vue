@@ -328,7 +328,6 @@ import { setTimeout } from 'timers';
                 let pp = []
                 this.successNum++
                 if(Number(this.successNum)===Number(fileList.length)){
-                    console.log(fileList.length)
                     for(let a = 0; a<fileList.length; a++){
                         pp.push(fileList[a].name)
                     }

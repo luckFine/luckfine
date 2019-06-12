@@ -307,7 +307,7 @@ import axios from 'axios'
                         let obj = this.deepClode(data)
                         obj.advanceFields[0].labelValue = this.morePicArr[a]
                         this.pageList.push(obj)    
-                        // console.log(this.pageList)                      
+                        // console.xlog(this.pageList)                      
                     }
 
                 },
