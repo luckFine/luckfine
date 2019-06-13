@@ -21,6 +21,7 @@
   line-height:30px;
   margin:20px;
 }
+#copyText{display:none;width:0px;height:0px;}
 </style>
 
 <template>
@@ -75,10 +76,6 @@
                     @click="preview(scope.row)">预览</el-button>
                   <el-button
                     size="mini"
-                    type="primary"
-                    @click="handleDelete(scope.$index, scope.row)">复制</el-button>
-                  <el-button
-                    size="mini"
                     type="danger"
                     @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
@@ -119,7 +116,6 @@ export default {
       },
       handleDelete(index, row) {
         // row 为当前整条数据
-        console.log(index, row);
         this.$store.dispatch('data/deleteItem',{
           id:row._id
         }).then(() => {
@@ -137,6 +133,12 @@ export default {
 
         })
       },
+      // copyUrl(index, row){
+      //   var Url2=document.getElementById("copyText");
+      //   Url2.select(); // 选择对象
+      //   document.execCommand("Copy"); // 执行浏览器复制命令
+      //   alert("复制成功!");
+      // },
       publish(activity,status){
         
         this.$store.dispatch('data/publish',{id:activity._id,status:status})

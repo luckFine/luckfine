@@ -1,6 +1,6 @@
 <template>
     <div>
-        <video :src="value.labelValue"  controls></video>
+        <video :src="value.labelValue"  controls ></video>
     </div>   
 </template>
     

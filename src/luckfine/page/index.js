@@ -22,6 +22,7 @@ import log from 'components/page/login'
 import list from 'components/page/page-list'
 import template from 'components/page/page-template-list'
 import analysis from 'components/page/page-analysis'
+// import activityWeb from 'components/page/page-activity-web'
 import local from 'components/page/local'
 
 
@@ -60,6 +61,11 @@ const routes = [
       path: '/local', 
       component: local
     },
+    // {
+    //   name:'/activityWeb',
+    //   path: '/activityWeb/:id', 
+    //   component: activityWeb
+    // },
     {
       name:'/log',
       path: '/log', 

@@ -30,6 +30,11 @@
     .tabValue li:first-child +li{
         width: 70%;
     }
+    .imgViewSrc{
+        max-width:600px;
+        margin:0 auto;
+    }
+    img{width:100%;display:block}
 </style>
 
 <template>
@@ -227,11 +232,28 @@
                     </el-collapse-item>
                 </el-collapse>  
             </el-tab-pane>
-            <!-- <el-tab-pane label="图片上传" name="pic">
+            <el-tab-pane label="图片上传" name="pic">
                 <div>
-                    图片上传
+                    <el-upload
+                        class="upload-demo"
+                        enctype="multipart/form-data"
+                        name='files'
+                        action="https://up0.z3quant.com/z3upload/api/upload/multi"
+                        :headers='headers'
+                        :data='upLoadData'
+                        :show-file-list='false'
+                        multiple
+                        :on-success="successView"
+                        :before-upload="beforeUploadView"
+                        >
+                        <el-button size="small" type="primary">选择图片</el-button>
+                    </el-upload>
+                    <el-input v-model="imgViewSrc" placeholder=""></el-input>
+                    <div  class='imgViewSrc'>
+                        <img :src='imgViewSrc'>
+                    </div> 
                 </div>                 
-            </el-tab-pane> -->
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -273,7 +295,8 @@ import { setTimeout } from 'timers';
         morePicArr:[],
         classValue:'',
         loop:'',
-        successNum:0
+        successNum:0,
+        imgViewSrc:''
       };
     },
     props:['activiyItem','wholePage'],
@@ -341,7 +364,11 @@ import { setTimeout } from 'timers';
                     }
                 }
                 this.$store.commit('data/setMorePicArr', this.morePicArr)
-            }
+        },
+        successView(response, file, fileList){
+            this.imgViewSrc = file.response.files[0].uri
+            console.log(file)
+        }
         // }
     },
     computed:mapState({

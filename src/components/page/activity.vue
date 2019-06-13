@@ -1,18 +1,26 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
-.mainContent{width: 1100px;position: absolute;top: 0%;left: 50%;margin-left: -550px;height: 100%;}
+.pageClass{position: relative;width: 100%;}
+.mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 </style>
 <template>
     <div class="pageView">
-        <div  v-for="(item,index) in pageList" class="list-group-item pageClass father" :key="index">
+        <div  
+        v-for="item,index in pageList" 
+        class="list-group-item pageClass father" 
+        :key="index">
             <component  
                 v-bind:is="item.name" 
                 :source='"preview"' 
                 :fixed='index'
                 :itemData='item'>
             </component>
-            <div class="mainContent" v-if="item.children.length">
-                <div :class="[childClass,classname(ele)]"  v-for="(ele) in item.children"  :style="StyleSheet(ele)" :key="ele">
+            <div class="mainContent">
+                <div :class="[childClass,classname(ele)]" 
+                    v-if="item.children.length>0" 
+                    v-for="ele,num in item.children" 
+                    :style="StyleSheet(ele)"
+                    >
                     <component :source='"preview"'  class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
                 </div>                
             </div>

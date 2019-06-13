@@ -26,17 +26,6 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
             </div>
 
         </div>
-        <!-- <div class="childClass" 
-            v-if="item.children.length>0" 
-            v-for="ele,num in item.children" 
-            @click.prevent.stop="clickItem(ele,num)" 
-            :style="StyleSheet(ele)" >
-            <div class="delate" @click.prevent.stop="deleteClilden(item,num)">{{index}}</div>
-            <component class="children"  v-bind:is="ele.name" :itemData='ele' key='index'></component>
-        </div> -->
-
-
-
     </div>
 </template>
 <script>
