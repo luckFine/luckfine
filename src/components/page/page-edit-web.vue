@@ -24,9 +24,14 @@
 .comBox >>>.tab{background-color:rgb(84, 92, 100);color:#fff;}
 /* .home{margin-bottom: 100px;} */
 /* .drag-item{min-height: } */
+.tabBtn i{font-size: 2em;display: block;margin: 0 auto;padding: 10px;box-sizing: border-box;color:#fff;;}
+.tabBtn{width:52px;height:52px; position:fixed;top:5%;right:0%;background-color:rgb(84, 92, 100);border-radius:50%;z-index:99;box-shadow:0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);}
 </style>
 <template>
     <div class="pageContent" id="pageContent">
+        <div class='tabBtn' @click='showRightBarFun'>
+            <i :class="showRightBar?'el-icon-s-fold':'el-icon-s-unfold'"></i>
+        </div>
         <ul class="tabBar">
             <div @click="cancel" class="home">
                 <i class="el-icon-s-home"></i>
@@ -153,6 +158,9 @@ import axios from 'axios'
             }
         },
         methods:{
+            showRightBarFun(){
+                this.showRightBar=!this.showRightBar
+            },
             getdata (evt) {
                 console.log(evt.draggedContext.element)
             },
