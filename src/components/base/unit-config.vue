@@ -34,7 +34,7 @@
         max-width:600px;
         margin:0 auto;
     }
-    img{width:100%;display:block}
+    img{width:100%;display:block;margin-top:15px;}
 </style>
 
 <template>

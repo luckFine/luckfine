@@ -2,10 +2,15 @@
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
 .pageClass{position: relative;width: 100%;}
 .mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
+.noData{margin-top:100px;}
 </style>
 <template>
     <div class="pageView">
+        <div v-if='status === false'>
+            <img class='noData' src='http://i0.jrjimg.cn/zqt-red-1000/focus/focus2017YMZ/bigsai/app.png'>
+        </div>
         <div  
+        v-if='status === "online" '
         v-for="item,index in pageList" 
         class="list-group-item pageClass father" 
         :key="index">
@@ -50,6 +55,7 @@ export default {
     data(){
         return{
             id:this.$route.params.id,
+            status:false,
             pageList:[] // 当前选中组件
         }
     },
@@ -105,7 +111,10 @@ export default {
         this.id = this.$route.params.id;
         if(this.id){
             this.$store.dispatch('data/pageDetail',{id:this.id}).then(() => {
-                this.pageList = this.pageDetailData.result.content
+                if(this.pageDetailData.result.status === "online"){
+                    this.status = this.pageDetailData.result.status
+                    this.pageList = this.pageDetailData.result.content
+                }         
             })
         }else{
             this.pageList = JSON.parse(window.localStorage.getItem('pageList'))
