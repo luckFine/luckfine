@@ -127,6 +127,7 @@
 import draggable from 'vuedraggable'
 import api from './../../mock/componentsList'
 import divimg from './../base/divimg'
+import divList from './../base/divList'
 import swiper from './../base/swiper'
 import videoplay from './../base/videoplay'
 import fixbottom from './../base/fixbottom'
@@ -218,7 +219,6 @@ import axios from 'axios'
                 localStorage.setItem('pageList',JSON.stringify(this.pageList))
                 let goRouter = this.$router.resolve({name:'preview'})
                 window.open(goRouter.href, '_blank');
-
             },
             classname(ele){
                 if(ele && ele.addclass && ele.addclass.classname){
@@ -383,7 +383,8 @@ import axios from 'axios'
             unitConfig,
             styleConfig,
             btn,
-            tabs
+            tabs,
+            divList
         }
     }
 </script>

@@ -19,6 +19,37 @@
         },
         "children":[]
       },{
+        "name":"divList",
+        "baseName":"列表",
+        "advanceFields":[
+          {
+            "title":"精选内参",
+            "icon":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg",
+            "link":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg" 
+          },
+          {
+            "title":"热门投顾",
+            "icon":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg",
+            "link":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg" 
+          },
+          {
+            "title":"股市行情",
+            "icon":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg",
+            "link":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg" 
+          },
+          {
+            "title":"签证办理",
+            "icon":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg",
+            "link":"https://itg1.jrjimg.cn/201905/23/editor_upload/editor_upload_15586023880731.jpg" 
+          }
+        ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
+        "children":[]
+      },{
         "name":"swiper",
         "baseName":"轮播图",
         "advanceFields":[
