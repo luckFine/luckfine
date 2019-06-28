@@ -17,12 +17,13 @@ Vue.use(ElementUI);
 
 import preview from 'components/page/preview'
 import webEdit from 'components/page/page-edit-web'
-import appEdit from 'components/page/page-edit-app'
+import appEdit from 'components/page/page-list-app'
+import editapp from 'components/page/page-edit-app'
 import log from 'components/page/login'
 import list from 'components/page/page-list'
 import template from 'components/page/page-template-list'
 import analysis from 'components/page/page-analysis'
-// import activityWeb from 'components/page/page-activity-web'
+import activityWeb from 'components/page/activity'
 import local from 'components/page/local'
 
 
@@ -35,6 +36,11 @@ const routes = [
       name:'edit',
       path: '/edit/:id', 
       component: webEdit 
+    },
+    {
+      name:'editapp',
+      path: '/edit/:id', 
+      component: editapp 
     },
     {
       name:'/app',
@@ -61,11 +67,11 @@ const routes = [
       path: '/local', 
       component: local
     },
-    // {
-    //   name:'/activityWeb',
-    //   path: '/activityWeb/:id', 
-    //   component: activityWeb
-    // },
+    {
+      name:'/activity',
+      path: '/activity/:id', 
+      component: activityWeb
+    },
     {
       name:'/log',
       path: '/log', 

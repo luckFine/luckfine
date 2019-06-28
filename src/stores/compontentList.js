@@ -9,7 +9,8 @@ export default {
   state: {
     // 初始化时，务必要把所有的数据成员做初始化，否则后面数据的更新，将不会触发显示的更新
     comlist: '',
-    stylelist:''
+    stylelist:'',
+    webData:''
   },
   mutations: {
     conlist(state, res) {
@@ -32,6 +33,19 @@ export default {
             const d = res.data;
             // if(d.retCode === 0){
             commit('conlist',d.data);
+            // }
+        })
+    },
+    getwebDatatList({
+      commit,
+      rootState,
+      state
+    }, options) {
+    
+      return axios.get('/magiCube/webData').then((res) => {
+            const d = res.data;
+            // if(d.retCode === 0){
+            commit('webData',d.data);
             // }
         })
     },
