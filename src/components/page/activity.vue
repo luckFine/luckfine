@@ -3,6 +3,7 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
 .pageClass{position: relative;width: 100%;}
 .mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 .noData{margin-top:100px;}
+.pageView{overflow: hidden;}
 </style>
 <template>
     <div class="pageView">

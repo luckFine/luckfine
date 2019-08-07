@@ -104,7 +104,7 @@ video{
         </ul>
          <ul class="tabContent">
             <!-- <li> -->
-                <video autoplay controls src="http://flv.jrj.com.cn/src_video/20190807/2584a65152e2cde11412a9bdb4878ecb/GQ/5d4a28297dbbe.mp4 "></video>
+                <video poster="https://up0.z3quant.com/images/jrjact/2019/8/29560483xgHB4P_c0rup.jpg"  autoplay controls src="http://flv.jrj.com.cn/src_video/20190807/2584a65152e2cde11412a9bdb4878ecb/GQ/5d4a28297dbbe.mp4 "></video>
             <!-- </li> -->
         </ul>       
   </div>

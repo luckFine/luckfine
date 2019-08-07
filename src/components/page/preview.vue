@@ -1,6 +1,7 @@
 <style scoped>
 ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-box;}
 .pageClass{position: relative;width: 100%;}
+.pageView{overflow: hidden;}
 .mainContent{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 </style>
 <template>

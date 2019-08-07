@@ -2,7 +2,7 @@
 .fixBottom{width: 100%;}
 .fixBottom img{display: block;visibility: hidden;}
 .delate{position: absolute;top: 0;right: 0;color: #fff;background:blue;cursor: pointer;z-index: 5}
-.fixBottomValue{width:100%; position: fixed;margin-bottom: 0;left: 0;bottom: 0;z-index: 5}
+.fixBottomValue{width:100%; position: fixed;margin-bottom: 0;left: 0;bottom: 0;z-index: 5;overflow: hidden;}
 .fixBottomValue img{display: block;visibility: hidden;}
 .mainBottom{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 .children{width: 100%;height: 100%;}
