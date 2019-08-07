@@ -6,7 +6,7 @@
 .fixrightValue img{width:157px;}
 </style>
 <template>
-    <div class="fixright"  :class="source === 'default' ? 'fixright' : 'fixrightValue'" >
+    <div class="fixright"  :class="source === 'default' ? 'fixright' : 'fixrightValue'"  @click="event">
         <div class="delate" v-if="source === 'visual'" @click.stop="changeValue(fixed)">{{fixed}}</div>
         <img v-if="itemData.advanceFields" :src="value.labelValue">
     </div>
@@ -28,6 +28,9 @@ import {
                 if(this.itemData.advanceFields.length===1){
                     return this.itemData.advanceFields[0]
                 }
+            },
+            eventHref(){
+                return this.itemData.clickEventHref.href
             }
         },
         watch: {
@@ -41,6 +44,9 @@ import {
         methods:{
             changeValue(){
                 this.pageList.splice(this.fixed, 1);
+            },
+            event(){
+                window.open(this.eventHref)
             }
         },
         mounted () {

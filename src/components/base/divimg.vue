@@ -1,8 +1,9 @@
 <style scoped>
-img{width: 100%;height: 100%;display: block;}
+img{display: block;visibility: hidden;}
+div{width: 100%;height: 100%;}
 </style>
 <template>
-    <div>
+    <div :style="{background: 'url('+value.labelValue+') center no-repeat'}">
         <img v-if="itemData.advanceFields" :src="value.labelValue" alt="">
     </div>
 </template>
@@ -23,6 +24,9 @@ import {
                 if(this.itemData.advanceFields.length===1){
                     return this.itemData.advanceFields[0]
                 }
+            },
+            getHeight(){
+                
             }
         },
         watch: {

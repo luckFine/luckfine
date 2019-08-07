@@ -1,16 +1,16 @@
 <style scoped>
 .fixBottom{width: 100%;}
-.fixBottom img{width: 100%;}
+.fixBottom img{display: block;visibility: hidden;}
 .delate{position: absolute;top: 0;right: 0;color: #fff;background:blue;cursor: pointer;z-index: 5}
-.fixBottomValue{position: fixed;margin-bottom: 0;left: 0;bottom: 0;z-index: 5}
-.fixBottomValue img{width: 100%;}
+.fixBottomValue{width:100%; position: fixed;margin-bottom: 0;left: 0;bottom: 0;z-index: 5}
+.fixBottomValue img{display: block;visibility: hidden;}
 .mainBottom{width: 1000px;position: absolute;top: 0%;left: 50%;margin-left: -500px;height: 100%;}
 .children{width: 100%;height: 100%;}
 </style>
 
 
 <template>
-    <div :class="source === 'default' ? 'fixBottom' : 'fixBottomValue'" >
+    <div :class="source === 'default' ? 'fixBottom' : 'fixBottomValue'" :style="{background: 'url('+value.labelValue+') center no-repeat'}" >
         <div class="delate" v-if="source === 'visual'" @click.stop="changeValue(fixed)">
             <el-button type="primary" icon="el-icon-delete"></el-button>
         </div>

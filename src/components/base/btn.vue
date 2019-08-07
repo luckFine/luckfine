@@ -64,7 +64,7 @@ import {
                 }
             },
             event(href){
-                if(this.$route.name === 'preview'){
+                if(this.$route.name === 'preview' || this.$route.name === 'activity'){
                     if(this.itemData.isBuy.isBuy){
                         this.buy()
                     }else{
@@ -77,6 +77,7 @@ import {
             }
         },
         mounted () {
+            // console.log(this.$route.name)
             // if(this.$route.name === 'preview'){
             //     var elements=document.getElementsByClassName('bottonMore')
             //     var slef = this

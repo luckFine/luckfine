@@ -15,8 +15,8 @@ exports.initDB = function(){
         })
         const connOpts = {
             dbName:'jrj-act-conf',
-            user:'admin',
-            pass:'password',
+            user:'act-admin',
+            pass:'cJ05FQJjfW9m',
             useNewUrlParser:true
         }
         console.log('connecting db...');

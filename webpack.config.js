@@ -59,7 +59,7 @@ module.exports = {
     devServer: {
         proxy:{
             '/actconf/api': {
-                target: '0.0.0.0:4000'
+                target: 'http://localhost:4008'
             }
         }
     }

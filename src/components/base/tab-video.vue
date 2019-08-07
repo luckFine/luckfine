@@ -9,6 +9,7 @@
     float: right;
     padding-bottom: 17px;
     position: relative;
+    padding-top: 20px;
     /* background:#5c5c5c; */
 }
 .tab li{
@@ -21,7 +22,7 @@
     color: #fff;
     text-align: center;
     font-size: 14px; 
-    height: 40px;
+    /* height: 40px; */
     position: relative;
 }
 .tab li:hover{
@@ -188,7 +189,6 @@ import { setTimeout } from 'timers';
                 // this.active = this.itemData.advanceFields[1].inputData[index].imgSrc
             }else{
                 setTimeout(() => {
-                    console.log('56789')
                     this.showTab('0')
                 },10)
             }

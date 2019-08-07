@@ -22,7 +22,7 @@ ul>li{width: 33.3%;float: left;height: 500px;padding: 10px;box-sizing: border-bo
             </component>
             <div class="mainContent">
                 <div :class="[childClass,classname(ele)]" 
-                    v-if="item.children.length>0" 
+                    v-if="item.children.length>0 && item.name !=='fixbottom'" 
                     v-for="ele,num in item.children" 
                     :style="StyleSheet(ele)"
                     >
@@ -48,6 +48,7 @@ import tabs from './../base/tabs'
 import unitConfig from './../base/unit-config'
 import styleConfig from './../base/style-config'
 import componentsList from './../components-list'
+import tabVideo from './../base/tab-video'
 import {
     mapState
 } from 'vuex'
@@ -134,7 +135,8 @@ export default {
         unitConfig,
         styleConfig,
         btn,
-        tabs
+        tabs,
+        tabVideo
     }
 }
 </script>
