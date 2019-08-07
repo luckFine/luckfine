@@ -22,5 +22,4 @@ exports.initDB = function(){
         console.log('connecting db...');
         mongoose.connect('mongodb://172.16.20.68:27059/jrj-act-conf',connOpts);
     })
-    
 }

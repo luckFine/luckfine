@@ -311,6 +311,53 @@
             "overflow":"hidden"
         },
         "children":[]
+      },
+      {
+        "name":"tab-video",
+        "baseName":"视频切换",
+        "advanceFields":[
+        {
+            "label":"input",
+            "describe":"数量",
+            "labelValue":3,
+            "normalBg":"",
+            "actBg":""
+        },
+        {
+            "label":"inputMore",
+            "inputData":[
+            {
+                "tabName":"tab1",
+                "imgSrc":"//i0.jrjimg.cn/assets/web/images/zczg-web-bg1.97fff36c672a96084f190fb3c30ecce3.jpg" 
+            },
+            {
+              "tabName":"tab2",
+              "imgSrc":"http://i0.jrjimg.cn/assets/web/images/zczg-web-bg3.753e7281ce0af83d69463cb052b1671e.jpg" 
+            },
+            {
+              "tabName":"tab3",
+              "imgSrc":"//i0.jrjimg.cn/assets/web/images/zczg-web-bg4.3fd44d62d94a695eeadd582e4651d13a.jpg" 
+            }
+            ]
+        }
+        ],
+        "addclass":{
+          "open":false,
+          "classname":"",
+          "loop":true
+        },
+        "style":{
+            "width": 480,
+            "height":200,
+            "border-radius":50,
+            "position":"absolute",
+            "font-size":16,
+            "line-height":30,
+            "left":20,
+            "top":20,
+            "color":"#fff"
+        },
+        "children":[]
       }     
     ],
     "msg": ""

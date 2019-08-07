@@ -2,7 +2,7 @@
 img{width: 100%;height: 100%;display: block;}
 </style>
 <template>
-    <div id="botton" :style="'height:'+itemData.style.height+'px'">
+    <div id="botton" class="bottonMore" @click="event" :style="'height:'+itemData.style.height+'px'">
         {{value.labelValue}}
     </div>
 </template>
@@ -64,24 +64,31 @@ import {
                 }
             },
             event(href){
-                if(this.itemData.isBuy.isBuy){
-                    this.buy()
-                }else{
-                    window.open(this.eventHref)
+                if(this.$route.name === 'preview'){
+                    if(this.itemData.isBuy.isBuy){
+                        this.buy()
+                    }else{
+                        window.open(this.eventHref)
+                    }                       
+                }{
+                    return 
                 }
+
             }
         },
         mounted () {
-            // alert(this.source)
-            if(this.source === 'preview'){
-                var element=document.getElementById("botton")
-                var slef = this
-                element.addEventListener('click',function(){
-                    slef.event()
-                })
-            }else{
-                return
-            }
+            // if(this.$route.name === 'preview'){
+            //     var elements=document.getElementsByClassName('bottonMore')
+            //     var slef = this
+            //     for(let a = 0 ; a <elements.length ; a++){
+            //         elements[a].addEventListener('click',function(){
+            //             return slef.event()
+            //         })                 
+            //     }
+
+            // }else{
+            //     return
+            // }
         }
     }
 </script>

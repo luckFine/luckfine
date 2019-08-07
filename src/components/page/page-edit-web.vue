@@ -138,6 +138,7 @@ import btn from './../base/btn'
 import tabs from './../base/tabs'
 import unitConfig from './../base/unit-config'
 import styleConfig from './../base/style-config'
+import tabVideo from './../base/tab-video'
 import componentsList from './../components-list'
 
 
@@ -383,7 +384,8 @@ import axios from 'axios'
             unitConfig,
             styleConfig,
             btn,
-            tabs
+            tabs,
+            tabVideo
             // divList
         }
     }
